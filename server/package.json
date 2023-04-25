@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.ts"
+    "dev-windows": "set NODE_ENV=development && nodemon server.ts",
+    "dev-linux": "NODE_ENV=development && nodemon server.ts",
+    "prod-windows": "set NODE_ENV=production && nodemon server.ts",
+    "prod-linux": "NODE_ENV=production && nodemon server.ts",
+    "test": "jest --watchAll --verbose"
   },
   "keywords": [],
   "author": "",

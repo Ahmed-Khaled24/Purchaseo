@@ -1,8 +1,12 @@
 import http from 'http';
 
 import api from './api';
+import { connectMySQL } from './service/mysql';
 
-const server = http.createServer(api);
-server.listen(8000, () => {
-	console.log('Server is listening on port 8000');
-});
+(async() => {
+	const server = http.createServer(api);
+	await connectMySQL();
+	server.listen(process.env.PORT, () => {
+		console.log('Server is listening on port 8000');
+	});
+})();

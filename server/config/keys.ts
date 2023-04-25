@@ -1,12 +1,13 @@
 import dev from './dev';
-// import prod from './prod';
-const env = process.env.NODE_ENV || 'development';
-let envVars: any  ;
+import prod from './prod';
+
+const env = process.env.NODE_ENV.trim();
+let keys: any;
+
 if (env === 'development') {
-    envVars = dev;
-}else if (env === 'production') {
-    envVars = dev;
+	keys = dev;
+} else if (env === 'production') {
+	keys = prod;
 }
 
-export {envVars};
-
+export default keys;

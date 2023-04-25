@@ -1,7 +1,11 @@
 import express from 'express';
+
+import globalRouter from './Routers';
+
 const api = express();
-api.get('/home', (req, res) => {
-    res.send('Hello from Express!');
-});
+
+api.use(express.json());
+api.use(express.urlencoded({ extended: true }));
+api.use('/', globalRouter);
 
 export default api;

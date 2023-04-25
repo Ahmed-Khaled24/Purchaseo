@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUserById, getUsersByName,getUserByEmail, addUser, deleteUserByEmail, updateUserByEmail } from '../model/users/users.model';
+import { getUserById, getUsersByName,getUserByEmail, addUser, deleteUserByEmail, updateUserByEmail } from '../model/users.model';
 import validateUser from '../util/userValidation';
 
 async function addNewUser(req: Request, res: Response){

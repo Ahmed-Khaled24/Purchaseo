@@ -1,11 +1,12 @@
 import mysql from 'mysql2/promise';
+import keys from '../config/keys'
 
 let dbConnection: mysql.Connection;
 let connectionData = {
-	host: process.env.DB_HOST_NAME,
-	user: process.env.DB_USERNAME,
-	password: process.env.DB_USER_PASSWORD,
-	database: process.env.DB_NAME,
+	host: keys.DB_HOST_NAME,
+	user: keys.DB_USERNAME,
+	password: keys.DB_USER_PASSWORD,
+	database: keys.DB_NAME,
 };
 
 async function connectMySQL(): Promise<mysql.Connection> {

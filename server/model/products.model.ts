@@ -25,8 +25,13 @@ export async function dbGetProductById(id: any): Promise<QueryResponse> {
 export async function dbAddNewProduct(
 	product: Product
 ): Promise<QueryResponse> {
-	const { name, qty, price } = product;
-	const query = 'INSERT INTO products (name, qty, price ) VALUES( ?, ?, ?)';
+	const { id, name, qty, price } = product;
+	let query = 'INSERT INTO products (name, qty, price) VALUES (?, ?, ?)';
+	if (id) {
+		query = 'INSERT INTO products (id, name, qty, price) VALUES (?, ?, ?, ?)';
+		const [rows] = await dbConnection.execute(query, [id, name, qty, price]);
+		return rows;
+	}
 	const [rows] = await dbConnection.execute(query, [name, qty, price]);
 	return rows;
 }

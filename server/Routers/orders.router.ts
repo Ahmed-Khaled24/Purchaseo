@@ -1,14 +1,14 @@
 import {Router, Request, Response} from 'express';
-import {addNewOrder, getOrder, removeOrder, updateOrder} from '../controller/orders.controller';
+import {addNewOrderC, getOrderC, removeOrderC, updateOrderC} from '../controller/orders.controller';
 
 const ordersRouter = Router();
 
 
-userRouter.get('/:id', getOrder);
+userRouter.get('/:id', getOrderC);
 userRouter.route('/')
-.post(addNewOrder)
-.delete(removeOrder)
-.put(updateOrder)
+.post(addNewOrderC)
+.delete(removeOrderC)
+.put(updateOrderC)
 
 
 export default ordersRouter;

@@ -15,7 +15,7 @@ export async function getProduct(req: Request, res: Response) {
 	} catch (err: any) {
 		res.status(err.statusCode || 500).json({
 			status: 'failure',
-			message: err.message,
+			data: err.message,
 		});
 	}
 }
@@ -28,7 +28,7 @@ export async function addNewProduct(req: Request, res: Response) {
 	} catch (err: any) {
 		res.status(err.statusCode || 500).json({
 			status: 'failure',
-			message: err.message,
+			data: err.message,
 		});
 	}
 }
@@ -44,7 +44,7 @@ export async function deleteProduct(req: Request, res: Response) {
 	} catch (err: any) {
 		res.status(err.statusCode || 500).json({
 			status: 'failure',
-			message: err.message,
+			data: err.message,
 		});
 	}
 }
@@ -61,7 +61,7 @@ export async function updateProduct(req: Request, res: Response) {
 	} catch (err: any) {
 		res.status(err.statusCode || 500).json({
 			status: 'failure',
-			message: err.message,
+			data: err.message,
 		});
 	}
 }

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import {
 	dbAddNewProduct,
 	dbDeleteProductById,
@@ -7,12 +8,12 @@ import {
 } from '../model/products.model';
 
 export async function getProduct(req: Request, res: Response) {
-	const productId = req.params.productId;
+	const id = req.params.id;
 	try {
-		const product = await dbGetProductById(productId);
+		const product = await dbGetProductById(id);
 		res.status(200).json({ status: 'success', data: product });
-	} catch (err) {
-		res.status(500).json({
+	} catch (err: any) {
+		res.status(err.statusCode || 500).json({
 			status: 'failure',
 			message: err.message,
 		});
@@ -20,12 +21,12 @@ export async function getProduct(req: Request, res: Response) {
 }
 
 export async function addNewProduct(req: Request, res: Response) {
-	const product = req.body.product;
+	const product = req.body;
 	try {
-		const newProduct = await dbAddNewProduct(product);
-		res.status(200).json({ status: 'success', data: newProduct });
-	} catch (err) {
-		res.status(500).json({
+		const dbResponse = await dbAddNewProduct(product);
+		res.status(200).json({ status: 'success', data: dbResponse });
+	} catch (err: any) {
+		res.status(err.statusCode || 500).json({
 			status: 'failure',
 			message: err.message,
 		});
@@ -33,17 +34,15 @@ export async function addNewProduct(req: Request, res: Response) {
 }
 
 export async function deleteProduct(req: Request, res: Response) {
-	const productId = req.params.productId;
+	const { id } = req.body;
 	try {
-		const deletedProduct = await dbDeleteProductById(
-			(productId)
-		);
+		const deletedProduct = await dbDeleteProductById(id);
 		res.status(200).json({
 			status: 'success',
 			data: deletedProduct,
 		});
-	} catch (err) {
-		res.status(500).json({
+	} catch (err: any) {
+		res.status(err.statusCode || 500).json({
 			status: 'failure',
 			message: err.message,
 		});
@@ -51,19 +50,16 @@ export async function deleteProduct(req: Request, res: Response) {
 }
 
 export async function updateProduct(req: Request, res: Response) {
-	const productId = req.params.productId;
+	const id = req.body.id;
 	const newProduct = req.body.product;
 	try {
-		const updatedProduct = await dbUpdateProductById(
-			productId,
-			newProduct
-		);
+		const updatedProduct = await dbUpdateProductById(id, newProduct);
 		res.status(200).json({
 			status: 'success',
 			data: updatedProduct,
 		});
-	} catch (err) {
-		res.status(500).json({
+	} catch (err: any) {
+		res.status(err.statusCode || 500).json({
 			status: 'failure',
 			message: err.message,
 		});

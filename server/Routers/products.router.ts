@@ -15,6 +15,6 @@ productRouter
 	.patch(updateProduct)
 	.delete(deleteProduct);
 
-productRouter.route('/:productId').get(getProduct);
+productRouter.route('/:id').get(getProduct);
 
 export default productRouter;

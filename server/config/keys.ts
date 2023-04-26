@@ -1,7 +1,7 @@
 import dev from './dev';
 import prod from './prod';
 
-const env = process.env.NODE_ENV.trim();
+const env = process.env.NODE_ENV?.trim();
 let keys: any;
 
 if (env === 'development') {

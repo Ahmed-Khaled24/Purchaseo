@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getUserById, getUsersByName,getUserByEmail, addUser, deleteUserByEmail, updateUserByEmail } from '../model/users.model';
+import {  dbGetUserById, dbGetUsersByName, dbGetUserByEmail, dbAddUser, dbDeleteUserByEmail, dbUpdateUserByEmail } from '../model/users.model';
 import validateUser from '../util/userValidation';
 
 async function addNewUser(req: Request, res: Response){
@@ -9,7 +9,7 @@ async function addNewUser(req: Request, res: Response){
     return res.status(400).json({message: 'Invalid user data'});
 
     try {
-        await addUser({name, email, password});
+        await dbAddUser({name, email, password});
         return res.status(200).json({message: 'New user added successfully'});
         
     } catch (error) {
@@ -21,7 +21,7 @@ async function addNewUser(req: Request, res: Response){
 async function removeUser (req: Request, res: Response) {
     let { email} = req.body;
     try {
-        await deleteUserByEmail(email);
+        await dbDeleteUserByEmail(email);
         return res.status(200).json({message: 'User deleted successfully'});
         
     } catch (error) {
@@ -34,7 +34,7 @@ async function updateUser (req: Request, res: Response) {
     let { email, update} = req.body;
     update = JSON.parse(update);
     try {
-        await updateUserByEmail({email, update});
+        await dbUpdateUserByEmail({email, update});
         return res.status(200).json({message: 'User updated successfully'});
         
     } catch (error) {
@@ -46,7 +46,7 @@ async function updateUser (req: Request, res: Response) {
 async function getUser (req: Request, res: Response) {
     let { id } = req.params;
     try {
-        let user = await getUserById(id);
+        let user = await dbGetUserById(id);
         return res.status(200).json({message: 'User found successfully', user});
         
     } catch (error) {

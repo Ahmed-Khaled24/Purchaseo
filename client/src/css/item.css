@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap");
+main {
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 0.1rem;
+  padding-inline: 8rem;
+  padding-top: 4rem;
+}
+
+.item-info {
+  display: flex;
+  gap: 5rem;
+  margin-bottom: 5rem;
+}
+
+@media screen and (width < 600px) {
+  .item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.images {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-image {
+  margin-bottom: 3rem;
+  max-width: 30rem;
+}
+
+.border-radius {
+  border-radius: 0.6rem;
+}
+
+.other-images {
+  display: flex;
+  gap: 1rem;
+}
+
+.other {
+  max-width: 8rem;
+  cursor: pointer;
+}
+
+.other:hover {
+  opacity: 0.8;
+}
+
+h1 {
+  font-family: "EB Garamond";
+  font-weight: 500;
+  font-size: 3rem;
+}
+
+.item-text p {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+
+.rate {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.stars img {
+  width: 1.5rem;
+}
+
+.desc-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.desc-text {
+  margin-bottom: 3rem;
+}
+
+.buying {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+}
+
+.price {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+
+.item-text button {
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.67rem 2rem;
+  border: 0px;
+  border-radius: 2rem;
+  color: rgb(255, 255, 255);
+  background-color: hsl(317, 48%, 32%);
+  cursor: pointer;
+  margin-top: 2rem;
+  width: 15rem;
+}
+
+.item-text button:hover {
+  background-color: hsl(317, 48%, 28%);
+  color: #fff;
+}
+
+@media screen and (width < 600px) {
+  .item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.reviews {
+  margin: 3rem 5rem;
+  display: flex;
+  gap: 5rem;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,23 @@
+.review-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.personal-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 600;
+}
+
+.personal-rate {
+  display: flex;
+  margin-block: 0.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.rate-comment {
+  max-width: 15rem;
+}

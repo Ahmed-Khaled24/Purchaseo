@@ -13,8 +13,10 @@ productRouter
 	.route('/')
 	.post(addNewProduct)
 	.patch(updateProduct)
-	.delete(deleteProduct);
+	
 
-productRouter.route('/:id').get(getProduct);
+productRouter.route('/:id')
+	.get(getProduct)
+	.delete(deleteProduct);
 
 export default productRouter;

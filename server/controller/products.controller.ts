@@ -24,7 +24,7 @@ export async function addNewProduct(req: Request, res: Response) {
 	const product = req.body;
 	try {
 		const dbResponse = await dbAddNewProduct(product);
-		res.status(200).json({ status: 'success', data: dbResponse });
+		res.status(201).json({ status: 'success', data: dbResponse });
 	} catch (err: any) {
 		res.status(err.statusCode || 500).json({
 			status: 'failure',
@@ -34,7 +34,7 @@ export async function addNewProduct(req: Request, res: Response) {
 }
 
 export async function deleteProduct(req: Request, res: Response) {
-	const { id } = req.body;
+	const { id } = req.params;
 	try {
 		const deletedProduct = await dbDeleteProductById(id);
 		res.status(200).json({

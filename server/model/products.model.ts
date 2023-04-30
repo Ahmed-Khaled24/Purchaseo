@@ -39,8 +39,10 @@ export async function dbAddNewProduct(
 export async function dbDeleteProductById(id: any): Promise<QueryResponse> {
 	const query = 'DELETE FROM products WHERE id = ?';
 	const [rows] = await dbConnection.execute(query, [id]);
+	if ((rows as ResultSetHeader).affectedRows === 0) {
+		throw new ErrorWithStatusCode('Product not found', 404);
+	}
 	return rows;
-	// TODO: create a custom error class with status code
 }
 
 export async function dbUpdateProductById(
@@ -51,6 +53,8 @@ export async function dbUpdateProductById(
 	const query =
 		'UPDATE products SET name = ?, qty = ?, price = ? WHERE id = ?';
 	const [rows] = await dbConnection.execute(query, [name, qty, price, id]);
+	if ((rows as ResultSetHeader).affectedRows === 0) {
+		throw new ErrorWithStatusCode('Product not found', 404);
+	}
 	return rows;
-	// TODO: create a custom error class with status code
 }

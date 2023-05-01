@@ -1,0 +1,125 @@
+.main{
+    display: flex;
+    flex-direction: column;
+align-content: space-around;
+
+}
+.t{
+    padding: 3.125rem;
+    text-align: center;
+    align-self: stretch;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 0.0625rem;
+    margin-bottom: 5%;
+}
+.titleform{
+    font-size: 1.5rem;
+}
+.Hold{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+
+}
+.Hold:first-child{
+    gap: 8rem;
+}
+
+.text{
+    min-width: 15rem;
+    min-height: 2rem;
+    margin-top: 0.3rem;
+}
+.text2{
+    min-width: 16.4rem;
+    min-height: 2rem;
+    margin-top: 0.3rem;
+}
+.form1{
+    margin-top: 4%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 32px;
+gap: 40px;
+width: 36rem;
+height: 442px;
+background: #FFF9E9;
+/* box-shadow: 1px 1px 15px rgb(228, 229, 229); */
+border-radius: 9px;
+}
+.form2{
+    margin-top: 4%;
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 39px 61px;
+gap: 17px;
+width: 400px;
+height: 442px;
+background: #FFF9E9;
+/* box-shadow: 1px 1px 15px rgb(228, 229, 229); */
+border-radius: 9px;
+}
+
+.imgInsert{
+margin-left: 1.5%;
+    width: 25rem;
+height: 25rem;
+
+}
+.iHolder{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+
+}
+.button{
+    width: 242px;
+    height: 55px;
+    border: none;
+    
+}
+input[type="file"]::file-selector-button {
+    border: 0px ;
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
+    height: 2.4rem;
+    width: 8rem;
+    background-color:#FDD36A;
+    font-size: 1rem;
+    color: white;
+    font-style: normal;   
+   
+  }
+  
+/*   
+// transition: 1s;
+  input[type="file"]::file-selector-button:hover {
+    background-color: whitesmoke;
+    border: 2px solid #0c0c0c;
+  } */
+  .h{
+    height: 8rem;
+
+    margin-top: 10%;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .buttonSubmit{
+    border: 0px ;
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
+    height: 2.4rem;
+    width: 10rem;
+    background-color:#FDD36A;
+    font-size: 1rem;
+    color: white;
+    font-style: normal;   
+    margin-left: 47%;
+  }

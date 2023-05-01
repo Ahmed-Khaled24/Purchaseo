@@ -1,0 +1,36 @@
+nav {
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0.6rem;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  align-items: center;
+}
+
+.logo {
+  max-width: 12rem;
+  cursor: pointer;
+}
+
+.nav-right {
+  margin-top: 0.3rem;
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #000000;
+}
+
+.nav-search {
+  height: 2.3rem;
+  width: 30rem;
+  border: 1px solid rgb(219, 219, 219);
+  border-radius: 30px;
+  color: rgb(0, 0, 0);
+  padding: 0.8rem;
+}

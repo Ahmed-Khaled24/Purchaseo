@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../css/stars.css";
 
 function fill(num: any) {
   const stars = [];
@@ -12,14 +12,13 @@ function fill(num: any) {
 
 export default function Stars(props: any) {
   let rate = [];
-  rate = fill(props.rate);
+  rate = fill(Math.round(props.rate));
   rate = rate.map(item => (<img src={item} />));
 
   return (
     <div className="stars">
-      <p className='stars'>{rate}</p>
-      <p>{props.rate}</p>
-
+      <p className="stars">{rate}</p>
+      <p className="count">{Math.round(props.rate)}</p>
     </div>
   )
 }

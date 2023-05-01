@@ -24,7 +24,7 @@ export default function Body(props: any) {
                 <div className='item-text'>
                     <h1>{props.name}</h1>
                     <div className='rate'>
-                        <Stars rate={props.rate}/>
+                        <Stars rate={props.rate} />
                         <p>&#8226;</p>
                         <p>{props.reviews} Reviews</p>
                     </div>

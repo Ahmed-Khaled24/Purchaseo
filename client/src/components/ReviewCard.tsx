@@ -1,5 +1,6 @@
 import React from 'react'
 import "../css/review-card.css"
+import Stars from './Stars'
 
 export default function Body(props: any) {
   return (
@@ -9,14 +10,7 @@ export default function Body(props: any) {
         <p>Abdo Nasser</p>
       </div>
       <div className='personal-rate'>
-        <p className='stars'>
-          <img src="star-filled.png" />
-          <img src="star-filled.png" />
-          <img src="star-filled.png" />
-          <img src="star-filled.png" />
-          <img src="star.png" />
-        </p>
-        <p>4</p>
+        <Stars rate={4} />
       </div>
 
       <div className='rate-comment'>

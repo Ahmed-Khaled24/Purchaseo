@@ -35,7 +35,7 @@ async function removeUser (req: Request, res: Response) {
 
 async function updateUser (req: Request, res: Response) {
     let { email, update} = req.body;
-    
+    //TODO: validate update data
     try {
         await dbUpdateUserByEmail({email, update});
         return res.status(200).json({status:"success", data: 'User updated successfully'});
@@ -60,6 +60,7 @@ async function getUserById (req: Request, res: Response) {
 
 async function getUserByEmail (req: Request, res: Response) {
     let { email } = req.params;
+    // TODO: check that the user trying to access this data is the same user logged in to the session
     try {
         let user = await dbGetUserByEmail(email);
         return res.status(200).json({status:"success", data: user});

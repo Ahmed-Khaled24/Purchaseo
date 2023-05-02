@@ -8,6 +8,8 @@ const keys = {
 	DB_USERNAME: process.env.DEV_DB_USERNAME,
 	DB_USER_PASSWORD: process.env.DEV_DB_USER_PASSWORD,
 	DB_NAME: process.env.DEV_DB_NAME,
+	REDIS_HOST: process.env.DEV_REDIS_HOST,
+	REDIS_PORT: process.env.DEV_REDIS_PORT,
 };
 
 export default keys;

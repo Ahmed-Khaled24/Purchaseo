@@ -1,5 +1,5 @@
 import { OkPacket, RowDataPacket } from "mysql2";
-import { dbConnection } from "../service/mysql";
+import { dbConnection } from "../services/mysql";
 import ErrorWithStatusCode from "../util/classes/ErrorWithStatusCode";
 
 async function dbGetUserById(id: string): Promise<RowDataPacket> {

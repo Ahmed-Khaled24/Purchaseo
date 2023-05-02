@@ -1,6 +1,6 @@
 import supertest from "supertest";
 import api from "../../api";
-import { connectMySQL, disconnectMySQL } from "../../service/mysql";
+import { connectMySQL, disconnectMySQL } from "../../services/mysql";
 import {
     dbAddUser,
     dbDeleteUserByEmail,

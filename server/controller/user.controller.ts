@@ -35,7 +35,7 @@ async function removeUser (req: Request, res: Response) {
 
 async function updateUser (req: Request, res: Response) {
     let { email, update} = req.body;
-    //update = JSON.parse(update);
+    
     try {
         await dbUpdateUserByEmail({email, update});
         return res.status(200).json({status:"success", data: 'User updated successfully'});
@@ -46,7 +46,7 @@ async function updateUser (req: Request, res: Response) {
     }
 };
 
-async function getUser (req: Request, res: Response) {
+async function getUserById (req: Request, res: Response) {
     let { id } = req.params;
     try {
         let user = await dbGetUserById(id);
@@ -58,8 +58,23 @@ async function getUser (req: Request, res: Response) {
     }
 };
 
+async function getUserByEmail (req: Request, res: Response) {
+    let { email } = req.params;
+    try {
+        let user = await dbGetUserByEmail(email);
+        return res.status(200).json({status:"success", data: user});
+        
+    } catch (error: ErrorWithStatusCode|any) {
+        console.log(`User finding error: ${error}`);
+        return res.status(error.statusCode || 500).json({status:'failure' ,data: error.message});
+    }
+};
+
+
+
 export {
-    getUser,
+    getUserById,
+    getUserByEmail,
     addNewUser,
     removeUser,
     updateUser,

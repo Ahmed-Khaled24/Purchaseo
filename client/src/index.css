@@ -29,21 +29,23 @@ code {
 .App {
   background: #FBFBFB
 }
+.Home{
+  display: flex;
+  flex-direction: column;
+align-content: space-around;
+}
 .holder {
   padding: 1.5em;
-  margin-left: 6%;
   margin-top: 3.5rem;
   display: flex;
-  max-width: 1000px;
-  min-height: 720px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-
+  max-width: 78.125rem;
+  min-height: 45rem;
+  flex-direction: column;
+  align-content: center;
 }
 
 .holder--header {
 
-  position: absolute;
   align-self: stretch;
   font-style: normal;
   font-weight: 400;
@@ -115,12 +117,11 @@ code {
 .HAdata {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   gap: 1.5rem;
-  margin-inline: auto;
-  margin-right: auto;
-  max-width: 65.625rem;
-  max-height: 43.75rem;
+margin-top: 3rem;
+  min-width: 65.625rem;
+  min-height: 30rem;
   align-self: center;
 
 }

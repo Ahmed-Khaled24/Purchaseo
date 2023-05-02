@@ -6,7 +6,6 @@ import AddProduct from "./components/AddProduct"
 import Products from "./components/Products"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Body from './components/item';
-export const UserContext = React.createContext();
 
 function App() {
 

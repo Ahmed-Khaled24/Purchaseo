@@ -1,11 +1,4 @@
 import React, { useState, useEffect } from "react"
-import elect from "../images/Picture7.png"
-import p1 from "../images/Picture1.png"
-import p2 from "../images/Picture2.png"
-import p3 from "../images/Picture3.png"
-import p4 from "../images/Picture4.png"
-import p5 from "../images/Picture5.png"
-import p6 from "../images/Picture6.png"
 import Box from "./Box"
 import { useNavigate,NavLink } from 'react-router-dom';
 
@@ -13,11 +6,12 @@ export default function Home() {
   let category="electronics";
 
     return (
-        <div>
+        <div className="Home">
 
             <div className="holder">
+                <div>
                 <h1 className="holder--header">Electronics</h1>
-                <img src={elect} className="elecphoto" />
+                <img src="/images/Picture7.png" className="elecphoto" />
                 <div class="container">
                     <p className="elecgraph">You can find some of the phones in the market here</p>
                     <NavLink to={`/products/${category}`} >
@@ -25,14 +19,18 @@ export default function Home() {
                     </NavLink>
                  
                 </div>
+                </div>
+               
             </div>
             <div className="holder">
+                <div>
+
                 <h1 className="holder--header">Home Appliances</h1>
                 <div className="HAdata">
                     <Box
                         name="Mixers"
                         head="Mixers"
-                        img={p2}
+                        img="/images/Picture2.png"
                         button="See more"
                         buttonName="b"
                         Nimg="imgHA"
@@ -41,7 +39,7 @@ export default function Home() {
                     <Box
                         name="Refrigerators"
                         head="Refrigerators"
-                        img={p3}
+                        img="/images/Picture3.png"
                         button="See more"
                         buttonName="b"
                         Nimg="imgHA"
@@ -50,40 +48,45 @@ export default function Home() {
                     <Box
                         name="Ovens"
                         head="Ovens"
-                        img={p1}
+                        img="/images/Picture1.png"
                         button="See more"
                         buttonName="b"
                         Nimg="imgHA"
                         category="jewelery"  
                     />
+                                        
+                </div>
                 </div>
             </div>
             <div className="holder">
+                <div>
                 <h1 className="holder--header">Clothes</h1>
                 <div className="HAdata">
                     <Box
                         name="Men"
                         head="Men"
-                        img={p4}
+                        img= "/images/Picture4.png"
                         buttonName="b"
                         Nimg="imgC"
                     />
                     <Box
                         name="Women"
                         head="Women"
-                        img={p5}
+                        img= "/images/Picture5.png"
                         buttonName="b"
                         Nimg="imgC"
                     />
                     <Box
                         name="Kids"
                         head="Kids"
-                        img={p6}
+                        img= "/images/Picture6.png"
                         buttonName="b"
                         Nimg="imgC"
                     />
 
                 </div>
+                </div>
+                
 
 
             </div>

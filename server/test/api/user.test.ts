@@ -114,6 +114,34 @@ describe("POST /user endpoint", () => {
         dbDeleteUserByEmail("testuser@gmail.com");
     });
 });
+describe("DELETE /user endpoint", () => {
+    beforeAll(async () => {
+        await dbAddUser({
+            id: 33,
+            name: "test-user",
+            email: "testuser@gmail.com",
+            password: "test-password",
+        });
+    });
+
+    test("delete existing user", async () => {
+        const response = await supertest(api).delete("/user").send({
+            email: "testuser@gmail.com",
+        });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.status).toEqual("success");
+        expect(response.body.data).toEqual("User deleted successfully");
+    });
+
+    test("delete non-existing user", async () => {
+        const response = await supertest(api).delete("/user").send({
+            email: "nonexistentuser@gmail.com",
+        });
+        expect(response.statusCode).toBe(404);
+        expect(response.body.status).toEqual("failure");
+        expect(response.body.data).toEqual("User not found");
+    });
+});
 
 afterAll(async () => {
     await disconnectMySQL();

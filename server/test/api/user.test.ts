@@ -67,6 +67,54 @@ describe("GET /user endpoint", () => {
     });
 });
 
+describe("POST /user endpoint", () => {
+    test("Add new user with valid username, email and password", async () => {
+        const response = await supertest(api).post("/user").send({
+            name: "testtest",
+            email: "testuser@gmail.com",
+            password: "Testpassword@1234",
+        });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.status).toEqual("success");
+        expect(response.body.data).toEqual("New user added successfully");
+    });
+
+    test("Add new user with invalid password", async () => {
+        const response = await supertest(api).post("/user").send({
+            name: "testtest",
+            email: "testuser@gmail.com",
+            password: "Testpassword1234",
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.status).toEqual("failure");
+        expect(response.body.data).toEqual("Invalid user data");
+    });
+    test("Add new user with invalid email", async () => {
+        const response = await supertest(api).post("/user").send({
+            name: "testtest",
+            email: "testuserhotmail.com",
+            password: "Testpassword1234",
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.status).toEqual("failure");
+        expect(response.body.data).toEqual("Invalid user data");
+    });
+    test("Add new user with invalid username", async () => {
+        const response = await supertest(api).post("/user").send({
+            name: "test@test",
+            email: "testuser@hotmail.com",
+            password: "Testpassword1234",
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body.status).toEqual("failure");
+        expect(response.body.data).toEqual("Invalid user data");
+    });
+
+    afterAll(async () => {
+        dbDeleteUserByEmail("testuser@gmail.com");
+    });
+});
+
 afterAll(async () => {
     await disconnectMySQL();
 });

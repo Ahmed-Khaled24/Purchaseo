@@ -114,6 +114,7 @@ describe("POST /user endpoint", () => {
         dbDeleteUserByEmail("testuser@gmail.com");
     });
 });
+
 describe("DELETE /user endpoint", () => {
     beforeAll(async () => {
         await dbAddUser({
@@ -141,6 +142,77 @@ describe("DELETE /user endpoint", () => {
         expect(response.body.status).toEqual("failure");
         expect(response.body.data).toEqual("User not found");
     });
+});
+
+describe("PATCH /user/:id endpoint", () => {
+    beforeAll(async () => {
+        await dbAddUser({
+            id: 55,
+            name: "test-user",
+            email: "testuser1@gmail.com",
+            password: "test-password",
+        });
+    });
+
+    test("update existing user", async () => {
+        let update = {
+            name: "test-user-2",
+            email: "testuser2@gmail.com",
+            password: "test-password-2",
+        };
+        const response = await supertest(api)
+            .patch("/user")
+            .send({ email: "testuser1@gmail.com", update: update });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.status).toEqual("success");
+        expect(response.body.data).toEqual("User updated successfully");
+    });
+    test("update non-existing user", async () => {
+        let update = {
+            name: "test-user-2",
+            email: "testuser2@gmail.com",
+            password: "test-password-2",
+        };
+        const response = await supertest(api)
+            .patch("/user")
+            .send({ email: "testuser55@gmail.com", update: update });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.status).toEqual("success");
+        expect(response.body.data).toEqual("User updated successfully");
+    });
+
+    test("partially update existing user with valid fields", async () => {
+        let update = {
+            email: "testuser2@gmail.com",
+        };
+        const response = await supertest(api)
+            .patch("/user")
+            .send({ email: "testuser1@gmail.com", update: update });
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.status).toEqual("success");
+        expect(response.body.data).toEqual("User updated successfully");
+    });
+
+    test("partially update existing user with invalid fields", async () => {
+        let update = {
+            email: "testuser2@gmail.com",
+            SSN: 102,
+        };
+
+        const response = await supertest(api)
+            .patch("/user")
+            .send({ email: "testuser1@gmail.com", update: update });
+
+        expect(response.statusCode).toBe(500);
+        expect(response.body.status).toEqual("failure");
+    });
+    afterAll(async () => {
+        dbDeleteUserById(55);
+    });
+
+    // TODO: Add test cases for invalid data when database is implemented
 });
 
 afterAll(async () => {

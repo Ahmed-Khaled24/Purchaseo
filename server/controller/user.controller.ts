@@ -1,45 +1,48 @@
 import { Request, Response } from 'express';
 import {  dbGetUserById, dbGetUsersByName, dbGetUserByEmail, dbAddUser, dbDeleteUserByEmail, dbUpdateUserByEmail } from '../model/users.model';
+import ErrorWithStatusCode from '../util/classes/ErrorWithStatusCode';
 import validateUser from '../util/userValidation';
 
 async function addNewUser(req: Request, res: Response){
-    let {name, email, password} = req.body;
-    // We should validate the user data here but we still don't know what to validate yet
+    let {name, email, password} :{name:string, email:string, password:string}= req.body;
+    // TODO: validate user data
     if(validateUser({name, email, password}) === false) 
-    return res.status(400).json({message: 'Invalid user data'});
+    return res.status(400).json({status:"failure", data: 'Invalid user data'});
+
+    // TODO: hash password
 
     try {
         await dbAddUser({name, email, password});
-        return res.status(200).json({message: 'New user added successfully'});
+        return res.status(200).json({status:"success", data: 'New user added successfully'});
         
-    } catch (error) {
+    } catch (error: ErrorWithStatusCode|any) {
         console.log(`User adding error: ${error}`);
-        return res.status(500).json({message: 'New user adding failed'});
+        return res.status(error.statusCode || 500).json({status:'failure' ,data: error.message});
     }
 };
 
 async function removeUser (req: Request, res: Response) {
-    let { email} = req.body;
+    let {email} = req.body;
     try {
         await dbDeleteUserByEmail(email);
-        return res.status(200).json({message: 'User deleted successfully'});
+        return res.status(200).json({status:"success", data: 'User deleted successfully'});
         
-    } catch (error) {
+    } catch (error: ErrorWithStatusCode|any) {
         console.log(`User deletion error: ${error}`);
-        return res.status(500).json({message: 'User deletion failed'});
+        return res.status(error.statusCode || 500).json({status:'failure' ,data: error.message});
     }
 };
 
 async function updateUser (req: Request, res: Response) {
     let { email, update} = req.body;
-    update = JSON.parse(update);
+    //update = JSON.parse(update);
     try {
         await dbUpdateUserByEmail({email, update});
-        return res.status(200).json({message: 'User updated successfully'});
+        return res.status(200).json({status:"success", data: 'User updated successfully'});
         
-    } catch (error) {
+    } catch (error: ErrorWithStatusCode|any) {
         console.log(`User updating error: ${error}`);
-        return res.status(500).json({message: 'User update failed'});
+        return res.status(error.statusCode || 500).json({status:'failure' ,data: error.message});
     }
 };
 
@@ -47,11 +50,11 @@ async function getUser (req: Request, res: Response) {
     let { id } = req.params;
     try {
         let user = await dbGetUserById(id);
-        return res.status(200).json({message: 'User found successfully', user});
+        return res.status(200).json({status:"success", data: user});
         
-    } catch (error) {
+    } catch (error: ErrorWithStatusCode|any) {
         console.log(`User finding error: ${error}`);
-        return res.status(500).json({message: 'User finding failed'});
+        return res.status(error.statusCode || 500).json({status:'failure' ,data: error.message});
     }
 };
 

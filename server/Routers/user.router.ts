@@ -8,7 +8,7 @@ userRouter.get('/:id', getUser);
 userRouter.route('/')
 .post(addNewUser)
 .delete(removeUser)
-.put(updateUser)
+.patch(updateUser)
 
 
 export default userRouter;

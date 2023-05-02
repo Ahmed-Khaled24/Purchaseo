@@ -3,19 +3,19 @@ import "../css/AddProduct.css"
 
 export default function AddProduct() {
     const [formData, setFormData] = useState(
-        { Name: "",
-          Type: "", 
-          Discription: "", 
-          Price: "", 
-          Quantity: "" 
+        {
+            Name: "",
+            Type: "",
+            Discription: "",
+            Price: "",
+            Quantity: ""
         }
     )
-   function fileSelectedHandler(event){
-     console.log(event.target.files[0])
-   }
+    const [currentFiles, setCurrentFiles] = useState([]);
+    const [previewImages, setPreviewImages] = useState([]);
 
     function handleChange(event) {
-        const {name, value, type} = event.target
+        const { name, value, type } = event.target
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
@@ -23,16 +23,27 @@ export default function AddProduct() {
             }
         })
     }
+
+    const selectFile = (event) => {
+        const files = event.target.files;
+        const newFiles = [...currentFiles, ...files];
+        const newPreviews = [...previewImages];
+        for (let i = 0; i < files.length; i++) {
+            newPreviews.push(URL.createObjectURL(files[i]));
+        }
+        setCurrentFiles(newFiles);
+        setPreviewImages(newPreviews);
+    };
+
     function handleSubmit(event) {
         console.log(formData);
-         event.preventDefault();
-    //    submitToApi(formData);
+        event.preventDefault();
+        //    submitToApi(formData);
     }
     return (
-        <form className="main"  onSubmit={handleSubmit}>
+        <form className="main" onSubmit={handleSubmit}>
             <h1 className="t">Add Product</h1>
             <div>
-
                 <div className="Hold">
                     <div>
                         <p className="titleform">Product category</p>
@@ -45,7 +56,7 @@ export default function AddProduct() {
                                         onChange={handleChange}
                                         name="Name"
                                         value={formData.Name}
-                                       className="text"
+                                        className="text"
                                     />
                                 </span>
                                 <span>
@@ -88,25 +99,25 @@ export default function AddProduct() {
                         <p className="titleform">Product attributes</p>
                         <div className="form2">
                             <span>
-                            <p>Price</p>
-                            <input
-                                type="text"
-                                onChange={handleChange}
-                                name="Price"
-                                value={formData.Price}
-                                className="text2"
+                                <p>Price</p>
+                                <input
+                                    type="text"
+                                    onChange={handleChange}
+                                    name="Price"
+                                    value={formData.Price}
+                                    className="text2"
 
-                            />
+                                />
                             </span>
                             <span>
-                            <p>Quantity</p>
-                            <input
-                                type="text"
-                                onChange={handleChange}
-                                name="Quantity"
-                                value={formData.Quantity}
-                                className="text2"
-                            />
+                                <p>Quantity</p>
+                                <input
+                                    type="text"
+                                    onChange={handleChange}
+                                    name="Quantity"
+                                    value={formData.Quantity}
+                                    className="text2"
+                                />
                             </span>
                             <span>
                                 <p>Colors</p>
@@ -115,28 +126,45 @@ export default function AddProduct() {
                     </div>
                 </div>
             </div>
-
-
-            <section className="Hold">
-                <div className="iHolder">
-                <img src="/imageInsert.png" className="imgInsert" ></img>
-                <input type="file" className="button" onChange={fileSelectedHandler} /> 
+            
+            <section className="Holderimages">
+            <div>
+                    <label>
+                        <input type="file" accept="image/*" onChange={selectFile} multiple />
+                    </label>
                 </div>
-                <div className="iHolder">
-                <img src="/imageInsert.png" className="imgInsert" ></img>
-                <input type="file" className="button" onChange={fileSelectedHandler}/> 
-                </div>
-                <div className="iHolder">
-                <img src="/imageInsert.png" className="imgInsert" ></img>
-              <input type="file" className="button"  onChange={fileSelectedHandler}/> 
-                </div>
+                <div >
 
+             {previewImages.length <= 0 && (<img src="/Imginsert.png"style={{
+                            marginTop:"2rem",
+                            width:"62.83rem",
+                            height:"23rem",
+                            }}/>)}
+                {previewImages.length > 0 && (
+                    <div>
+                        <p className="titleform">Selected Files:</p>
+                        <div className="Images" >
+                            {previewImages.map((preview, index) => (
+                                
+                                    <img src={preview} alt="Preview"
+                                        key={index}
+                                        style={{
+                                            height: "14rem",
+                                            borderRadius: "9px",
+                                            width: "16rem",
+                                            marginLeft:"2rem"
+                                        }}
+                                    />
+                            ))}
+                        </div>
+                    </div>
+                )}
+            
+            </div>
+              
             </section>
-
-          
             <div className="h">
-            <button className="buttonSubmit">Submit</button>
-
+                <button className="buttonSubmit">Submit</button>
             </div>
         </form>
     )

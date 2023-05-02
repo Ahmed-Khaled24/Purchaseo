@@ -46,7 +46,7 @@ padding: 32px;
 gap: 40px;
 width: 36rem;
 height: 442px;
-background: #FFF9E9;
+background: #FFF5DC;
 /* box-shadow: 1px 1px 15px rgb(228, 229, 229); */
 border-radius: 9px;
 }
@@ -60,7 +60,7 @@ padding: 39px 61px;
 gap: 17px;
 width: 400px;
 height: 442px;
-background: #FFF9E9;
+background: #FFF5DC;
 /* box-shadow: 1px 1px 15px rgb(228, 229, 229); */
 border-radius: 9px;
 }
@@ -71,10 +71,14 @@ margin-left: 1.5%;
 height: 25rem;
 
 }
-.iHolder{
+.Holderimages{
+    padding-top: 3%;
+   
     display: flex;
     flex-direction: column;
     align-items:center;
+    align-content:space-around;
+    gap: 1rem;
 
 }
 .button{
@@ -83,11 +87,16 @@ height: 25rem;
     border: none;
     
 }
+input[type="file"]{
+    box-sizing: border-box;
+  margin-top: 3%;
+  margin-left: -141%;
+}
 input[type="file"]::file-selector-button {
     border: 0px ;
     padding: 0.2em 0.4em;
     border-radius: 0.2em;
-    height: 2.4rem;
+    height: 3rem;
     width: 8rem;
     background-color:#FDD36A;
     font-size: 1rem;
@@ -105,7 +114,7 @@ input[type="file"]::file-selector-button {
   .h{
     height: 8rem;
 
-    margin-top: 10%;
+    margin-top: 1%;
     margin-bottom: 4%;
     display: flex;
     flex-direction: column;
@@ -122,4 +131,17 @@ input[type="file"]::file-selector-button {
     color: white;
     font-style: normal;   
     margin-left: 47%;
+  }
+  .Images{
+    margin-top:2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    background: #FFF5DC;
+    width:62.83rem;
+    min-height:23rem;
+    padding:1.5rem;
+    border-radius: 9px;
   }

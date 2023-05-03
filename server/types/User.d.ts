@@ -11,7 +11,8 @@ export interface User {
     id: number,
     name: string,
     email: string,
-    password: string
+    role: string,
+    password: string,
     socialId?: string,
     socialType?: string,
     createdAt: Date,

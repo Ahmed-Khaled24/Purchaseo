@@ -9,6 +9,6 @@ import { connectMySQL } from "./services/mysql";
 	await connectRedis();
 	await connectMySQL();
     server.listen(process.env.PORT, () => {
-        console.log("Server is listening on port 8000");
+        console.log(`Server is listening on port {${process.env.PORT}}`);
     });
 })();

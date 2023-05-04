@@ -13,7 +13,7 @@ function App() {
   
  <div className="App">
      
-     <Router>
+     {/* <Router>
        <NavBar />
        <Routes>
        <Route path="/">
@@ -23,9 +23,9 @@ function App() {
 
        </Route>
        </Routes>
-     </Router>
-       {/* <NavBar />
-     <AddProduct /> */}
+     </Router> */}
+       <NavBar />
+     <AddProduct />
 
    </div>
 

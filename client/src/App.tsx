@@ -6,6 +6,7 @@ import AddProduct from "./components/AddProduct"
 import Products from "./components/Products"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Body from './components/item';
+import Cart from './components/Cart';
 
 function App() {
 
@@ -13,19 +14,19 @@ function App() {
   
  <div className="App">
      
-     {/* <Router>
+     <Router>
        <NavBar />
        <Routes>
        <Route path="/">
        <Route index element={<Home />} />
        <Route path="/products/:category" element={<Products />} />
        <Route path="/products/:category/:id" element={<Body />} />
-
+       <Route  path="/cart" element={<Cart />}/>
        </Route>
        </Routes>
-     </Router> */}
-       <NavBar />
-     <AddProduct />
+     </Router>
+       {/* <NavBar />
+       <Cart /> */}
 
    </div>
 

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react"
 import Box from "./Box"
-import { useNavigate,NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import "../css/home-products.css"
 
 export default function Home() {
   let category="electronics";
 
     return (
         <div className="Home">
-
             <div className="holder">
                 <div>
                 <h1 className="holder--header">Electronics</h1>
                 <img src="/images/Picture7.png" className="elecphoto" />
-                <div class="container">
+                <div className="container">
                     <p className="elecgraph">You can find some of the phones in the market here</p>
                     <NavLink to={`/products/${category}`} >
                     <button className="elecbutton">Check them out </button>                 

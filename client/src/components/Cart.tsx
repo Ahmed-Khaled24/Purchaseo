@@ -9,7 +9,6 @@ import {
 } from "../features/cartSlice";
 import "../css/Cart.css"
 import { Link } from "react-router-dom";
-import "../css/Cartx.css";
 import Stars from "./Stars";
 export default function Cart() {
     
@@ -77,7 +76,7 @@ export default function Cart() {
                             <p>
                             <span className="headline">Price : </span>
                             <span style={{
-                                fontSize:"1.3rem"
+                                fontSize:"1.35rem"
                             }}>{cartItem.price}$</span>
                             </p>
                             <div className="cart-info-buttons">

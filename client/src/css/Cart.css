@@ -65,7 +65,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    border-top: none;
+    border: none;
     padding-top: 6rem;
 }
 
@@ -101,7 +101,7 @@
 }
 
 .cart-checkout .amount {
-    font-weight: 550;
+    font-weight: 540;
     font-size: 1.7rem;
 }
 
@@ -187,7 +187,7 @@
   
   .Quantity-price {
     font-size: 1.6rem;
-    font-weight: bold;
+    font-weight: 540;
   }
   
   .head {
@@ -198,7 +198,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   
   .product-info-rate {
@@ -209,7 +209,6 @@
   
   .headline {
     font-size: 1.45rem;
-    font-weight: bold;
   }
 
 

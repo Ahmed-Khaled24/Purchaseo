@@ -2,14 +2,19 @@ import React, { useState } from 'react'
 import ReviewCard from './ReviewCard'
 import "../css/item.css"
 import Stars from './Stars'
-
+import { NavLink } from 'react-router-dom';
+import { addToCart } from '../features/cartSlice';
+import { useDispatch } from "react-redux";
 export default function Body(props) {
+    const dispatch = useDispatch();
     let [image, setImage] = useState(props.img);
     function changeImage(e) {
         setImage(e.target.src);
     }
     const reviews = [<ReviewCard />, <ReviewCard />, <ReviewCard />, <ReviewCard />, <ReviewCard />, <ReviewCard />];
-
+    // const handleAddToCart =(product)=>{
+    // dispatch(addToCart(product));
+    // }
     return (
         <main>
             <div className='item-info'>
@@ -32,7 +37,9 @@ export default function Body(props) {
                     <div className='desc-title'>Description</div>
                     <p className='desc-text'>{props.desc}</p>
                     <div className='buying'>
-                        <button className='purchase-button'><img src="shopping-bag-white.png" />Add To Cart</button>
+                        <NavLink to={`/cart`} >
+                            <button className='purchase-button' /*onClick={()=>handleAddToCart(product)}*/ ><img src="shopping-bag.png" />Add To Cart</button>
+                        </NavLink>
                         <div className='price'>{props.price}$</div>
                     </div>
                 </div>

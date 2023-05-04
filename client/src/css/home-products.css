@@ -1,0 +1,272 @@
+.Home{
+    display: flex;
+    flex-direction: column;
+  align-content: space-around;
+  }
+  .holder {
+    padding: 1.5em;
+    margin-top: 3.5rem;
+    display: flex;
+    max-width: 78.125rem;
+    min-height: 45rem;
+    flex-direction: column;
+    align-content: center;
+  }
+  
+  .holder--header {
+  
+    align-self: stretch;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 54px;
+  
+  }
+  
+  .elecphoto {
+  
+    width:69.5rem;
+    height: 33.25rem;
+    padding: 1.75rem;
+    transform: translate(2%, 10%);
+    border-radius: 0.5rem;
+  
+  }
+  
+ .Home .container {
+    display: flex;
+    flex-direction: column;
+    top: 16.325rem;
+    gap: 5.4375rem;
+    margin-left: 40px;
+    position: absolute;
+    width: 67.375rem;
+    height: 31.25rem;
+  
+  }
+  
+  .elecgraph {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 20px;
+    width: 40.125rem;
+    height: 8.8125rem;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 3rem;
+    line-height: 3.625rem;
+  }
+  
+  .elecbutton {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 242px;
+    height: 55px;
+    border: none;
+    background: #7A2B64;
+    border-radius: 5px;
+    color: white;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    transition: box-shadow 0.15s;
+  }
+  
+  .elecbutton:hover {
+    background-color: white;
+    color: #7A2B64;
+  }
+  
+  .HAdata {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  margin-top: 3rem;
+    min-width: 65.625rem;
+    min-height: 30rem;
+    align-self: center;
+  }
+  
+  .Mixers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 21rem;
+    height: 30.375rem;
+    border-radius: 9px;
+    background: #FFE7AB;
+    gap: 0.5rem;
+  
+  }
+  
+  .Ovens {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 21rem;
+    height: 30.375rem;
+    gap: 0.5rem;
+    border-radius: 9px;
+  
+    background: #E77F7F;
+  
+  }
+  
+  .Refrigerators {
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 21rem;
+    height: 30.375rem;
+    gap: 0.5rem;
+    border-radius: 9px;
+    background: #95C2DB;
+  
+  }
+  
+  .imgHA {
+  
+    max-width: 17rem;
+    max-height: 19.625rem;
+  
+    border-radius: 0.5rem;
+  
+  }
+  
+  .imgC {
+    width: 17rem;
+    height: 21.875rem;
+  
+    border-radius: 0.4rem;
+  
+  }
+  
+  .Men {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 21.875rem;
+    height: 31.25rem;
+    border-radius: 9px;
+    gap: 0.5rem;
+    background: #95C2DB;
+  }
+  
+  .Women {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 21.875rem;
+    height: 31.25rem;
+    border-radius: 9px;
+    gap: 0.5rem;
+    background: #E77F7F;
+  
+  }
+  
+  .Kids {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 21.875rem;
+    height: 31.25rem;
+    border-radius: 9px;
+    gap: 0.5rem;
+    background: #E09ECE;
+  }
+  
+  .Home .title {
+    text-align: left;
+    padding-left: 10%;
+    align-self: stretch;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.625rem;
+    line-height: 3.0625rem;
+    color: #000000;
+  }
+  
+  .b {
+  
+    box-sizing: border-box;
+    margin-top: 3%;
+    margin-left: -38%;
+    width: 9.5rem;
+    height: 2.125rem;
+    border: 2px solid #000000;
+    border-radius: 3px;
+    transition: box-shadow 0.15s;
+  }
+  
+  .b:hover {
+    background-color: rgb(6, 6, 6);
+    color: #faf9fa;
+  }
+  
+  
+  .cards {
+    padding: 3.125rem;
+    margin: 3rem 1rem 1rem 1.5rem;
+    min-height: 18.75rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(9.375rem, auto);
+    gap: 2em;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    box-shadow: 1px 1px 15px rgb(242, 243, 243);
+    background-color: #FFF9E9;
+    height: 22.1rem;
+    max-width: 21rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  .card:hover{
+    
+    border-radius: 9px;
+  }
+  .card--image{
+    max-height:20.2rem;
+    max-width: 18.5rem;
+  }
+  .card--title{
+    font-size: 1.125rem;
+    display: flex;
+    font-style: normal;
+    margin-bottom: 5%;
+  }
+  
+  
+  .Category--title {
+    padding: 3.125rem;
+    text-align: center;
+    align-self: stretch;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 0.0625rem;
+  }
+  
+  .Category--title::first-letter {
+  
+    text-transform: capitalize;
+  
+  }

@@ -35,8 +35,12 @@ export async function addNewProduct(req: Request, res: Response) {
 		let dbAddProductResponse = await dbAddNewProduct(product);
 		dbAddProductResponse = dbAddProductResponse as RowDataPacket[];
 		const addedProductID = dbAddProductResponse[0].product_id;
-		await dbAddImagesToAProduct(addedProductID, images);
-		await dbAddCategoriesToProduct(addedProductID, categories);
+		if (images) {
+			await dbAddImagesToAProduct(addedProductID, images);
+		}
+		if (categories) {
+			await dbAddCategoriesToProduct(addedProductID, categories);
+		}
 		res.status(201).json({ status: 'success', data: dbAddProductResponse });
 	} catch (err: unknown) {
 		res.status((err as ErrorWithStatusCode).statusCode || 500).json({

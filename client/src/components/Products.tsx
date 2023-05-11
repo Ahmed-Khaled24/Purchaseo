@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom';
-import Card from "./card";
+import Card from "./Card";
 import {useDispatch} from "react-redux";
 import { addToCart } from "../features/cartSlice";
 import "../css/home-products.css"

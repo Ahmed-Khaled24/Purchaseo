@@ -1,0 +1,97 @@
+.add-review-form {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-review h1 {
+  font-family: "EB Garamond";
+  font-weight: 500;
+  font-size: 3rem;
+}
+
+.review-container {
+  width: 50vw;
+  height: 60vh;
+  background-color: #fff9e9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: 2rem 2rem 4rem rgb(240, 240, 240);
+}
+
+.review-rate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 35vw;
+}
+
+.review-rate-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review-rate-text {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.star-rating {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.star {
+  width: 2rem;
+}
+
+.product-review-image {
+  height: 13rem;
+}
+
+.review-form {
+  width: 100%;
+  max-width: 35vw;
+  min-height: 25vh;
+  max-height: 25vh;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  font-size: larger;
+  margin-bottom: 10px;
+}
+
+#review {
+  width: 100%;
+  font-size: larger;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  resize: vertical;
+  max-height: 15vh;
+  min-height: 10vh;
+}
+
+.submit-button {
+  background-color: #982828;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 7rem;
+  font-size: 1rem;
+  align-self: center;
+}
+
+.submit-button:hover {
+  background-color: #fff9e9;
+  color: #982828;
+  border: 2px solid #982828;
+}

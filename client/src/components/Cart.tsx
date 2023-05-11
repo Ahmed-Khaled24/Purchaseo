@@ -7,7 +7,7 @@ import {
   getTotals,
   removeFromCart,
 } from "../features/cartSlice";
-import "../css/Cart.css"
+import "../css/cart.css"
 import { Link } from "react-router-dom";
 import Stars from "./Stars";
 export default function Cart() {

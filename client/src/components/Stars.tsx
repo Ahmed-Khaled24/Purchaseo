@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/stars.css";
 
-function fill(num) {
+function fill(num: any) {
   const stars = [];
   for (let i = 0; i < num; i++)
     stars.push("/star-filled.png")
@@ -9,7 +9,8 @@ function fill(num) {
     stars.push("/star.png")
   return stars;
 }
-export default function Stars(props) {
+
+export default function Stars(props: any) {
   let rate = [];
   rate = fill(Math.round(props.rate));
   rate = rate.map(item => (<img src={item} />));
@@ -17,8 +18,7 @@ export default function Stars(props) {
   return (
     <div className="stars">
       <p className="stars">{rate}</p>
-      <p  >{Math.round(props.rate)}</p>
-
+      <p className="count">{Math.round(props.rate)}</p>
     </div>
   )
 }

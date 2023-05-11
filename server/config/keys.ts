@@ -14,7 +14,5 @@ if (env === 'development') {
 } else if (env === 'test') {
 	keys = test;
 }
-console.log('env: ', env);
-console.log('keys: ', keys);
 
 export default keys;

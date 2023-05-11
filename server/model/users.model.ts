@@ -3,7 +3,7 @@ import { dbConnection } from "../services/mysql";
 import { User } from "../types/User";
 import { encryptPassword } from "../util/bcrypt";
 import ErrorWithStatusCode from "../util/classes/ErrorWithStatusCode";
-import { constructQueryFromObject } from "../util/query.constructor";
+import { constructQueryFromObject } from "../util/DB/query.constructor";
 
 //TODO: return the users as objects of type User
 

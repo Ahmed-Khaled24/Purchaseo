@@ -12,6 +12,7 @@ let connectionData = {
 async function connectMySQL(): Promise<mysql.Connection> {
     try {
         dbConnection = await mysql.createConnection(connectionData);
+        console.log("Database Connected")
     }
     catch (error) {
         console.log(error);
@@ -22,6 +23,8 @@ async function connectMySQL(): Promise<mysql.Connection> {
 async function disconnectMySQL() {
     try {
         await dbConnection.end();
+        console.log("Database Disconnected")
+
     } catch (error) {
         console.log(error);
     }

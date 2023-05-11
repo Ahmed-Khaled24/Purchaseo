@@ -72,7 +72,7 @@ async function googleVerifyCallback(
     const user: Partial<UserType> = {
         social_id: sub,
         social_type: "google",
-        user_type:"Non-Local",
+        user_type: "Non-Local",
         Fname: given_name,
         Lname: family_name,
         email,
@@ -94,7 +94,6 @@ async function googleVerifyCallback(
         }
     } catch (error: ErrorWithStatusCode | any) {
         if (error.statusCode === 404) {
-            
             dbUser = await dbAddUserEncrypted(user);
         }
     }

@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer';
-import keys from '../config/keys';
+import nodemailer from "nodemailer";
+import keys from "../config/keys";
 
 export const transporter = nodemailer.createTransport({
     host: keys.MAIL_HOST,

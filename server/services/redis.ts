@@ -6,14 +6,14 @@ let redisClient = redis.createClient({
     port: keys.REDIS_PORT,
 });
 
-redisClient.on("connect" , () => {
+redisClient.on("connect", () => {
     console.log("Redis connected");
-})
-redisClient.on('error', (err: any) => {
-    console.error('Error connecting to Redis server:', err);
 });
-redisClient.on('disconnect', () => {
-    console.log('Redis is disconnected');
+redisClient.on("error", (err: any) => {
+    console.error("Error connecting to Redis server:", err);
+});
+redisClient.on("disconnect", () => {
+    console.log("Redis is disconnected");
 });
 
 async function connectRedis() {
@@ -23,9 +23,9 @@ async function disconnectRedis() {
     await redisClient.disconnect();
 }
 
-async function cache(key: string, callback : () => Promise<any>){
+async function cache(key: string, callback: () => Promise<any>) {
     const cached = await redisClient.get(key);
-    if(cached){
+    if (cached) {
         return JSON.parse(cached);
     }
     const freshData = await callback();

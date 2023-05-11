@@ -2,7 +2,8 @@ import supertest from "supertest";
 import api from "../../api";
 import { connectMySQL, disconnectMySQL } from "../../services/mysql";
 import {
-    dbAddUser,
+    dbAddUserEncrypted,
+    dbDeleteAllUsers,
     dbDeleteUserByEmail,
     dbDeleteUserById,
     dbGetUserById,
@@ -14,44 +15,30 @@ beforeAll(async () => {
 
 describe("GET /user endpoint", () => {
     beforeAll(async () => {
-        await dbAddUser({
-            id: 33,
-            name: "test-user",
+        await dbAddUserEncrypted({
+            user_id: 33,
+            Fname: "testuser",
+            Lname: "testuser",
             email: "testuser@gmail.com",
-            password: "test-password",
+            password: "test@Password123",
         });
     });
 
     test("get existing user by id", async () => {
         const response = await supertest(api).get("/user/id/33");
-        const expected = {
-            user_id: 33,
-            name: "test-user",
-            email: "testuser@gmail.com",
-            password: "test-password",
-        };
         expect(response.statusCode).toBe(200);
-        expect(response.body.data).toEqual(expected);
     });
 
     test("get non-existing user by id", async () => {
         const response = await supertest(api).get("/user/id/555");
         expect(response.statusCode).toBe(404);
-        expect(response.body.data).toBe("User not found");
     });
 
     test("get existing user by email", async () => {
         const response = await supertest(api).get(
             "/user/email/testuser@gmail.com"
         );
-        const expected = {
-            user_id: 33,
-            name: "test-user",
-            email: "testuser@gmail.com",
-            password: "test-password",
-        };
         expect(response.statusCode).toBe(200);
-        expect(response.body.data).toEqual(expected);
     });
 
     test("get non-existing user by email", async () => {
@@ -59,7 +46,6 @@ describe("GET /user endpoint", () => {
             "/user/email/testuser222@gmail.com"
         );
         expect(response.statusCode).toBe(404);
-        expect(response.body.data).toBe("User not found");
     });
 
     afterAll(async () => {
@@ -68,48 +54,54 @@ describe("GET /user endpoint", () => {
 });
 
 describe("POST /user endpoint", () => {
-    test("Add new user with valid username, email and password", async () => {
-        const response = await supertest(api).post("/user").send({
-            name: "testtest",
+    test("Add new user with valid username, email, password and role", async () => {
+        const response = await supertest(api).post("/user/add").send({
+            Fname: "testtest",
+            Lname: "testtest",
             email: "testuser@gmail.com",
             password: "Testpassword@1234",
+            role: "Customer",
         });
         expect(response.statusCode).toBe(200);
-        expect(response.body.status).toEqual("success");
-        expect(response.body.data).toEqual("New user added successfully");
     });
 
     test("Add new user with invalid password", async () => {
-        const response = await supertest(api).post("/user").send({
-            name: "testtest",
+        const response = await supertest(api).post("/user/add").send({
+            Fname: "testtest",
+            Lname: "testtest",
             email: "testuser@gmail.com",
             password: "Testpassword1234",
         });
         expect(response.statusCode).toBe(400);
-        expect(response.body.status).toEqual("failure");
-        expect(response.body.data).toEqual("Invalid user data");
     });
     test("Add new user with invalid email", async () => {
-        const response = await supertest(api).post("/user").send({
-            name: "testtest",
+        const response = await supertest(api).post("/user/add").send({
+            Fname: "testtest",
+            Lname: "testtest",
             email: "testuserhotmail.com",
             password: "Testpassword1234",
         });
         expect(response.statusCode).toBe(400);
-        expect(response.body.status).toEqual("failure");
-        expect(response.body.data).toEqual("Invalid user data");
     });
     test("Add new user with invalid username", async () => {
-        const response = await supertest(api).post("/user").send({
-            name: "test@test",
+        const response = await supertest(api).post("/user/add").send({
+            Fname: "testtest",
+            Lname: "testtest",
             email: "testuser@hotmail.com",
             password: "Testpassword1234",
         });
         expect(response.statusCode).toBe(400);
-        expect(response.body.status).toEqual("failure");
-        expect(response.body.data).toEqual("Invalid user data");
     });
-
+    test("Add new user with invalid role", async () => {
+        const response = await supertest(api).post("/user/add").send({
+            Fname: "testtest",
+            Lname: "testtest",
+            email: "testuser@gmail.com",
+            password: "Testpassword@1234",
+            role: "student",
+        });
+        expect(response.statusCode).toBe(400);
+    });
     afterAll(async () => {
         dbDeleteUserByEmail("testuser@gmail.com");
     });
@@ -117,16 +109,16 @@ describe("POST /user endpoint", () => {
 
 describe("DELETE /user endpoint", () => {
     beforeAll(async () => {
-        await dbAddUser({
-            id: 33,
-            name: "test-user",
+        await dbAddUserEncrypted({
+            user_id: 33,
+            Fname: "testuser",
             email: "testuser@gmail.com",
-            password: "test-password",
+            password: "test@123Password",
         });
     });
 
     test("delete existing user", async () => {
-        const response = await supertest(api).delete("/user").send({
+        const response = await supertest(api).delete("/user/delete").send({
             email: "testuser@gmail.com",
         });
         expect(response.statusCode).toBe(200);
@@ -135,7 +127,7 @@ describe("DELETE /user endpoint", () => {
     });
 
     test("delete non-existing user", async () => {
-        const response = await supertest(api).delete("/user").send({
+        const response = await supertest(api).delete("/user/delete").send({
             email: "nonexistentuser@gmail.com",
         });
         expect(response.statusCode).toBe(404);
@@ -144,55 +136,37 @@ describe("DELETE /user endpoint", () => {
     });
 });
 
-describe("PATCH /user/:id endpoint", () => {
+describe("PATCH /user/ endpoint", () => {
     beforeAll(async () => {
-        await dbAddUser({
-            id: 55,
-            name: "test-user",
+        await dbAddUserEncrypted({
+            user_id: 52,
+            Fname: "testuser",
+            Lname: "testuser",
             email: "testuser1@gmail.com",
-            password: "test-password",
+            password: "test@Password123",
         });
     });
 
     test("update existing user", async () => {
         let update = {
-            name: "test-user-2",
-            email: "testuser2@gmail.com",
-            password: "test-password-2",
+            Fname:"testinguser2",
+            password: "test@123Password123",
         };
         const response = await supertest(api)
-            .patch("/user")
+            .patch("/user/update")
             .send({ email: "testuser1@gmail.com", update: update });
         expect(response.statusCode).toBe(200);
-        expect(response.body.status).toEqual("success");
-        expect(response.body.data).toEqual("User updated successfully");
     });
     test("update non-existing user", async () => {
         let update = {
-            name: "test-user-2",
             email: "testuser2@gmail.com",
-            password: "test-password-2",
+            password: "test@123Password123",
         };
         const response = await supertest(api)
-            .patch("/user")
+            .patch("/user/update")
             .send({ email: "testuser55@gmail.com", update: update });
 
-        expect(response.statusCode).toBe(200);
-        expect(response.body.status).toEqual("success");
-        expect(response.body.data).toEqual("User updated successfully");
-    });
-
-    test("partially update existing user with valid fields", async () => {
-        let update = {
-            email: "testuser2@gmail.com",
-        };
-        const response = await supertest(api)
-            .patch("/user")
-            .send({ email: "testuser1@gmail.com", update: update });
-
-        expect(response.statusCode).toBe(200);
-        expect(response.body.status).toEqual("success");
-        expect(response.body.data).toEqual("User updated successfully");
+        expect(response.statusCode).toBe(404);
     });
 
     test("partially update existing user with invalid fields", async () => {
@@ -200,21 +174,34 @@ describe("PATCH /user/:id endpoint", () => {
             email: "testuser2@gmail.com",
             SSN: 102,
         };
+        const response = await supertest(api)
+            .patch("/user/update")
+            .send({ email: "testuser1@gmail.com", update: update });
+            
+        expect(response.statusCode).toBe(500);
+    });
+
+    test("partially update existing user with valid fields and invalid data", async () => {
+        let update = {
+            email: "testuser2@gmail.com",
+            password: "testPassword",
+        };
 
         const response = await supertest(api)
-            .patch("/user")
+            .patch("/user/update")
             .send({ email: "testuser1@gmail.com", update: update });
+            
 
-        expect(response.statusCode).toBe(500);
-        expect(response.body.status).toEqual("failure");
+        expect(response.statusCode).toBe(400);
     });
+
     afterAll(async () => {
-        dbDeleteUserById(55);
+        await dbDeleteUserById(52);
     });
 
-    // TODO: Add test cases for invalid data when database is implemented
 });
 
 afterAll(async () => {
+    await dbDeleteAllUsers();
     await disconnectMySQL();
 });

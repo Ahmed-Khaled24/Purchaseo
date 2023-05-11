@@ -1,13 +1,23 @@
-import dotenv from 'dotenv';
 
-dotenv.config();
-
-const keys = {
+export = {
 	PORT: process.env.PORT,
 	DB_HOST_NAME: process.env.TEST_DB_HOST_NAME,
 	DB_USERNAME: process.env.TEST_DB_USERNAME,
 	DB_USER_PASSWORD: process.env.TEST_DB_USER_PASSWORD,
 	DB_NAME: process.env.TEST_DB_NAME,
+	REDIS_HOST: process.env.TEST_REDIS_HOST,
+	REDIS_PORT: process.env.TEST_REDIS_PORT,
+	GOOGLE_CLIENT_ID: process.env.DEV_GOOGLE_CLIENT_ID,
+	GOOGLE_CLIENT_SECRET: process.env.DEV_GOOGLE_CLIENT_SECRET,
+	FACEBOOK_CLIENT_ID: process.env.DEV_FACEBOOK_CLIENT_ID,
+	FACEBOOK_CLIENT_SECRET: process.env.DEV_FACEBOOK_CLIENT_SECRET,
+	SSL_CERT: process.env.DEV_SSL_CERT,
+	SSL_KEY: process.env.DEV_SSL_KEY,
+	COOKIE_KEY1: process.env.DEV_COOKIE_SECRET_KEY_1,
+	COOKIE_KEY2: process.env.DEV_COOKIE_SECRET_KEY_2,
+	JWT_SECRET: process.env.DEV_JWT_SECRET,
+	FRONT_URL: process.env.FRONT_URL_DEV,
+	MAIL_SERVER: process.env.DEV_MAIL_SERVER,
+	MAIL_PORT: process.env.DEV_MAIL_PORT,
 };
 
-export default keys;

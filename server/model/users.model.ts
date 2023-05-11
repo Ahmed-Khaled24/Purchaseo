@@ -1,60 +1,183 @@
-import { RowDataPacket } from "mysql2";
-import { dbConnection } from "../service/mysql";
+import { OkPacket, RowDataPacket } from "mysql2";
+import { dbConnection } from "../services/mysql";
+import { User } from "../types/User";
+import { encryptPassword } from "../util/bcrypt";
+import ErrorWithStatusCode from "../util/classes/ErrorWithStatusCode";
+import { constructQueryFromObject } from "../util/query.constructor";
 
-async function getUserById(id: string) : Promise<RowDataPacket> {
-    const [rows, fields] = await dbConnection.execute("SELECT * FROM user WHERE user_id = ?", [id]);
-    const ResultRows = rows as RowDataPacket[];
-    return ResultRows[0];
-};
+//TODO: return the users as objects of type User
 
-async function getUserByEmail(email: string) : Promise<RowDataPacket> {
-    const [rows, fields] = await dbConnection.execute("SELECT * FROM user WHERE email = ?", [email]);
-    const ResultRows = rows as RowDataPacket[];
-    return ResultRows[0];
+//----------------------GET----------------------//
+export async function dbGetAllUsers(): Promise<User[]> {
+    const [rows] = await dbConnection.execute("SELECT * FROM user");
+    if ((rows as RowDataPacket[]).length === 0) {
+        throw new ErrorWithStatusCode("Users not found", 404);
+    }
+    return rows as User[];
+}
+export async function dbGetUser(filter: Partial<User>) {
+    const query = constructQueryFromObject("user", "select", {}, filter);
+    const [rows] = await dbConnection.execute(query.query, query.queryValues);
+    if ((rows as RowDataPacket[]).length === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return rows as User[];
 }
 
-async function getUsersByName(name: string) : Promise<RowDataPacket[]> {
-    const [rows, fields] = await dbConnection.execute("SELECT * FROM user WHERE name = ?", [name]);
-    const ResultRows = rows as RowDataPacket[];
-    return ResultRows;
+export async function dbGetUserById(id: string): Promise<User> {
+    const [rows] = await dbConnection.execute(
+        "SELECT * FROM user WHERE user_id = ?",
+        [id]
+    );
+    if ((rows as RowDataPacket[]).length === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return (rows as User[])[0];
 }
 
+export async function dbGetUserByEmail(email: string): Promise<User> {
+    const [rows] = await dbConnection.execute(
+        "SELECT * FROM user WHERE email = ?",
+        [email]
+    );
+    console.log("***************************");
+    console.log("dbGetUserByEmail");
+    console.table(rows);
+    console.log("***************************");
+
+    if ((rows as RowDataPacket[]).length === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return (rows as User[])[0];
+}
+
+export async function dbGetUsersByName(name: string): Promise<User[]> {
+    const [rows] = await dbConnection.execute(
+        "SELECT * FROM user WHERE name = ?",
+        [name]
+    );
+    if ((rows as RowDataPacket[]).length === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return rows as User[];
+}
+
+export async function dbGetUserBySocialId(socialId: string): Promise<User> {
+    const [rows] = await dbConnection.execute(
+        "SELECT * FROM user WHERE social_id = ?",
+        [socialId]
+    );
+    if ((rows as RowDataPacket[]).length === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return (rows as User[])[0];
+}
+//-----------------------------------------------------------ADD--------------------------------------------------------------------------//
 // Change user type when we establish the user model
-async function addUser( {name, email, password}:{name: string, email: string, password: string}) : Promise<boolean> {
-    const [rows, fields] = await dbConnection.execute("INSERT INTO user (name, email, password) VALUES (?, ?, ?)", [name, email, password]);
-    const ResultRows = rows as RowDataPacket[];
-    return ResultRows? true : false;
+export async function dbAddUserEncrypted(user: Partial<User>): Promise<User> {
+    //hash password
+    if (user.password) {
+        const encryptedPassword = await encryptPassword(user.password);
+        user.password = encryptedPassword;
+    }
+    let { query, queryValues } = constructQueryFromObject(
+        "user",
+        "insert",
+        user,
+        {}
+    );
+    console.log({ query, queryValues });
+    const [rows] = await dbConnection.execute(query, queryValues);
+    if ((rows as RowDataPacket[]).length === 0) {
+        throw new ErrorWithStatusCode("User couldn't be inserted", 500);
+    }
+    return (rows as User[])[0];
 }
 
-// waiting for the user model to know what to update
-async function updateUserByEmail({email, update}:{email: string ,update: any}) : Promise<boolean> {
-    let updateParams = Object.keys(update).map((key) => {
-        return `${key} = ?`
-    });
-    let query = `UPDATE user SET ${updateParams.join(", ")} WHERE email = ?` ;
-    console.log([...Object.values(update),email])
-    const [rows, fields] = await dbConnection.execute(query, [...Object.values(update),email]);
-    const ResultRows = rows as RowDataPacket[];
-    return ResultRows? true : false;
+//-----------------------------------------------------------UPDATE--------------------------------------------------------------------------//
+
+// TODO: waiting for the user model to know what to update
+export async function dbUpdateUser({
+    filter,
+    update
+}: {
+    filter: Partial<User>;
+    update: Partial<User>;
+}): Promise<User> {
+    if(update.password){
+        const encryptedPassword = await encryptPassword(update.password);
+        update.password = encryptedPassword;
+    }
+    const { query, queryValues } = constructQueryFromObject(
+        "user",
+        "update",
+        update,
+        filter
+    );
+    const [rows] = await dbConnection.execute(query, queryValues);
+    if ((rows as OkPacket).affectedRows === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return (rows as User[])[0];
 }
 
-async function deleteUserById(id: number) : Promise<boolean> {
-    const [rows, fields] = await dbConnection.execute("DELETE FROM user WHERE id = ?", [id]);
-    const ResultRows = rows as RowDataPacket[];
-    return ResultRows? true : false;
+export async function dbUpdateUserByEmail(email:string, update: Partial<User>){
+    if(update.password){
+        const encryptedPassword = await encryptPassword(update.password);
+        update.password = encryptedPassword;
+    }
+    const {query, queryValues} = constructQueryFromObject("user", "update",update, {email}); 
+    const [rows] = await dbConnection.execute(query, queryValues);
+    if ((rows as OkPacket).affectedRows === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return (rows as User[])[0];
 }
 
-async function deleteUserByEmail(email: string) : Promise<boolean> {
-    const [rows, fields] = await dbConnection.execute("DELETE FROM user WHERE email = ?", [email]);
-    const ResultRows = rows as RowDataPacket[];
-    return ResultRows? true : false;
+export async function dbUpdateUserById(id: number, update: Partial<User>) {
+    if(update.password){
+        const encryptedPassword = await encryptPassword(update.password);
+        update.password = encryptedPassword;
+    }
+    const { query, queryValues } = constructQueryFromObject(
+        "user",
+        "update",
+        update,
+        { user_id: id }
+    );
+    const [rows] = await dbConnection.execute(query, queryValues);
+    if ((rows as OkPacket).affectedRows === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return (rows as User[])[0];
+}
+//-----------------------------------------------------------DELETE--------------------------------------------------------------------------//
+export async function dbDeleteAllUsers(): Promise<string> {
+    const query = "DELETE FROM user";
+    const [rows] = await dbConnection.execute(query);
+    // if ((rows as OkPacket).affectedRows === 0) {
+    //     throw new ErrorWithStatusCode("table empty", 404);
+    // }
+    return `${(rows as OkPacket).affectedRows} rows deleted from user table` ;
+}
+export async function dbDeleteUserById(id: number): Promise<string> {
+    const [rows] = await dbConnection.execute(
+        "DELETE FROM user WHERE user_id = ?",
+        [id]
+    );
+    if ((rows as OkPacket).affectedRows === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return `user ${id} deleted from user table` ;
 }
 
-export { getUserById,
-         getUserByEmail,
-         getUsersByName,
-         addUser,
-         deleteUserById,
-         deleteUserByEmail,
-         updateUserByEmail 
-        };
+export async function dbDeleteUserByEmail(email: string): Promise<string> {
+    const [rows] = await dbConnection.execute(
+        "DELETE FROM user WHERE email = ?",
+        [email]
+    );
+    if ((rows as OkPacket).affectedRows === 0) {
+        throw new ErrorWithStatusCode("User not found", 404);
+    }
+    return `user ${email} deleted from user table` ;
+}

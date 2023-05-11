@@ -1,4 +1,4 @@
-import { OkPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
+import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 
 import { jsToSQLDate } from '../util/DB/dateConverter';
 import {
@@ -6,7 +6,7 @@ import {
 	generateInsertQuery,
 	generateUpdateQuery,
 } from '../util/DB/queryGenerators';
-import { dbConnection } from '../service/mysql';
+import { dbConnection } from '../services/mysql';
 import { Product } from '../types/Product';
 
 // alias for return value from execute()
@@ -25,7 +25,7 @@ export async function dbGetProductById(product_id: number) {
 }
 
 export async function dbAddNewProduct(
-	product: Product
+    product: Product
 ): Promise<QueryResponse> {
 	let { preparedQuery, values } = generateInsertQuery('product', product);
 	preparedQuery = preparedQuery + ' RETURNING product_id';

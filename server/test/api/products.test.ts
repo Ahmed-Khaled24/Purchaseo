@@ -1,7 +1,7 @@
 import superTest, { Response } from 'supertest';
 
 import api from '../../api';
-import { connectMySQL, disconnectMySQL } from '../../service/mysql';
+import { connectMySQL, disconnectMySQL } from '../../services/mysql';
 import {} from '../../model/products.model';
 
 function generateRandomId() {
@@ -9,7 +9,7 @@ function generateRandomId() {
 }
 
 beforeAll(async () => {
-	await connectMySQL();
+    await connectMySQL();
 });
 
 describe('POST /products endpoint', () => {});
@@ -19,5 +19,5 @@ describe('DELETE /products endpoint', () => {});
 describe('PATCH /products endpoint', () => {});
 
 afterAll(async () => {
-	await disconnectMySQL();
+    await disconnectMySQL();
 });

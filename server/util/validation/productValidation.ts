@@ -11,7 +11,6 @@ export function validateProductData(product: Product) {
 		approval_status,
 		discount,
 		brand,
-		approved_data,
 		added_by,
 		product_name,
 		inventory,

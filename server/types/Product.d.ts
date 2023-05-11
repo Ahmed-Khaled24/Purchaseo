@@ -9,7 +9,7 @@ export interface Product {
 	approval_status?: ApprovalStatus;
 	discount?: number;
 	brand?: string;
-	approved_data?: Date;
+	approve_date?: string;
 	added_by: number;
 	product_name: string;
 	inventory: number;

@@ -6,13 +6,13 @@ import {
 	getProductById,
 	updateProduct,
 } from '../controller/products.controller';
-import { mwValidateProductData } from '../middlewares/validation/productValidation.middleware';
+import { validateProductDate } from '../middlewares/validation/productValidation.middleware';
 
 const productRouter = Router();
 
 productRouter
-	.post('/', mwValidateProductData, addNewProduct)
-	.patch('/', updateProduct)
+	.post('/', validateProductDate(true), addNewProduct)
+	.patch('/', validateProductDate(false), updateProduct)
 	.get('/:id', getProductById)
 	.delete('/:id', deleteProduct);
 

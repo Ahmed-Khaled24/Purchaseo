@@ -1,7 +1,7 @@
 import ErrorWithStatusCode from '../../util/classes/ErrorWithStatusCode';
 import { Product } from '../../types/Product';
 
-export function validateProductData(product: Product) {
+export function validateProductData(product: Product, isNew: boolean) {
 	const {
 		product_id,
 		sold_quantity,
@@ -24,10 +24,10 @@ export function validateProductData(product: Product) {
 	validateString(approval_status, false, 'approval_status');
 	validateNumber(discount, false, 'discount');
 	validateString(brand, false, 'brand');
-	validateString(product_name, true, 'product_name');
-	validateNumber(added_by, true, 'added_by');
-	validateNumber(inventory, true, 'inventory');
-	validateNumber(price, true, 'price');
+	validateString(product_name, isNew, 'product_name');
+	validateNumber(added_by, isNew, 'added_by');
+	validateNumber(inventory, isNew, 'inventory');
+	validateNumber(price, isNew, 'price');
 }
 
 export function validateNumber(

@@ -76,7 +76,9 @@ describe('Test validateProductData function', () => {
 			inventory: 1,
 			price: 1,
 		};
-		expect(() => validateProductData(product as Product)).toThrowError();
+		expect(() =>
+			validateProductData(product as Product, true)
+		).toThrowError();
 	});
 	test('given a product object without mandatory field "added_by" it should throw error', () => {
 		const product = {
@@ -84,7 +86,9 @@ describe('Test validateProductData function', () => {
 			inventory: 1,
 			price: 1,
 		};
-		expect(() => validateProductData(product as Product)).toThrowError();
+		expect(() =>
+			validateProductData(product as Product, true)
+		).toThrowError();
 	});
 	test('given a product object without mandatory field "inventory" it should throw error', () => {
 		const product = {
@@ -92,7 +96,9 @@ describe('Test validateProductData function', () => {
 			added_by: 1,
 			price: 1,
 		};
-		expect(() => validateProductData(product as Product)).toThrowError();
+		expect(() =>
+			validateProductData(product as Product, true)
+		).toThrowError();
 	});
 	test('given a product object without mandatory field "price" it should throw error', () => {
 		const product = {
@@ -100,7 +106,9 @@ describe('Test validateProductData function', () => {
 			added_by: 1,
 			inventory: 1,
 		};
-		expect(() => validateProductData(product as Product)).toThrowError();
+		expect(() =>
+			validateProductData(product as Product, true)
+		).toThrowError();
 	});
 	test('given a product object with all mandatory fields it should not throw error', () => {
 		const product = {
@@ -110,7 +118,7 @@ describe('Test validateProductData function', () => {
 			price: 1,
 		};
 		expect(() =>
-			validateProductData(product as Product)
+			validateProductData(product as Product, true)
 		).not.toThrowError();
 	});
 	test('given a product object with optional field but invalid value it should throw error', () => {
@@ -121,6 +129,8 @@ describe('Test validateProductData function', () => {
 			price: 1,
 			product_id: -1,
 		};
-		expect(() => validateProductData(product as Product)).toThrowError();
+		expect(() =>
+			validateProductData(product as Product, true)
+		).toThrowError();
 	});
 });

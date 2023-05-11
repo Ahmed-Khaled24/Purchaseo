@@ -7,6 +7,6 @@ const globalRouter = Router();
 
 globalRouter.use('/user', userRouter);
 globalRouter.use('/product', productRouter);
-globalRouter.use('/category', categoryRouter)
+globalRouter.use('/categories', categoryRouter)
 
 export default globalRouter;

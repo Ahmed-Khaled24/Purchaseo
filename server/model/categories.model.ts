@@ -1,27 +1,37 @@
+import { OkPacket, RowDataPacket } from "mysql2";
 import { dbConnection } from "../service/mysql";
+import ErrorWithStatusCode from "../util/classes/ErrorWithStatusCode";
 
-
-export async function dbGetProductsByCateogry(cateogry: any): Promise<any> {
+export async function dbGetProductsByCateogry(categories: any): Promise<any> {
     // db call
-    switch (cateogry) {
-        case 'clothes':
-            return ["clothes1", "clothes2"];
-        case 'clothesMen':
-            return ["clothesMen1", "clothesMen2"];
-        case 'clothesWomen':
-            return ["clothesWomen'1", "clothesWomen'2"];
-        case 'clothesKids':
-            return ["clothesKids1", "clothesKids2"];
-        case 'homeAppkiance':
-            return ["homeAppkiance1", "homeAppkiance2"];
-        case 'electronics':
-            return ["electronics1", "electronics2"];
-        case 'electronicsPhones':
-            return ["electronicsPhones1", "electronicsPhones2"];
-        case 'electronicsComputers':
-            return ["electronicsComputers1", "electronicsComputers2"];
+    console.log(categories.length);
+
+
+    if (typeof categories == 'string') {
+        const query = `SELECT product.product_id , product_name
+        FROM product , product_category
+        WHERE  product.product_id= product_category.product_id AND category_name IN ('${categories}')
+        GROUP BY product_id
+        HAVING COUNT(DISTINCT category_name) = 1
+        AND COUNT(*) = 1`;
+        const [rows] = await dbConnection.execute(query);
+        return (rows as RowDataPacket[]);
+    }
+    else {
+
+        const query = `SELECT product.product_id , product_name
+        FROM product , product_category
+        WHERE  product.product_id= product_category.product_id  AND category_name IN ('${categories.toString().replaceAll(',', "','")}')
+        GROUP BY product_id
+        HAVING COUNT(DISTINCT category_name) = ${categories.length}
+        AND COUNT(*) = ${categories.length} `;
+        console.log(query);
+        const [rows] = await dbConnection.execute(query);
+        return (rows as RowDataPacket[]);
 
     }
+
+
 }
 
 export async function dbGetProductsWithTypeTool(tool: any): Promise<any> {

@@ -3,10 +3,10 @@ import keys from '../config/keys'
 
 let dbConnection: mysql.Connection;
 let connectionData = {
-	host: keys.DB_HOST_NAME,
-	user: keys.DB_USERNAME,
-	password: keys.DB_USER_PASSWORD,
-	database: keys.DB_NAME,
+    host: keys.DB_HOST_NAME,
+    user: keys.DB_USERNAME,
+    password: keys.DB_USER_PASSWORD,
+    database: keys.DB_NAME,
 };
 
 async function connectMySQL(): Promise<mysql.Connection> {
@@ -16,7 +16,7 @@ async function connectMySQL(): Promise<mysql.Connection> {
     catch (error) {
         console.log(error);
     }
-	return dbConnection;
+    return dbConnection;
 }
 
 async function disconnectMySQL() {
@@ -27,4 +27,4 @@ async function disconnectMySQL() {
     }
 }
 
-export { connectMySQL, disconnectMySQL, dbConnection};
+export { connectMySQL, disconnectMySQL, dbConnection };

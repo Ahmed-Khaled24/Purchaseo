@@ -1,4 +1,4 @@
-import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
+import { OkPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
 
 import { jsToSQLDate } from '../util/DB/dateConverter';
 import {
@@ -19,13 +19,21 @@ type QueryResponse =
 	| never;
 
 export async function dbGetProductById(product_id: number) {
-	const preparedQuery = `SELECT * FROM product WHERE product_id = ?`;
-	const [rows] = await dbConnection.execute(preparedQuery, [product_id]);
-	return rows;
+	const preparedQuery1 = `SELECT * FROM product WHERE product_id = ?`;
+	const preparedQuery2 = `SELECT * FROM product_image WHERE product_id = ?`;
+	const preparedQuery3 = `SELECT * FROM product_category WHERE product_id = ?`;
+	const product = await dbConnection.execute(preparedQuery1, [product_id]);
+	const images = await dbConnection.execute(preparedQuery2, [product_id]);
+	const categories = await dbConnection.execute(preparedQuery3, [product_id]);
+	return {
+		product: (product as RowDataPacket[])[0][0],
+		images: images[0],
+		categories: categories[0],
+	};
 }
 
 export async function dbAddNewProduct(
-    product: Product
+	product: Product
 ): Promise<QueryResponse> {
 	let { preparedQuery, values } = generateInsertQuery('product', product);
 	preparedQuery = preparedQuery + ' RETURNING product_id';

@@ -3,20 +3,16 @@ import { Router } from 'express';
 import {
 	addNewProduct,
 	deleteProduct,
-	getProduct,
+	getProductById,
 	updateProduct,
 } from '../controller/products.controller';
 
 const productRouter = Router();
 
 productRouter
-	.route('/')
-	.post(addNewProduct)
-	.patch(updateProduct)
-	
-
-productRouter.route('/:id')
-	.get(getProduct)
-	.delete(deleteProduct);
+	.post('/', addNewProduct)
+	.patch('/', updateProduct)
+	.get('/:id', getProductById)
+	.delete('/:id', deleteProduct);
 
 export default productRouter;

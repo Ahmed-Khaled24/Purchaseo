@@ -1,10 +1,16 @@
 import { OkPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
 
+import { jsToSQLDate } from '../util/DB/dateConverter';
+import {
+	generateInsertMultipleQuery,
+	generateInsertQuery,
+	generateUpdateQuery,
+} from '../util/DB/queryGenerators';
 import { dbConnection } from '../service/mysql';
 import { Product } from '../types/Product';
-import ErrorWithStatusCode from '../util/classes/ErrorWithStatusCode';
 
-type QueryResponse = // alias for return value from execute()
+// alias for return value from execute()
+type QueryResponse =
 	| RowDataPacket[]
 	| RowDataPacket[][]
 	| OkPacket
@@ -12,49 +18,121 @@ type QueryResponse = // alias for return value from execute()
 	| ResultSetHeader
 	| never;
 
-    
-export async function dbGetProductById(id: any): Promise<QueryResponse> {
-	const query = 'SELECT * FROM products WHERE id = ?';
-	const [rows] = await dbConnection.execute(query, [id]);
-	if ((rows as RowDataPacket[]).length === 0) {
-		throw new ErrorWithStatusCode('Product not found', 404);
-	}
+export async function dbGetProductById(product_id: number) {
+	const preparedQuery = `SELECT * FROM product WHERE product_id = ?`;
+	const [rows] = await dbConnection.execute(preparedQuery, [product_id]);
 	return rows;
 }
 
 export async function dbAddNewProduct(
 	product: Product
 ): Promise<QueryResponse> {
-	const { id, name, qty, price } = product;
-	let query = 'INSERT INTO products (name, qty, price) VALUES (?, ?, ?)';
-	if (id) {
-		query = 'INSERT INTO products (id, name, qty, price) VALUES (?, ?, ?, ?)';
-		const [rows] = await dbConnection.execute(query, [id, name, qty, price]);
-		return rows;
-	}
-	const [rows] = await dbConnection.execute(query, [name, qty, price]);
+	let { preparedQuery, values } = generateInsertQuery('product', product);
+	preparedQuery = preparedQuery + ' RETURNING product_id';
+	const [rows] = await dbConnection.execute(preparedQuery, values);
 	return rows;
 }
 
-export async function dbDeleteProductById(id: any): Promise<QueryResponse> {
-	const query = 'DELETE FROM products WHERE id = ?';
-	const [rows] = await dbConnection.execute(query, [id]);
-	if ((rows as ResultSetHeader).affectedRows === 0) {
-		throw new ErrorWithStatusCode('Product not found', 404);
-	}
-	return rows;
-}
-
-export async function dbUpdateProductById(
-	id: any,
-	product: Product
+export async function dbAddImagesToAProduct(
+	product_id: number,
+	imagesURLs: string[]
 ): Promise<QueryResponse> {
-	const { name, qty, price } = product;
-	const query =
-		'UPDATE products SET name = ?, qty = ?, price = ? WHERE id = ?';
-	const [rows] = await dbConnection.execute(query, [name, qty, price, id]);
-	if ((rows as ResultSetHeader).affectedRows === 0) {
-		throw new ErrorWithStatusCode('Product not found', 404);
-	}
+	// according to the schema
+	let dataRows = imagesURLs.map((imageURL) => ({
+		product_id,
+		file_path: imageURL,
+		name: 'TODO: remove me',
+	}));
+	let { preparedQuery, values } = generateInsertMultipleQuery(
+		'product_image',
+		dataRows
+	);
+	preparedQuery = preparedQuery + ' RETURNING *';
+	const [rows] = await dbConnection.execute(preparedQuery, values);
 	return rows;
 }
+
+export async function dbAddCategoriesToProduct(
+	product_id: number,
+	categories: string[]
+): Promise<QueryResponse> {
+	let dataRows = categories.map((category) => ({
+		category_name: category,
+		product_id,
+	}));
+	let { preparedQuery, values } = generateInsertMultipleQuery(
+		'product_category',
+		dataRows
+	);
+	preparedQuery = preparedQuery + ' RETURNING *';
+	const [rows] = await dbConnection.execute(preparedQuery, values);
+	return rows;
+}
+
+export async function dbUpdateProduct(
+	product_id: number,
+	product: Partial<Product>
+) {
+	let { preparedQuery, values } = generateUpdateQuery(
+		'product',
+		product,
+		product_id,
+		'product_id'
+	);
+	// RETURNING * is not supported in mariadb with UPDATE
+	console.log(preparedQuery, values);
+	const [rows] = await dbConnection.execute(preparedQuery, values);
+	return rows;
+}
+
+export async function dbApproveProduct(
+	product_id: number,
+	approved_by: number
+): Promise<QueryResponse> {
+	const { preparedQuery, values } = generateUpdateQuery(
+		'product',
+		{
+			approved_by,
+			approval_status: 'approved',
+			approved_date: jsToSQLDate(new Date()),
+		},
+		product_id,
+		'product_id'
+	);
+	const [rows] = await dbConnection.execute(preparedQuery, values);
+	return rows;
+}
+
+export async function dbRejectProduct(
+	product_id: number,
+	approved_by: number
+): Promise<QueryResponse> {
+	const { preparedQuery, values } = generateUpdateQuery(
+		'product',
+		{
+			approved_by,
+			approval_status: 'rejected',
+			approved_date: jsToSQLDate(new Date()),
+		},
+		product_id,
+		'product_id'
+	);
+	const [rows] = await dbConnection.execute(preparedQuery, values);
+	return rows;
+}
+
+export async function dbDeleteProductById(product_id: number) {
+	const preparedQuery = `DELETE FROM product WHERE product_id = ? RETURNING *`;
+	const [rows] = await dbConnection.execute(preparedQuery, [product_id]);
+	return rows;
+}
+
+// ⚠️ ⚠️  WARNING: this function for testing only
+export async function dbDeleteAllProducts() {
+	const preparedQuery = `DELETE FROM product`;
+	const [rows] = await dbConnection.execute(preparedQuery);
+	return rows;
+}
+
+// TODO: add a function to delete image from product_image table
+// TODO: add a function to delete category from product_category table

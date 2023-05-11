@@ -1,5 +1,3 @@
-
-
 export = {
 	PORT: process.env.PORT,
 	DB_HOST_NAME: process.env.DEV_DB_HOST_NAME,

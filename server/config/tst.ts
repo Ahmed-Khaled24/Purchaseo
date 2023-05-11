@@ -1,4 +1,3 @@
-
 export = {
 	PORT: process.env.PORT,
 	DB_HOST_NAME: process.env.TEST_DB_HOST_NAME,
@@ -20,4 +19,3 @@ export = {
 	MAIL_SERVER: process.env.DEV_MAIL_SERVER,
 	MAIL_PORT: process.env.DEV_MAIL_PORT,
 };
-

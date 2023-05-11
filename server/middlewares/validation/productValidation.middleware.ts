@@ -9,6 +9,6 @@ export function mwValidateProductData(req: Request, res: Response) {
 			data: 'product object is not provided in request body',
 		});
 	}
-	// product.added_by = req.user?.id;
-    validateProductData(product);
+	product.added_by = req.user?.user_id;
+	validateProductData(product);
 }

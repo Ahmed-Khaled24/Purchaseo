@@ -6,7 +6,7 @@ import {
     getUserByEmail,
     getUserById,
 } from "../controller/user.controller";
-import { mwValidateData } from "../middlewares/data-validation/user.validations.middleware";
+import { mwValidateData } from "../middlewares/validation/user.validations.middleware";
 
 const userRouter = Router();
 

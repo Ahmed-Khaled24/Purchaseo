@@ -41,7 +41,6 @@ export function validateNumber(
 			theNumber.match(/\d+/g) &&
 			Number(theNumber) >= 0) ||
 		(typeof theNumber === 'number' && theNumber >= 0);
-	console.log(`${theNumber} is valid: ${isValid}`);
 	if (required && !theNumber) {
 		// required but not provided
 		throw new ErrorWithStatusCode(

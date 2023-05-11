@@ -8,6 +8,7 @@ import {
 } from '../util/DB/queryGenerators';
 import { dbConnection } from '../services/mysql';
 import { Product } from '../types/Product';
+import ErrorWithStatusCode from '../util/classes/ErrorWithStatusCode';
 
 // alias for return value from execute()
 type QueryResponse =
@@ -132,6 +133,9 @@ export async function dbRejectProduct(
 export async function dbDeleteProductById(product_id: number) {
 	const preparedQuery = `DELETE FROM product WHERE product_id = ? RETURNING *`;
 	const [rows] = await dbConnection.execute(preparedQuery, [product_id]);
+	if ((rows as RowDataPacket[]).length === 0) {
+		throw new ErrorWithStatusCode('Product not found', 404);
+	}
 	return rows;
 }
 

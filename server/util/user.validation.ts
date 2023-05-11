@@ -1,7 +1,7 @@
 import { User } from "../types/User";
 import ErrorWithStatusCode from "./classes/ErrorWithStatusCode";
 
-function validateUsername(name: string): boolean {
+export function validateUserName(name: string): boolean {
     // username must have at least 3 characters (letters and numbers only
     if (!name) {
         throw new ErrorWithStatusCode("username required", 400);
@@ -15,7 +15,7 @@ function validateUsername(name: string): boolean {
     return true;
 }
 
-function validateEmail(email: string): boolean {
+export function validateEmail(email: string): boolean {
     // email must have @ and . and at least 2 characters after the dot
     if (!email) {
         throw new ErrorWithStatusCode("email required", 400);
@@ -29,7 +29,7 @@ function validateEmail(email: string): boolean {
     return true;
 }
 
-function validatePassword(password: string): boolean {
+export function validatePassword(password: string): boolean {
     // password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character
     if (!password) {
         throw new ErrorWithStatusCode("password required", 400);
@@ -47,21 +47,21 @@ function validatePassword(password: string): boolean {
     return true;
 }
 
-function validateRole(role: string): boolean {
+export function validateRole(role: string): boolean {
     // role must be either buyer or seller
     if (!role) {
         throw new ErrorWithStatusCode("role required", 400);
     }
-    if (!role.match(/^(Customer|Seller|Admin|Company)$/)) {
+    if (!role.match(/^(Customer|Seller|Company|Admin)$/)) {
         throw new ErrorWithStatusCode(
-            "role must be either Customer, Seller, Admin or Company",
+            "role must be either Customer, Seller, Company or Admin",
             400
         );
     }
     return true;
 }
 
-function validateSocialType(socialType: string): boolean {
+export function validateSocialType(socialType: string): boolean {
     // socialType must be either google or local
     if (!socialType) {
         throw new ErrorWithStatusCode("socialType required", 400);
@@ -75,7 +75,7 @@ function validateSocialType(socialType: string): boolean {
     return true;
 }
 
-function validateUserType(userType: string): boolean {
+export function validateUserType(userType: string): boolean {
     // userType must be either Local, Both or Non-Local
     if (!userType) {
         throw new ErrorWithStatusCode("userType required", 400);
@@ -89,7 +89,7 @@ function validateUserType(userType: string): boolean {
     return true;
 }
 
-function validatePhoneNumber(phoneNumber: string): boolean {
+export function validatePhoneNumber(phoneNumber: string): boolean {
     // TODO: ADD more phone numbers for other countries
     // phoneNumber must be 11 digits starting with 01 (Egyptian phone number)
     if (!phoneNumber) {
@@ -104,25 +104,74 @@ function validatePhoneNumber(phoneNumber: string): boolean {
     return true;
 }
 
+export function validateBirthDate(birthDate: Date): boolean {
+    // birthDate must be a valid date
+    if (!birthDate) {
+        throw new ErrorWithStatusCode("birthDate required", 400);
+    }
+    if (isNaN(birthDate.getTime())) {
+        throw new ErrorWithStatusCode("birthDate must be a valid date", 400);
+    }
+    return true;
+}
+
 // type is any till we have a user model
-function validateUser(user: Partial<User>): boolean {
+export function validateUser(user: Partial<User>): boolean {
+    if (!user) throw new ErrorWithStatusCode("user required", 400);
 
-  if(!user) throw new ErrorWithStatusCode("user required", 400);
-
-  if(user.social_type){
-    validateSocialType(user.social_type as string);
-  }
-  if(user.user_type){
-    validateUserType(user.user_type as string);
-  }
+    if (user.social_type) {
+        validateSocialType(user.social_type as string);
+    }
+    if (user.user_type) {
+        validateUserType(user.user_type as string);
+    }
+    if (user.phone_number) {
+        validatePhoneNumber(user.phone_number as string);
+    }
+    if (user.birthDate) {
+        validateBirthDate(user.birthDate as Date);
+    }
 
     return (
-        validateUsername(user.Lname as string) &&
-        validateUsername(user.Fname as string) &&
+        validateUserName(user.Lname as string) &&
+        validateUserName(user.Fname as string) &&
         validateEmail(user.email as string) &&
         validatePassword(user.password as string) &&
         validateRole(user.role as string)
     );
+}
+
+export function validateUserUpdateData(user: Partial<User>): boolean {
+    if (!user) throw new ErrorWithStatusCode("update required", 400);
+
+    if (user.social_type) {
+        validateSocialType(user.social_type as string);
+    }
+    if (user.user_type) {
+        validateUserType(user.user_type as string);
+    }
+    if (user.phone_number) {
+        validatePhoneNumber(user.phone_number as string);
+    }
+    if (user.birthDate) {
+        validateBirthDate(user.birthDate as Date);
+    }
+    if (user.Fname) {
+        validateUserName(user.Fname as string);
+    }
+    if (user.Lname) {
+        validateUserName(user.Lname as string);
+    }
+    if (user.email) {
+        validateEmail(user.email as string);
+    }
+    if (user.password) {
+        validatePassword(user.password as string);
+    }
+    if (user.role) {
+        validateRole(user.role as string);
+    }
+    return true;
 }
 
 export default validateUser;

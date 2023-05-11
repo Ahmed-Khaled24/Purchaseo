@@ -12,8 +12,7 @@ import {
 import ErrorWithStatusCode from "../util/classes/ErrorWithStatusCode";
 import keys from "../config/keys";
 import jwt from "jsonwebtoken";
-import { transporter } from "../services/nodemailer";
-import { sendMail } from "../util/nodemailer.sendMail";
+import { sendMail } from "../services/nodemailer";
 import { redisClient } from "../services/redis";
 import fetch from "node-fetch";
 import axios from "axios";

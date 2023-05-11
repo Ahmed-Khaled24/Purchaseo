@@ -10,7 +10,7 @@ import { connectMySQL } from "./services/mysql";
         cert: fs.readFileSync(keys.SSL_CERT),
         key: fs.readFileSync(keys.SSL_KEY),
     },api);
-	// await connectRedis();
+	await connectRedis();
 	await connectMySQL();
     server.listen(process.env.PORT, () => {
         console.log(`Server is listening on port {${process.env.PORT}}`);

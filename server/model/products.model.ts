@@ -12,7 +12,7 @@ type QueryResponse = // alias for return value from execute()
 	| ResultSetHeader
 	| never;
 
-    
+
 export async function dbGetProductById(id: any): Promise<QueryResponse> {
 	const query = 'SELECT * FROM products WHERE id = ?';
 	const [rows] = await dbConnection.execute(query, [id]);

@@ -4,8 +4,8 @@ import {addNewOrderC, getOrderC, removeOrderC, updateOrderC} from '../controller
 const ordersRouter = Router();
 
 
-userRouter.get('/:id', getOrderC);
-userRouter.route('/')
+ordersRouter.get('/:id', getOrderC);
+ordersRouter.route('/')
 .post(addNewOrderC)
 .delete(removeOrderC)
 .put(updateOrderC)

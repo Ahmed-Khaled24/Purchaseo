@@ -3,9 +3,10 @@ import {addNewOrder, getOrder, removeOrder, updateOrder} from '../model/orders.m
 
 
 async function addNewOrderC(req: Request, res: Response){
-    let {} = req.body;
+    let order = req.body;
+    // We should validate the user data here but we still don't know what to validate yet
     try {
-        await addNewOrder({});
+        await addNewOrder(order);
         return res.status(200).json({message: 'New order added successfully'});
 
     } catch (error) {
@@ -41,8 +42,8 @@ async function removeOrderC (req: Request, res: Response) {
 };
 
 
-async function updateOrder (req: Request, res: Response) {
-    let { id, update} = req.body;
+async function updateOrderC (req: Request, res: Response) {
+    let {id, update} = req.body;
     update = JSON.parse(update);
     try {
         await updateOrder({id, update});

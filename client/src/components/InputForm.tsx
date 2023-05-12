@@ -1,5 +1,6 @@
 import React from 'react'
 import Label from './Label';
+import { NavLink } from 'react-router-dom';
 
 export default function InputForm(){
     const [email_El,setEmail] = React.useState({
@@ -59,9 +60,11 @@ export default function InputForm(){
                 change = {handleChange}
                 validation = {email_El.checkpass}
             />
-            <footer className='footer'>
+            <footer className='footer'>      
             <p id = 'footer-t'>Forget Password ?</p>
+            <NavLink to={'/Reset-Password'}>
             <a href='' id='foote--c'>reset password</a>
+            </NavLink>
         </footer>
         <button className='form--butt' onClick={handleSubmit}>Login</button>
         <div className='checkk'>
@@ -75,7 +78,9 @@ export default function InputForm(){
             <label htmlFor='remember'  >remember me</label>
         </div>
         <footer className='footer'>
+            <NavLink to={'/Sign-up'}>
             <p id = 'footer-t'>Do not have an account ?</p>
+            </NavLink>
             <a href='' id='foote--c'>Create one</a>
         </footer>
 

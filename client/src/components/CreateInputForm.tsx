@@ -1,5 +1,6 @@
 import React from 'react'
 import Label from './Label';
+import { NavLink } from 'react-router-dom';
 
 export default function CreateInputForm(){
     const [email_El,setEmail] = React.useState({
@@ -106,7 +107,9 @@ export default function CreateInputForm(){
             <label htmlFor='check'  >iam a seller</label>
         </div>
         <footer className='footer'>
-            <p id = 'footer-t'>Already a member ?</p>
+        <NavLink to={'/Sign-in'}>
+        <p id = 'footer-t'>Already a member ?</p>
+        </NavLink>
             <a href='' id='foote--c'>Login</a>
         </footer>
         </form>

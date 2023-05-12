@@ -1,5 +1,5 @@
-import ErrorWithStatusCode from '../../util/classes/ErrorWithStatusCode';
 import { Product } from '../../types/Product';
+import { validateNumber, validateString } from './primitiveValidation';
 
 export function validateProductData(product: Product, isNew: boolean) {
 	const {
@@ -28,69 +28,4 @@ export function validateProductData(product: Product, isNew: boolean) {
 	validateNumber(added_by, isNew, 'added_by');
 	validateNumber(inventory, isNew, 'inventory');
 	validateNumber(price, isNew, 'price');
-}
-
-export function validateNumber(
-	theNumber: unknown,
-	required: boolean,
-	fieldName: string
-) {
-	let isValid =
-		(typeof theNumber === 'string' && // string but only numbers
-			theNumber.match(/\d+/g) &&
-			Number(theNumber) >= 0) ||
-		(typeof theNumber === 'number' && theNumber >= 0);
-	if (required && !theNumber) {
-		// required but not provided
-		throw new ErrorWithStatusCode(
-			`mandatory field "${fieldName}" is not provided in the product object`,
-			400
-		);
-	}
-	if (required && !isValid) {
-		// required and provided but invalid
-		throw new ErrorWithStatusCode(
-			`${fieldName} is invalid, it must be a number greater than or equal to zero`,
-			400
-		);
-	}
-	if (!required && theNumber && !isValid) {
-		// not required but provided and invalid
-		throw new ErrorWithStatusCode(
-			`${fieldName} is invalid, it must be a number greater than or equal to zero`,
-			400
-		);
-	}
-}
-
-export function validateString(
-	theString: unknown,
-	required: boolean,
-	fieldName: string
-) {
-	if (theString === '') {
-		theString = ' ';
-	}
-	let isValid = typeof theString === 'string' && theString.trim().length >= 1;
-	if (required && !theString) {
-		// required but not provided
-		throw new ErrorWithStatusCode(
-			`mandatory field "${fieldName}" is not provided in the product object`,
-			400
-		);
-	}
-	if (required && !isValid) {
-		// required and provided but invalid
-		throw new ErrorWithStatusCode(
-			`${fieldName} is invalid, it must be a non empty string`,
-			400
-		);
-	}
-	if (!required && theString && !isValid) {
-		// not required but provided and invalid
-		throw new ErrorWithStatusCode(
-			`${fieldName} is invalid, it must be a non empty string`,
-			400
-		);
-	}
 }

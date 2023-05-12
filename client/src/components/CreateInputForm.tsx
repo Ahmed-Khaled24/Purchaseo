@@ -105,10 +105,10 @@ export default function CreateInputForm(){
             />
             <label htmlFor='check'  >iam a seller</label>
         </div>
-        <footer className='footer'>
+        <div className='footer'>
             <p id = 'footer-t'>Already a member ?</p>
             <a href='' id='foote--c'>Login</a>
-        </footer>
+        </div>
         </form>
     )
 }

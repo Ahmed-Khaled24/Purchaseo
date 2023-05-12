@@ -10,7 +10,11 @@ import AddReview from './components/Add-Review'
 import Footer from './components/Footer'
 import Reviews from './components/Reviews'
 import OwnerProduct from './components/Owner-Product'
-
+import UserPage from './components/UserPage';
+import Container from './components/Container'
+import CreateAccountContainer from './components/CreateAccountContainer'
+import ResetPass from './components/ResetPass'
+import NewPass from './components/NewPass'
 
 function App() {
 
@@ -38,6 +42,9 @@ function App() {
               <Route path="add-review" element={<AddReview />} />
             </Route>
             <Route path="/cart" element={<Cart />} />
+            <Route path="/myPage" element={<UserPage />} />
+            <Route path="/me" element={<Container />} />
+
           </Route>
         </Routes>
         <Footer />

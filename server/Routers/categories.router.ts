@@ -6,12 +6,8 @@ const categoryRouter = Router();
 
 
 categoryRouter.get('/', categoryController.getProductsWithCategory);
-
-categoryRouter.get('/tools', categoryController.getProductsWithTypeTool);
-
-
-
-
+categoryRouter.post('/', categoryController.addCategory);
+categoryRouter.get('/:name', categoryController.getProductsWithName);
 
 
 export default categoryRouter;

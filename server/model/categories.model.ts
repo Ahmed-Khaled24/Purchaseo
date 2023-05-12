@@ -4,8 +4,6 @@ import ErrorWithStatusCode from "../util/classes/ErrorWithStatusCode";
 
 export async function dbGetProductsByCateogry(categories: any): Promise<any> {
     // db call
-    console.log(categories.length);
-
 
     if (typeof categories == 'string') {
         const query = `SELECT product.product_id , product_name
@@ -31,10 +29,27 @@ export async function dbGetProductsByCateogry(categories: any): Promise<any> {
 
     }
 
-
 }
-
-export async function dbGetProductsWithTypeTool(tool: any): Promise<any> {
+export async function dbGetProductsByName(name: any): Promise<any> {
     // db call
-    return ['product1', 'product2'];
+
+    const query = `SELECT product_id , product_name
+        FROM product
+        WHERE  product_name like '%${name}%'`;
+    // console.log(query);
+    const [rows] = await dbConnection.execute(query);
+    return (rows as RowDataPacket[]);
+
 }
+export async function dbAddCategory(name: any): Promise<any> {
+    // db call
+
+    const query = `INSERT into category (category_name)
+    VALUES ('${name}');`;
+    // console.log(query);
+    const [rows] = await dbConnection.execute(query);
+    const ResultRows = rows as RowDataPacket[];
+    return ResultRows ? true : false;
+
+}
+

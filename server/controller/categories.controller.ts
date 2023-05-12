@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import {
     dbGetProductsByCateogry,
-    dbGetProductsWithTypeTool
+    dbGetProductsByName,
+    dbAddCategory
 
 } from '../model/categories.model';
 
@@ -9,7 +10,6 @@ import {
 const getProductsWithCategory = async function (req: Request, res: Response) {
     try {
         const categories = req.query.category;
-        console.log(categories);
 
         const products = await dbGetProductsByCateogry(categories);
 
@@ -22,11 +22,12 @@ const getProductsWithCategory = async function (req: Request, res: Response) {
     }
 }
 
-
-const getProductsWithTypeTool = async function (req: Request, res: Response) {
+const getProductsWithName = async function (req: Request, res: Response) {
     try {
-        const toolType = 't';
-        const products = await dbGetProductsWithTypeTool(toolType);
+        const name = req.params.name;
+
+        const products = await dbGetProductsByName(name);
+
         res.status(200).json({ status: 'success', data: products });
     } catch (err) {
         res.status(500).json({
@@ -35,9 +36,21 @@ const getProductsWithTypeTool = async function (req: Request, res: Response) {
         });
     }
 }
+const addCategory = async function (req: Request, res: Response) {
+    let name = req.body.name;
+    try {
+        await dbAddCategory(name);
+        return res.status(200).json({ message: 'New category added successfully' });
+
+    } catch (error) {
+        console.log(`category adding error: ${error}`);
+        return res.status(500).json({ message: 'New category adding failed' });
+    }
+}
+
 
 module.exports = {
     getProductsWithCategory,
-    getProductsWithTypeTool,
-
+    getProductsWithName,
+    addCategory
 }

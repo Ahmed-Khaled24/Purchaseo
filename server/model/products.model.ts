@@ -9,15 +9,8 @@ import {
 import { dbConnection } from '../services/mysql';
 import { Product } from '../types/Product';
 import ErrorWithStatusCode from '../util/classes/ErrorWithStatusCode';
+import { QueryResponse } from '../util/DB/queryResponse';
 
-// alias for return value from execute()
-type QueryResponse =
-	| RowDataPacket[]
-	| RowDataPacket[][]
-	| OkPacket
-	| OkPacket[]
-	| ResultSetHeader
-	| never;
 
 export async function dbGetProductById(product_id: number) {
 	const preparedQuery1 = `SELECT * FROM product WHERE product_id = ?`;

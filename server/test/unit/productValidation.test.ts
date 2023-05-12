@@ -1,9 +1,9 @@
 import { Product } from '../../types/Product';
 import {
 	validateNumber,
-	validateProductData,
 	validateString,
-} from '../../util/validation/productValidation';
+} from '../../util/validation/primitiveValidation';
+import { validateProductData } from '../../util/validation/productValidation';
 
 describe('Test validateNumber function', () => {
 	test('given a mandatory negative number as a string it should throw an error', () => {

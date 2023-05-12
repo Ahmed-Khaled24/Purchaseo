@@ -219,12 +219,13 @@
   background-color: #fff9e9;
   min-height: 22.1rem;
   max-width: 21rem;
-  padding: 2rem;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1em;
+  margin-inline: auto;
 }
 
 .add-button {
@@ -237,13 +238,19 @@
   width: 7rem;
   font-size: 1rem;
 }
-
+/* .add-button:hover {
+  background-color: white;
+  color: #982828;
+  border-color: #982828;
+} */
 .card:hover {
   border-radius: 9px;
 }
 .card--image {
   max-height: 20.2rem;
+  min-width: 16rem;
   max-width: 18.5rem;
+margin-inline: auto;
 }
 .card--title {
   font-size: 1.125rem;

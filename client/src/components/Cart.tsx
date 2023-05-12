@@ -6,6 +6,7 @@ import {
   decreaseCart,
   getTotals,
   removeFromCart,
+  CartState,
 } from "../features/cartSlice";
 import "../css/cart.css"
 import { Link } from "react-router-dom";
@@ -13,7 +14,7 @@ import Stars from "./Stars";
 export default function Cart() {
     
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart);
+    const cart: CartState = useSelector((state: {cart: CartState}) => state.cart);
     
     useEffect(() => {
       dispatch(getTotals());

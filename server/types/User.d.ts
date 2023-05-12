@@ -9,7 +9,7 @@ export type Role = 'Seller' | 'Customer' | 'Admin' | 'Company'
 export type social_type = 'google' | 'local'
 export type user_type = 'Local' | 'Both' | 'Non-Local'
 export interface User extends Timestamps {
-    user_id?: number|string,
+    user_id?: number,
     image_url?: string,
     // TODO: in validation check Fname and Lname
     Fname: string,

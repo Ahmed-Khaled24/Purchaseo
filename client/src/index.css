@@ -30,10 +30,6 @@ body {
   padding: 0px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
 .App {
   background: #fbfbfb;
   display: flex;

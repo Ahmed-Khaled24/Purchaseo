@@ -43,7 +43,10 @@ function App() {
             </Route>
             <Route path="/cart" element={<Cart />} />
             <Route path="/myPage" element={<UserPage />} />
-            <Route path="/me" element={<Container />} />
+            <Route path="/Sign-in" element={<Container />} />
+            <Route path="/Sign-up" element={<CreateAccountContainer />} />
+            <Route path="/Reset-Password" element={<ResetPass />} />
+            <Route path="/New-Password" element={<NewPass />} />
 
           </Route>
         </Routes>

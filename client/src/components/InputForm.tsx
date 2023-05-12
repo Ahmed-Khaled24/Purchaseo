@@ -1,5 +1,6 @@
 import React from 'react'
 import Label from './Label';
+import { NavLink } from 'react-router-dom';
 
 export default function InputForm() {
     const [email_El, setEmail] = React.useState({
@@ -61,7 +62,7 @@ export default function InputForm() {
             />
             <div className='footer'>
                 <p id='footer-t'>Forget Password ?</p>
-                <a href='' id='foote--c'>reset password</a>
+                <a href='' id='foote--c'>Reset Password</a>
             </div>
             <button className='form--butt' onClick={handleSubmit}>Login</button>
             <div className='checkk'>
@@ -75,51 +76,10 @@ export default function InputForm() {
                 <label htmlFor='remember'>Remember Me</label>
             </div>
             <div className='footer'>
-                <p id='footer-t'>Do not have an account ?</p>
-                <a href='' id='foote--c'>Create one</a>
+                <p id='footer-t'>Don't Have Account ?</p>
+                <NavLink to='/Sign-up' id='foote--c'>Create One</NavLink>
             </div>
 
         </form>
     )
 }
-{/*         <div className='form--ele'>
-            <label htmlFor='name-e'>Name</label>
-            <input 
-                type='text' 
-                name='name'
-                id='name-e'
-                onChange={handleChange}
-                value={email_El.name}
-            />    
-        </div> */}
-{/*         <div className='form--ele'>
-            <label htmlFor='email-e'>Email</label>
-            <input 
-                type='email' 
-                name='email'
-                placeholder='example@gmail.com'
-                id='email-e'
-                onChange={handleChange}
-                value={email_El.email}
-            />    
-        </div> */}
-{/*         <div className='form--ele'>
-            <label htmlFor='pass-e'>Password</label>
-            <input 
-                type='password' 
-                name='pass' 
-                id='pass-e'
-                onChange={handleChange}
-                value={email_El.pass}
-            />
-        </div> */}
-{/*         <div className='form--ele'>
-            <label htmlFor='repass-e'>Re-Password</label>
-            <input 
-                type='password' 
-                name='pass' 
-                id='repass-e'
-                onChange={handleChange}
-                value={email_El.repass}
-            />
-        </div> */}

@@ -47,9 +47,9 @@ function UserPage() {
 
 
   return (
-    <div>
+    <div className='user-page'>
       <div className="usr-div">
-        <h2>My Profile Account</h2>
+        <h1>My Profile Account</h1>
         <hr></hr>
         <div className="label-div">
           <label>Name :</label>
@@ -60,7 +60,8 @@ function UserPage() {
               placeholder="Name..."
               name="name"
               onChange={handleChange}
-            /> : <p>{userFormData.name}</p>
+              className='input'
+            /> : <p className="data">{userFormData.name}</p>
           }
         </div>
 
@@ -73,7 +74,8 @@ function UserPage() {
               placeholder="Email ..."
               name="email"
               onChange={handleChange}
-            /> : <p>{userFormData.email}</p>
+              className='input'
+            /> : <p className="data">{userFormData.email}</p>
           }
 
         </div>
@@ -88,7 +90,9 @@ function UserPage() {
               placeholder="Enter Phone Number..."
               name="phone"
               onChange={handleChange}
-            /> : <p>{userFormData.phone}</p>
+              className='input'
+
+            /> : <p className="data">{userFormData.phone}</p>
           }
         </div>
 
@@ -101,7 +105,9 @@ function UserPage() {
               placeholder="Enter Country ..."
               name="country"
               onChange={handleChange}
-            /> : <p>{userFormData.country}</p>
+              className='input'
+
+            /> : <p className="data">{userFormData.country}</p>
           }
         </div>
 
@@ -114,7 +120,9 @@ function UserPage() {
               placeholder="Enter Address ..."
               name="address"
               onChange={handleChange}
-            /> : <p>{userFormData.address}</p>
+              className='input'
+
+            /> : <p className="data">{userFormData.address}</p>
           }
         </div>
 
@@ -127,7 +135,8 @@ function UserPage() {
               placeholder="Enter BirthDate(dd:mm:yyyy) ..."
               name="birthDate"
               onChange={handleChange}
-            /> : <p>{userFormData.birthDate}</p>
+              className='input'
+            /> : <p className="data">{userFormData.birthDate}</p>
           }
         </div>
 

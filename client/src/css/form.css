@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: flex-start;
   margin-top: 1rem;
-  font-family: "Inter", sans-serif;
   font-style: normal;
   background: #fff9e9;
 }
@@ -12,7 +11,6 @@
   flex-direction: column;
   align-items: flex-start;
   margin-top: 0.5rem;
-  font-family: "Inter";
   font-style: normal;
   background: #fff9e9;
 }
@@ -22,7 +20,6 @@
   align-items: flex-start;
   justify-content: center;
   margin-top: 1rem;
-  font-family: "Inter";
   font-style: normal;
   background: #fff9e9;
   height: 100%;
@@ -61,8 +58,17 @@
   height: 2.5rem;
   background: #000000;
   border-radius: 3px;
+  border: 0;
   color: white;
   margin-top: 1rem;
+  cursor: pointer;
+}
+
+.form--butt:hover {
+  background-color: #fff9e900;
+  color: #000000;
+  border: 1px solid black;
+  border-radius: 3pxin;
 }
 .label--input {
   display: flex;
@@ -84,7 +90,7 @@
   color: #fff9e9;
 }
 
-#remember {
+#check,#remember {
   margin-bottom: 0.7rem;
 }
 
@@ -98,14 +104,8 @@
   margin-top: 1rem;
 }
 #footer-t {
-  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 0.75rem;
   color: rgba(0, 0, 0, 0.39);
-}
-#footer--c {
-  font-family: "Inter";
-  font-style: normal;
-  color: rgba(0, 102, 255, 0.39);
 }

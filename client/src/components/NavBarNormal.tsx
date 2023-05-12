@@ -10,7 +10,7 @@ export default function NavBar() {
       <input type="search" name="search" placeholder="Search ..." className="nav-search" />
       <ul className="nav-right">
         <li ><NavLink to="" className="nav-item">Categories</NavLink></li>
-        <li ><NavLink to="/login" className="nav-item">Login</NavLink></li>
+        <li ><NavLink to="/Sign-in" className="nav-item">Login</NavLink></li>
         <li ><NavLink to="/cart" className="nav-item"><img src="/shopping-bag.png" alt="" /></NavLink></li>
       </ul>
     </nav>

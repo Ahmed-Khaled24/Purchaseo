@@ -1,50 +1,57 @@
 .usr-div {
-    width: 60rem;
-    padding-left: 1rem;
-    padding-right: 2rem;
-    padding: 1rem;
-    height: auto;
-    font-family: 'EB Garamond', serif;
+  width: 60rem;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  padding: 1rem;
+  height: auto;
 }
 
 .label-div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem;
 }
 
-.label-div>label {
-    padding: 0.3rem 0.5rem;
-    font-size: 1.4rem;
+.label-div > label {
+  padding: 0.3rem 0.5rem;
+  font-size: 1.4rem;
 }
 
-input {
-    padding: 0.4rem 0.5rem;
-    width: 30rem;
+.input {
+  padding: 0.4rem 0.5rem;
+  width: 30rem;
 }
 
 .save-btn,
 .edt-btn {
-    padding: 0.5rem 0.5rem;
-    width: 10rem;
-    background-color: black;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    border: none;
-    border-radius: 0.2rem;
+  padding: 0.5rem 0.5rem;
+  width: 10rem;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+.save-btn:hover,
+.edt-btn:hover {
+  color: black;
+  background-color: #fbfbfb00;
+  border: 1px solid;
+  border-radius: 0.2rem;
 }
 
 .buttons {
-    display: flex;
-    justify-content: end;
-    margin-right: 2rem;
-    gap: 1rem;
+  display: flex;
+  justify-content: end;
+  margin-right: 2rem;
+  gap: 1rem;
 }
 
-p{
-
-    width: 50%;
-    font-size: larger;
+.data {
+  width: 50%;
+  font-size: larger;
 }

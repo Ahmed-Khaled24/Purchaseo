@@ -17,7 +17,7 @@ export interface Product {
 }
 
 export interface ProductImage {
-	image_id: number;
+	image_id?: number;
 	product_id: number;
 	file_path: string;
 	name: string

@@ -45,7 +45,7 @@ async function regulateRequests(key: number){
 
     if (cached) {
         await redisClient.set(`blacklist_s3_user_${key}`, key);
-        await redisClient.expire(`blacklist_s3_user_${key}`, 7000);
+        await redisClient.expire(`blacklist_s3_user_${key}`, 3500);
         throw new ErrorWithStatusCode("Too many requests to s3", 429)
     }
     await redisClient.set(userKey, key);

@@ -47,23 +47,29 @@ export const mwCheckLoginStatus = (flag: string) => {
         if (req.user && req.isAuthenticated()) {
             userLoggedIn = true;
         }
+        console.log({ userLoggedIn });
+        console.log({ flag });
         switch (flag) {
             case "loggedOut":
                 return userLoggedIn
-                    ? res.status(409).send({
+                    ? res.status(409).json({
                           status: "failure",
-                          data: "User is already logged in",
+                          data: "User is logged in",
                       })
                     : next();
             case "loggedIn":
                 return !userLoggedIn
-                    ? res.status(409).send({
+                    ? res.status(409).json({
                           status: "failure",
-                          data: "User is already logged out",
+                          data: "User is logged out",
                       })
                     : next();
+
             default:
-                next();
+                res.status(500).json({
+                    status: "failure",
+                    data: "Invalid flag",
+                });
         }
     };
 };

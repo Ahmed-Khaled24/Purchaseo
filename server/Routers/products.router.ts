@@ -18,14 +18,14 @@ const productRouter = Router();
 productRouter
     .post(
         "/",
-        mwCheckLoginStatus("LoggedIn"),
+        mwCheckLoginStatus("loggedIn"),
         authorize("Seller"),
         validateProductDate(true),
         addNewProduct
     )
     .patch(
         "/",
-        mwCheckLoginStatus("LoggedIn"),
+        mwCheckLoginStatus("loggedIn"),
         authorize("Seller"),
         validateProductDate(false),
         updateProduct
@@ -33,7 +33,7 @@ productRouter
     .get("/:id", getProductById)
     .delete(
         "/:id",
-        mwCheckLoginStatus("LoggedIn"),
+        mwCheckLoginStatus("loggedIn"),
         authorize("Seller"),
         deleteProduct
     );

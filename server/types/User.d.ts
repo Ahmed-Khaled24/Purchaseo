@@ -5,7 +5,14 @@ export interface Timestamps {
     updatedAt?: Timestamp
 }
 
-export type Role = 'Seller' | 'Customer' | 'Admin' | 'Company'
+export const permissions: any = {
+	Admin: 1,
+	Customer: 2,
+	Seller: 2,
+	Company: 2,
+}
+export type Role = keyof typeof permissions;
+
 export type social_type = 'google' | 'local'
 export type user_type = 'Local' | 'Both' | 'Non-Local'
 export interface User extends Timestamps {

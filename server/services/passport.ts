@@ -144,6 +144,10 @@ async function localVerifyCallback(
     //TODO: decide where to do this here or middleware
     // DO it here to reduce db calls
     try {
+        const { rememberMe } = req.body;
+        if (rememberMe) {
+            req.sessionOptions.maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
+        }
         // console.log("At Local verify callback", email);
         user = await dbGetUserByEmail(email);
         if (!(await checkPassword(password, user.password))) {

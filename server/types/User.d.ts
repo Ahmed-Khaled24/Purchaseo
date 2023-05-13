@@ -1,18 +1,14 @@
 import { Timestamp } from "@redis/time-series/dist/commands"
 import { Product } from "./Product"
+import { permissions } from "./User.Premissions"
+
 export interface Timestamps {
     createdAt?: Timestamp,
     updatedAt?: Timestamp
 }
 
-export const permissions: any = {
-	Admin: 1,
-	Customer: 2,
-	Seller: 2,
-	Company: 2,
-}
-export type Role = keyof typeof permissions;
 
+export type Role = keyof typeof permissions;
 export type social_type = 'google' | 'local'
 export type user_type = 'Local' | 'Both' | 'Non-Local'
 export interface User extends Timestamps {

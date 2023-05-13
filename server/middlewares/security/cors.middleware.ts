@@ -1,6 +1,6 @@
 import cors from "cors";
 export const corsMiddleware = cors({
-    origin: "*",
+    origin: "http://127.0.0.1:5500",
     credentials: true,
-    methods: ["GET", "POST", "PATCH", "DELETE"]
+    optionsSuccessStatus: 200,
 });

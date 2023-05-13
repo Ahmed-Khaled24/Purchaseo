@@ -23,7 +23,6 @@ authRouter.post("/signup", mwValidateUser, mwCheckUserExists, signUpUser);
 authRouter.post(
     "/local",
     mwCheckLoginStatus("loggedOut"),
-    // mwCheckLoginCredentials,
     passport.authenticate("local", {
         failureRedirect: "/auth/failure",
         successRedirect: "/auth/success",

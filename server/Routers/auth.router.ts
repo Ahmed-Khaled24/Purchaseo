@@ -22,7 +22,7 @@ authRouter.post("/signup", mwValidateUser, mwCheckUserExists, signUpUser);
 
 authRouter.post(
     "/local",
-    mwCheckLoginStatus("login"),
+    mwCheckLoginStatus("loggedOut"),
     // mwCheckLoginCredentials,
     passport.authenticate("local", {
         failureRedirect: "/auth/failure",
@@ -66,7 +66,7 @@ authRouter.get(
 authRouter.post("/forgot-password", forgetPassword);
 
 authRouter.post("/reset-password", resetPassword);
-authRouter.delete("/logout", mwCheckLoginStatus("logout"), logoutUser);
+authRouter.delete("/logout", mwCheckLoginStatus("loggedIn"), logoutUser);
 
 authRouter.use("/failure", failedAuth);
 authRouter.use("/success", successfulAuth);

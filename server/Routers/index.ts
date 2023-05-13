@@ -10,7 +10,7 @@ const globalRouter = Router();
 globalRouter.use('/user', userRouter);
 globalRouter.use('/product', productRouter)
 globalRouter.use('/auth', authRouter)
-globalRouter.use('/image',mwCheckLoginStatus("LoggedIn"), imageRouter)
+globalRouter.use('/image',mwCheckLoginStatus("loggedIn"), imageRouter)
 // TODO: make this in front end cuz we put react here
 globalRouter.get('/*', (req, res) => {
     res.status(404).json({status: 'failure', data: 'path not found'})

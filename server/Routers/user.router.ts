@@ -17,7 +17,7 @@ const userRouter = Router();
 // TODO: do the role :^^: problem
 userRouter.get(
     "/id/:id([0-9]+)",
-    mwCheckLoginStatus("LoggedIn"),
+    mwCheckLoginStatus("loggedIn"),
     mwCheckIsCurrentUser,
     getUserById
 );
@@ -29,14 +29,14 @@ userRouter.get(
 userRouter.post("/add", mwValidateData("signup"), addNewUser);
 userRouter.patch(
     "/update",
-    mwCheckLoginStatus("LoggedIn"),
+    mwCheckLoginStatus("loggedIn"),
     mwCheckIsCurrentUser,
     mwValidateData("update"),
     updateUser
 );
 userRouter.delete(
     "/delete",
-    mwCheckLoginStatus("LoggedIn"),
+    mwCheckLoginStatus("loggedIn"),
     authorize("Admin"),
     removeUser
 );

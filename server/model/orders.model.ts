@@ -1,24 +1,30 @@
 import { RowDataPacket } from "mysql2";
 import { dbConnection } from "../service/mysql";
 //Page with specified functions on each role
-import {addNewOrder_customer, getOrder_customer, removeOrder_customer, updateOrder_customer, addNewOrder_company, getOrder_company, removeOrder_company, updateOrder_company} from '../model/Spec.orders.model';
+import {addNewOrder_customer, getOrder_customer, removeOrder_customer, addNewOrder_company, getOrder_company, removeOrder_company} from '../model/Spec.orders.model';
+type QueryResponse = // alias for return value from execute()
+	| RowDataPacket[]
+	| RowDataPacket[][]
+	| never;
 
 
 async function addNewOrder(order: any){
-  const {order_id, consumer_id, product_id, contract_id, time, quantity} = order;
-  const userRole = await getUserRole_consumer(consumer_id);
-  if (userRole === "customer") {
+  const {order_id, COD, customer_id, done_by_card, total_price,product,quantity} = order;
+  //const userRole = await getUserRole_consumer(consumer_id);
+	return await addNewOrder_customer(order);
+  /*if (userRole === "customer") {
     return await addNewOrder_customer(order);
   } else if (userRole === "company") {
     return await addNewOrder_company(order);
   } else {
     throw new Error("Invalid user role");
-  }
+  }*/
 };
 
 async function getOrder(id:any){
   const userRole = await getUserRole(id);
   if (userRole === "customer") {
+		console.log("It's a customer!");
     return await getOrder_customer(id);
   } else if (userRole === "company") {
     return await getOrder_company(id);
@@ -27,20 +33,10 @@ async function getOrder(id:any){
   }
 };
 
-async function updateOrder({id, update}:{id: any ,update: JSON}){
-  const userRole = await getUserRole(id);
-  if (userRole === "customer") {
-    return await updateOrder_customer({id, update});
-  } else if (userRole === "company") {
-    return await updateOrder_company({id, update});
-  } else {
-    throw new Error("Invalid user role");
-  }
-};
 
 async function removeOrder(id: any){
   const userRole = await getUserRole(id);
-  if (userRole === "customer") {
+   if (userRole === "customer") {
     return await removeOrder_customer(id);
   } else if (userRole === "company") {
     return await removeOrder_company(id);
@@ -48,6 +44,7 @@ async function removeOrder(id: any){
     throw new Error("Invalid user role");
   }
 };
+
 
 //get role using user details
 async function getUserRole_consumer(consumer_id:any) {
@@ -73,4 +70,4 @@ async function getUserRole(order_id:any) {
   }
 };
 
-export { addNewOrder, getOrder, removeOrder, updateOrder};
+export { addNewOrder, getOrder, removeOrder};

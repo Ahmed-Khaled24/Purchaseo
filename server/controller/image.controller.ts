@@ -5,17 +5,36 @@ import crypto from "crypto";
 import { promisify } from "util";
 import { dbUpdateUserById } from "../model/users.model";
 import { dbAddProductImage } from "../model/product.image.model";
+import {v4 as uuidv4} from "uuid";
+import { regulateRequests } from "../services/redis";
 
 const randomBytes = promisify(crypto.randomBytes);
 
 export async function getUploadUrl(req: Request, res: Response) {
     try {
         console.log("getUploadUrl");
-        // TODO: UUID
         // TODO: add in redis to reduce api calls
-        const imageName = (await randomBytes(16)).toString("hex");
-        const directoryName = req.user?.user_id as number;
-        const imageUrl = `Users/User_${directoryName}/${imageName}`;
+        // black list for an hour if more than 50 requests per second
+        try {
+            await regulateRequests(req.user?.user_id as number)
+        } catch (error: ErrorWithStatusCode | any) {
+            return res.status(error.statusCode || 500).json({ status: "failure", message: error.message });
+        }
+        // check File size before sending back url
+        const {directoryType, productId, fileSize} = req.query ;
+        if(Number(fileSize) > 5000000 || fileSize === undefined){
+            return res.status(400).json({ status: "failure", message: "File size too large (Max 5 MB) or unspecified" });
+        }
+        // const productId = uuidv4();
+        // const directoryType = "Product"
+        const imageName = uuidv4();
+        let directory: string ;
+        if(directoryType === "Profile"){
+            directory = `Users/${req.user?.user_id}`;
+        }else{
+            directory = `Products/${productId}`;
+        }
+        const imageUrl = `${directory}/${imageName}`;
         const url = await generateUploadUrl(imageUrl);
         res.status(200).json({ status: "success", data: url });
     } catch (error: ErrorWithStatusCode | any) {

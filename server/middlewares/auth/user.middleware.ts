@@ -3,6 +3,16 @@ import { dbGetUserById, dbGetUserByEmail } from '../../model/users.model';
 import ErrorWithStatusCode from '../../util/classes/ErrorWithStatusCode';
 import validateUser from '../../util/validation/user.validation';
 import { checkPassword } from '../../util/bcrypt';
+import { Role } from '../../types/User';
+
+
+const permissions: any = {
+	Admin: 1,
+	Customer: 2,
+	Seller: 2,
+	Company: 2,
+}
+
 
 export function mwValidateUser(
 	req: Request,
@@ -47,14 +57,14 @@ export const mwCheckLoginStatus = (flag: string) => {
 			userLoggedIn = true;
 		}
 		switch (flag) {
-			case 'login':
+			case 'loggedOut':
 				return userLoggedIn
 					? res.status(409).send({
 							status: 'failure',
 							data: 'User is already logged in',
 					  })
 					: next();
-			case 'logout':
+			case 'loggenIn':
 				return !userLoggedIn
 					? res.status(409).send({
 							status: 'failure',
@@ -90,15 +100,17 @@ export async function mwCheckLoginCredentials(
 	}
 }
 
-export const authorizeUser = (role: string) => {
+export const authorize = (role: Role) => {
 	return (req: Request, res: Response, next: NextFunction) => {
 		console.log('authorizeUser');
-		if (role === req.user?.role) {
+		if (permissions[req.user?.role as string] < permissions[role]) {
+			next();
+		}else if ( (permissions[req.user?.role as string] === permissions[role]) &&(req.user?.role === role)) {
 			next();
 		} else {
 			res.status(403).send({
 				status: 'failure',
-				data: `User not authorized, permission required "${req.user?.role}" got "${role}"`,
+				data: `User not authorized, permission required need to be at least "${role}"`,
 			});
 		}
 	};

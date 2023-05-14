@@ -1,5 +1,6 @@
 const redis = require("redis");
 import keys from "../config/keys";
+import ErrorWithStatusCode from "../util/classes/ErrorWithStatusCode";
 
 let redisClient = redis.createClient({
     host: keys.REDIS_HOST,
@@ -33,4 +34,22 @@ async function cache(key: string, callback: () => Promise<any>) {
     return freshData;
 }
 
-export { redisClient, connectRedis, disconnectRedis, cache };
+async function regulateRequests(key: number){
+    let userKey = `s3_user_${key}`;
+    let blackListedUserKey = `blacklist_s3_user_${key}`;
+    const cached = await redisClient.get(userKey);
+    const blackListed = await redisClient.get(blackListedUserKey);
+    if(blackListed){
+        throw new ErrorWithStatusCode("You are blocked for too many requests to s3 try again later", 429)
+    }
+
+    if (cached) {
+        await redisClient.set(`blacklist_s3_user_${key}`, key);
+        await redisClient.expire(`blacklist_s3_user_${key}`, 3500);
+        throw new ErrorWithStatusCode("Too many requests to s3", 429)
+    }
+    await redisClient.set(userKey, key);
+    await redisClient.expire(userKey, 1);
+    return
+}
+export { redisClient, connectRedis, disconnectRedis, cache, regulateRequests };

@@ -15,3 +15,10 @@ export interface Product {
 	inventory: number;
 	price: number;
 }
+
+export interface ProductImage {
+	image_id?: number;
+	product_id: number;
+	file_path: string;
+	name: string
+}

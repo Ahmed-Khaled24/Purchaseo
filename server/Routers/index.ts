@@ -5,6 +5,8 @@ import authRouter from './auth.router';
 import categoryRouter from './categories.router';
 import reviewRouter from './review.router';
 import ordersRouter from './orders.router';
+import imageRouter from './image.router';
+import { mwCheckLoginStatus } from '../middlewares/auth/user.middleware';
 
 const globalRouter = Router();
 
@@ -14,5 +16,10 @@ globalRouter.use('/auth', authRouter);
 globalRouter.use('/categories', categoryRouter);
 globalRouter.use('/review', reviewRouter);
 globalRouter.use('/orders', ordersRouter);
+globalRouter.use('/image', mwCheckLoginStatus('loggedIn'), imageRouter);
+// TODO: React build file
+globalRouter.get('/*', (req, res) => {
+	res.status(404).json({ status: 'failure', data: 'path not found' });
+});
 
 export default globalRouter;

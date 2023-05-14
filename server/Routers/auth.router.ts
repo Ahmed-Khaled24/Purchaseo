@@ -22,19 +22,12 @@ authRouter.post("/signup", mwValidateUser, mwCheckUserExists, signUpUser);
 
 authRouter.post(
     "/local",
-    mwCheckLoginStatus("login"),
-    // mwCheckLoginCredentials,
+    mwCheckLoginStatus("loggedOut"),
     passport.authenticate("local", {
         failureRedirect: "/auth/failure",
         successRedirect: "/auth/success",
         session: true,
-    }),
-    (req: Request, res: Response) => {
-        const { rememberMe } = req.body;
-        if (rememberMe) {
-            req.sessionOptions.maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
-        }
-    }
+    })
 );
 
 authRouter.get(
@@ -66,7 +59,7 @@ authRouter.get(
 authRouter.post("/forgot-password", forgetPassword);
 
 authRouter.post("/reset-password", resetPassword);
-authRouter.delete("/logout", mwCheckLoginStatus("logout"), logoutUser);
+authRouter.delete("/logout", mwCheckLoginStatus("loggedIn"), logoutUser);
 
 authRouter.use("/failure", failedAuth);
 authRouter.use("/success", successfulAuth);

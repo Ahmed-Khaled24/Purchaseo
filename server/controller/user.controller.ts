@@ -29,7 +29,7 @@ async function addNewUser(req: Request, res: Response) {
 	} = req.body;
 
 	try {
-		await dbAddUserEncrypted({ Fname, Lname, email, password });
+		await dbAddUserEncrypted({ Fname, Lname, email, password, role });
 		return res
 			.status(200)
 			.json({ status: 'success', data: 'New user added successfully' });

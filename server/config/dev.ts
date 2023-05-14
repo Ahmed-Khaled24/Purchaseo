@@ -18,4 +18,8 @@ export = {
 	FRONT_URL: process.env.FRONT_URL_DEV,
 	MAIL_SERVER: process.env.DEV_MAIL_SERVER,
 	MAIL_PORT: process.env.DEV_MAIL_PORT,
+	S3_BUCKET_NAME: process.env.DEV_S3_BUCKET_NAME,
+	S3_REGION: process.env.DEV_S3_REGION,
+	S3_ACCESS_KEY_ID: process.env.DEV_S3_ACCESS_KEY_ID,
+	S3_SECRET_ACCESS_KEY: process.env.DEV_S3_SECRET_ACCESS_KEY,
 }

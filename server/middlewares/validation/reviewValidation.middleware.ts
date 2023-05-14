@@ -10,7 +10,7 @@ export default function mwValidateReview(
 	next: Function
 ) {
 	const { product_id, rate, body } = req.body;
-	req.body.customer_id = req.user?.user_id as string;
+	req.body.customer_id = req.user?.user_id;
 	try {
 		validateNumber(product_id, true, 'product_id');
 		validateString(body, true, 'body');

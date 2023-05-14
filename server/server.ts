@@ -1,8 +1,18 @@
-import http from 'http';
+import https from "https";
+import fs from "fs";
+import { connectRedis } from "./services/redis";
+import api from "./api";
+import keys from "./config/keys";
+import { connectMySQL } from "./services/mysql";
 
-import api from './api';
-
-const server = http.createServer(api);
-server.listen(8000, () => {
-	console.log('Server is listening on port 8000');
-});
+(async () => {
+    const server = https.createServer({
+        cert: fs.readFileSync(keys.SSL_CERT),
+        key: fs.readFileSync(keys.SSL_KEY),
+    },api);
+	await connectRedis();
+	await connectMySQL();
+    server.listen(process.env.PORT, () => {
+        console.log(`Server is listening on port {${process.env.PORT}}`);
+    });
+})();

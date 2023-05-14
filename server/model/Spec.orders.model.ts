@@ -8,8 +8,7 @@ type QueryResponse = // alias for return value from execute()
 //DONE
 async function addNewOrder_customer(order: any) {
 	//Products--> a nested JSON with all products in the order
-	const { order_id, COD, customer_id, done_by_card, total_price, products } =
-		order;
+	const { COD, customer_id, done_by_card, total_price, products } = order;
 	const productsArr = [];
 	for (const [product_id, quantity] of Object.entries(products)) {
 		productsArr.push({ product_id, quantity });
@@ -17,8 +16,8 @@ async function addNewOrder_customer(order: any) {
 
 	console.log(productsArr);
 	const [rows, fields] = await dbConnection.execute(
-		'INSERT INTO `customer_order` (`order_id`, `COD`, `customer_id`, `done_by_card`, `total_price`) VALUES (?,?,?,?,?)',
-		[order_id, COD, customer_id, done_by_card, total_price]
+		'INSERT INTO `customer_order` ( `COD`, `customer_id`, `done_by_card`, `total_price`) VALUES (?,?,?,?)',
+		[COD, customer_id, done_by_card, total_price]
 	);
 	const ResultRows = rows as OkPacket[];
 
@@ -57,8 +56,9 @@ async function addNewOrder_customer(order: any) {
 
 //increment the sold quantity in products table
 async function increment_quantity(product_id: any, quantity: any) {
-	let query = `UPDATE product SET sold_quantity = sold_quantity + ? WHERE product_id = ?`;
+	let query = `UPDATE product SET sold_quantity = sold_quantity + ?, inventory = inventory - ? WHERE product_id = ?`;
 	const [rows, fields] = await dbConnection.execute(query, [
+		quantity,
 		quantity,
 		product_id,
 	]);
@@ -99,7 +99,7 @@ async function getOrder_customer(id: any) {
 	}
 	const ResultRows = rows as RowDataPacket[];
 	console.log('ResultRows');
-	return ResultRows[0];
+	return ResultRows;
 }
 
 async function getOrder_company(id: any) {
@@ -126,6 +126,7 @@ async function removeOrder_customer(id: any) {
 	);
 	return rows && rows2;
 }
+
 async function removeOrder_company(id: any) {
 	const [rows, fields] = await dbConnection.execute(
 		'DELETE FROM company_order WHERE order_id= ?',

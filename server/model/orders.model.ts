@@ -13,15 +13,6 @@ type QueryResponse = // alias for return value from execute()
 	RowDataPacket[] | RowDataPacket[][] | never;
 
 async function addNewOrder(order: any) {
-	const {
-		order_id,
-		COD,
-		customer_id,
-		done_by_card,
-		total_price,
-		product,
-		quantity,
-	} = order;
 	//const userRole = await getUserRole_consumer(consumer_id);
 	return await addNewOrder_customer(order);
 	/*if (userRole === "customer") {

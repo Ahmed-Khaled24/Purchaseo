@@ -5,7 +5,7 @@ export default function NewPass(){
     return(
         <div className='main-container'>
             <NewPasswordContainer />
-            <img src="eshop.png" className='loginimg'/>
+            <img src="/eshop.png" className='loginimg'/>
         </div>
     )
 }

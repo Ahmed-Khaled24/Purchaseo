@@ -38,6 +38,7 @@ export default function InputForm() {
         }
         handleChange(event)
     }
+
     return (
         <form className='form'>
             <Label
@@ -62,9 +63,10 @@ export default function InputForm() {
             />
             <div className='footer'>
                 <p id='footer-t'>Forget Password ?</p>
-                <a href='' id='foote--c'>Reset Password</a>
+                <NavLink to='/reset-password' id='foote--c'>Reset Password</NavLink>
             </div>
             <button className='form--butt' onClick={handleSubmit}>Login</button>
+
             <div className='checkk'>
                 <input
                     type='checkbox'
@@ -75,9 +77,10 @@ export default function InputForm() {
                 />
                 <label htmlFor='remember'>Remember Me</label>
             </div>
+
             <div className='footer'>
                 <p id='footer-t'>Don't Have Account ?</p>
-                <NavLink to='/Sign-up' id='foote--c'>Create One</NavLink>
+                <NavLink to='/sign-up' id='foote--c'>Create One</NavLink>
             </div>
 
         </form>

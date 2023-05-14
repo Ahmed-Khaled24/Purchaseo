@@ -15,6 +15,7 @@ import Container from './components/Container'
 import CreateAccountContainer from './components/CreateAccountContainer'
 import ResetPass from './components/ResetPass'
 import NewPass from './components/NewPass'
+import AddProduct from './components/AddProduct';
 
 function App() {
 
@@ -34,8 +35,8 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/">
-            <Route path="owner-product" element={<OwnerProduct name="Item 1" rate={3} reviews={50} desc={desc2} />} />
             <Route index element={<Home />} />
+            <Route path="/seller-products" element={<OwnerProduct name="Item 1" rate={3} reviews={50} desc={desc2} />} />
             <Route path="/products/:category" element={<Products />} />
             <Route path="/products/:category/:id" element={<Item name="Item 1" img={`/items/${items[0]}.png`} alt={items[0]} rate={3} desc={desc2} price={60} reviews={554} />} >
               <Route path="" element={<Reviews />} />
@@ -43,11 +44,11 @@ function App() {
             </Route>
             <Route path="/cart" element={<Cart />} />
             <Route path="/myPage" element={<UserPage />} />
-            <Route path="/Sign-in" element={<Container />} />
-            <Route path="/Sign-up" element={<CreateAccountContainer />} />
-            <Route path="/Reset-Password" element={<ResetPass />} />
-            <Route path="/New-Password" element={<NewPass />} />
-
+            <Route path="/sign-in" element={<Container />} />
+            <Route path="/sign-up" element={<CreateAccountContainer />} />
+            <Route path="/reset-password" element={<ResetPass />} />
+            <Route path="/new-password" element={<NewPass />} />
+            <Route path="/add-product" element={<AddProduct />} />
           </Route>
         </Routes>
         <Footer />

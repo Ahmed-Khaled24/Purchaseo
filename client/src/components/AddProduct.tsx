@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import "../css/addProduct.css"
-
+import axios from "axios";
 export default function AddProduct() {
     const [formData, setFormData] = useState(
         {
@@ -36,9 +36,23 @@ export default function AddProduct() {
     };
 
     function handleSubmit(event) {
-        console.log(formData);
         event.preventDefault();
-        //    submitToApi(formData);
+        const formData1 = new FormData();
+        formData1.append("Name", formData.Name);
+        formData1.append("Type", formData.Type);
+        formData1.append("Discription", formData.Discription);
+        formData1.append("Price", formData.Price);
+        formData1.append("Quantity", formData.Quantity);
+        for (let i = 0; i < currentFiles.length; i++) {
+            formData1.append("files", currentFiles[i]);
+        }
+        axios.post("", formData)
+            .then(response => {
+                console.log("Images uploaded successfully");
+            })
+            .catch(error => {
+                console.error("Error uploading images", error);
+            });
     }
     return (
         <form className="main" onSubmit={handleSubmit}>

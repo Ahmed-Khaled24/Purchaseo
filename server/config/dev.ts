@@ -15,7 +15,7 @@ export = {
 	COOKIE_KEY1: process.env.DEV_COOKIE_SECRET_KEY_1,
 	COOKIE_KEY2: process.env.DEV_COOKIE_SECRET_KEY_2,
 	JWT_SECRET: process.env.DEV_JWT_SECRET,
-	FRONT_URL: process.env.FRONT_URL_DEV,
+	FRONT_URL: process.env.DEV_FRONT_URL,
 	MAIL_SERVER: process.env.DEV_MAIL_SERVER,
 	MAIL_PORT: process.env.DEV_MAIL_PORT,
 	S3_BUCKET_NAME: process.env.DEV_S3_BUCKET_NAME,

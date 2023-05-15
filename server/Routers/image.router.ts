@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import {
     addProductImage,
     addUserImage,
-    getUploadUrl,
+    getUploadUrls,
 } from "../controller/image.controller";
 import { dbUpdateUserById } from "../model/users.model";
 
@@ -11,7 +11,7 @@ import { dbUpdateUserById } from "../model/users.model";
 // TODO: delete image from s3 if deleted from db (maybe add a trigger)
 const imageRouter = Router();
 
-imageRouter.get("/upload-url", getUploadUrl);
+imageRouter.get("/upload-url", getUploadUrls);
 imageRouter.patch("/user/add", addUserImage);
 imageRouter.post("/product/add", addProductImage);
 

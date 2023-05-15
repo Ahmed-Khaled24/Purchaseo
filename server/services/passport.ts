@@ -95,6 +95,8 @@ async function googleVerifyCallback(
     } catch (error: ErrorWithStatusCode | any) {
         if (error.statusCode === 404) {
             dbUser = await dbAddUserEncrypted(user);
+        }else{
+            done(null)
         }
     }
 

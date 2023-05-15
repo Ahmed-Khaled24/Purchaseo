@@ -10,16 +10,21 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
     "axios": "^1.4.0",
     "react": "^18.2.0",
+    "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.0",
     "react-toastify": "^9.1.3"
+    "react-router-dom": "^6.11.0",
+    "react-select": "^5.7.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/react-redux": "^7.1.25",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0"

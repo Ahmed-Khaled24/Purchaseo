@@ -17,8 +17,8 @@ import {
 } from "../middlewares/auth/user.middleware";
 
 const authRouter = Router();
-
-authRouter.post("/signup", mwValidateUser, mwCheckUserExists, signUpUser);
+// TODO: check user exists
+authRouter.post("/signup", mwValidateUser, mwCheckUserExists(true), signUpUser);
 
 authRouter.post(
     "/local",
@@ -56,7 +56,7 @@ authRouter.get(
 //     })
 // );
 
-authRouter.post("/forgot-password", forgetPassword);
+authRouter.post("/forgot-password",mwCheckUserExists(false), forgetPassword);
 
 authRouter.post("/reset-password", resetPassword);
 authRouter.delete("/logout", mwCheckLoginStatus("loggedIn"), logoutUser);

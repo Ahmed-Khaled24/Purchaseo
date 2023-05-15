@@ -20,24 +20,48 @@ export function mwValidateUser(
     }
 }
 
-export async function mwCheckUserExists(
-    req: Request,
-    res: Response,
-    next: NextFunction
-) {
-    console.log("checkUserExists");
-    const { email } = req.body;
-    try {
-        const result = await dbGetUserByEmail(email);
-        return res
-            .status(409)
-            .send({ status: "failure", data: "User already exists" });
-    } catch (error: ErrorWithStatusCode | any) {
-        if (error.statusCode === 404) {
-            return next();
+export function mwCheckUserExists(flag: boolean) {
+    return async (req: Request, res: Response, next: NextFunction) => {
+        console.log("checkUserExists");
+        const { email } = req.body;
+        try {
+            switch (flag) {
+                case true: {
+                    try {
+                        await dbGetUserByEmail(email);
+                            return res.status(409).send({
+                                status: "failure",
+                                data: "User already exists",
+                            });
+                                              
+                    } catch (error) {
+                        return next();
+                    }
+                }
+                case false: {
+                    try {
+                        await dbGetUserByEmail(email);
+                        return res.status(404).send({
+                            status: "failure",
+                            data: "User does not exist",
+                        });
+                    } catch (error) {
+                        return next();
+                    }
+                    
+                }
+                default: {
+                    res.status(500).send({
+                        status: "failure",
+                        data: "Invalid flag",
+                    });
+                    break;
+                }
+            }
+        } catch (error: ErrorWithStatusCode | any) {
+            res.status(500).send({ status: "failure", data: error.message });
         }
-        res.status(500).send({ status: "failure", data: error.message });
-    }
+    };
 }
 
 export const mwCheckLoginStatus = (flag: string) => {

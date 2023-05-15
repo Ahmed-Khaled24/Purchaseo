@@ -24,22 +24,7 @@ export async function signUpUser(req: Request, res: Response) {
 		let user = { Fname, Lname, email, password, role } as User;
 
 		let addedUser = await dbAddUserEncrypted(user);
-		return res.status(200).json({ status: 'success', data: addedUser });
-		// let response = await fetch(`/auth/local`,{
-		//     method: "POST",
-		//     headers: {
-		//         "Content-Type": "application/json",
-		//     },
-		//     body: JSON.stringify(req.body),
-
-		// });
-		// let responseData: any = await response.json();
-		// if( response.status === 200){
-		//     return res.status(200).json({status: "success", data: responseData.data});
-		// }else{
-		//     return res.status(400).json({status: "failure", data: responseData.data});
-		// }
-		// const response = await axios.post('https://localhost:4000/auth/local', req.body , {httpsAgent: new https.Agent({rejectUnauthorized: false})});
+		return res.status(201).json({ status: 'success', data: addedUser });
 	} catch (error: ErrorWithStatusCode | any) {
 		return res.status(error.statusCode || 500).json({
 			status: 'failure',
@@ -78,7 +63,7 @@ export async function forgetPassword(req: Request, res: Response) {
 		console.log({ token });
 		const encodedToken = Buffer.from(token).toString('base64');
 		console.log({ encodedToken });
-		const resetPasswordLink = `${keys.FRONT_URL_DEV}/reset-password/${encodedToken}`;
+		const resetPasswordLink = `${keys.FRONT_URL}/reset-password/${encodedToken}`;
 
 		const email = await sendMail(resetPasswordLink, req.body.email);
 
@@ -137,7 +122,7 @@ export async function resetPassword(req: Request, res: Response) {
 export function successfulAuth(req: Request, res: Response) {
 	console.log('Session is ', req.session);
 	console.log('User is ', req.user);
-	res.status(200).send({ status: 'success', data: 'logged in successfully' });
+	res.status(200).send({ status: 'success', data: req.user });
 }
 
 export function failedAuth(req: Request, res: Response) {

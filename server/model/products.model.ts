@@ -31,6 +31,7 @@ export async function dbAddNewProduct(
 ): Promise<QueryResponse> {
 	let { preparedQuery, values } = generateInsertQuery('product', product);
 	preparedQuery = preparedQuery + ' RETURNING product_id';
+	console.log({ preparedQuery, values });
 	const [rows] = await dbConnection.execute(preparedQuery, values);
 	return rows;
 }
@@ -40,6 +41,8 @@ export async function dbAddImagesToAProduct(
 	imagesURLs: string[]
 ): Promise<QueryResponse> {
 	// according to the schema
+	console.log('dbAddImagesToAProduct')
+	console.log({ product_id, imagesURLs });
 	let dataRows = imagesURLs.map((imageURL) => ({
 		product_id,
 		file_path: imageURL,

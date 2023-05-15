@@ -3,7 +3,9 @@ import { Product } from "../../../server/types/Product";
 import "../css/addProduct.css";
 import axios from "axios";
 import Select from "react-select";
-import makeAnimated from 'react-select/animated';
+import makeAnimated from "react-select/animated";
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 const animatedComponents = makeAnimated();
 
@@ -16,6 +18,7 @@ export default function AddProduct() {
         price: 0,
         inventory: 0,
     });
+    const [percentage, setPercentage] = useState<number>(0);
     const [categories, setCategories] = useState<string[]>([]);
     const [currentFiles, setCurrentFiles] = useState([]);
     const [previewImages, setPreviewImages] = useState([]);
@@ -36,6 +39,12 @@ export default function AddProduct() {
             };
         });
     }
+    function handleSelect(selectedCategories) {
+        let formattedCategories = selectedCategories.map(
+            (category) => category.value
+        );
+        setCategories(formattedCategories);
+    }
 
     const selectFile = (event) => {
         const files = event.target.files;
@@ -49,40 +58,96 @@ export default function AddProduct() {
     };
 
     async function sendInitialProduct() {
-        try{
+        console.log({
+            product: formData,
+            categories: categories,
+        });
+        try {
             const response = await axios({
                 withCredentials: true,
                 method: "POST",
-                url :"https://localhost:4000/product/",
+                url: "https://localhost:4000/product",
                 data: {
                     product: formData,
                     categories: categories,
                 },
-    
             });
-            if(response.status == 201){
-                console.log("success", response.data)
+            if (response.status == 201) {
+                return response.data.data[0].product_id;
             }
-        }catch(error){
-            console.log("error", error.response.data)
+        } catch (error) {
+            // TODO: Set Error message in UI
+            console.log("error", error.response.data);
         }
     }
-    async function sendImages() {}
+    async function getSignedUrls(productId: number) {
+        try {
+            const signedUrlRes = await axios({
+                withCredentials: true,
+                method: "GET",
+                url: `https://localhost:4000/image/upload-url?productId=${productId}&length=${currentFiles.length}&fileSize=${currentFiles[0].size}$directoryType=product`,
+            });
+            if (signedUrlRes.status === 200) {
+                return signedUrlRes.data.data;
+            }
+        } catch (error) {
+            console.log("error", error.response.data);
+        }
+    }
+    async function sendImages(signedUrls: string[]) {
+        try {
+            for (let i = 0; i < signedUrls.length; i++) {
+                const response = await axios({
+                    method: "PUT",
+                    url: signedUrls[i],
+                    data: currentFiles[i],
+                    headers: {
+                        "Content-Type": currentFiles[i].type,
+                    },
+                    onUploadProgress: (progressEvent) => {
+                        const percentCompleted = Math.round(
+                            (progressEvent.loaded * 100) / progressEvent.total
+                        );
+                        setPercentage(percentCompleted);
 
+                    },
+                });
+                if (response.status === 200) {
+                    setPercentage(0);
+                    console.log(`success ${i}, ${response.data}`);
+                }
+            }
+        } catch (error) {
+            console.log("error", error.response.data);
+        }
+    }
+
+    async function sendImageUrls(productId: number, signedUrls: string[]) {
+        try {
+            const response = await axios({
+                withCredentials: true,
+                method: "POST",
+                url: "https://localhost:4000/image/product/add",
+                data: {
+                    productId: productId,
+                    imageUrls: signedUrls,
+                },
+            });
+            if (response.status === 201) {
+                console.log(response.data);
+            }
+        } catch (error) {
+            console.log("error", error.response.data);
+        }
+    }
     async function handleSubmit(event) {
         event.preventDefault();
-        // const formData1 = new FormData();
-        // formData1.append("Name", formData.Name);
-        // formData1.append("Type", formData.Type);
-        // formData1.append("Discription", formData.Discription);
-        // formData1.append("Price", formData.Price);
-        // formData1.append("Quantity", formData.Quantity);
-        // for (let i = 0; i < currentFiles.length; i++) {
-        //     formData1.append("files", currentFiles[i]);
-        // }
-
-        await sendInitialProduct();
-        // await sendImages();
+        const product_id = await sendInitialProduct();
+        console.log({ product_id, currentFiles });
+        const signedUrls = await getSignedUrls(product_id);
+        console.log({ signedUrls });
+        await sendImages(signedUrls);
+        await sendImageUrls(product_id, signedUrls);
     }
     return (
         <form className="main" onSubmit={handleSubmit}>
@@ -110,6 +175,7 @@ export default function AddProduct() {
                                         components={animatedComponents}
                                         defaultValue={[categoryOptions[0]]}
                                         isMulti
+                                        onChange={handleSelect}
                                         options={categoryOptions}
                                     />
                                 </span>
@@ -207,6 +273,12 @@ export default function AddProduct() {
             </section>
             <div className="h">
                 <button className="buttonSubmit">Submit</button>
+                <div style={{ width: "50px" }}>
+                    <CircularProgressbar
+                        value={percentage}
+                        text={`${percentage}%`}
+                    />
+                </div>
             </div>
         </form>
     );

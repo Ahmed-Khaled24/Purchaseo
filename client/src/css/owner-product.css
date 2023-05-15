@@ -1,12 +1,13 @@
 .product {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   background-color: #fff9e9;
   margin: 5rem;
+  margin-inline: auto;
   padding: 2rem;
   max-height: 20rem;
   box-shadow: 2rem 2rem 4rem rgb(240, 240, 240);
-  width: 50vw;
+  width: 70vw;
   align-self: center;
 }
 
@@ -41,6 +42,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   justify-content: space-between;
 }
 

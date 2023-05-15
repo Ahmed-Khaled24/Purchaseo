@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import "../css/addProduct.css"
 import axios from "axios";
+import imageCompression from 'browser-image-compression';
+
 export default function AddProduct() {
     const [formData, setFormData] = useState(
         {
@@ -24,6 +26,22 @@ export default function AddProduct() {
         })
     }
 
+    async function handleImageUpload(event) {
+
+        const imageFile = event.target.files[0];
+      
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920
+        }
+        try {
+          const compressedFile = await imageCompression(imageFile, options);
+          console.log(compressedFile.size/1024/1024);
+        } catch (error) {
+          console.log(error);
+        }
+      
+      }
     const selectFile = (event) => {
         const files = event.target.files;
         const newFiles = [...currentFiles, ...files];

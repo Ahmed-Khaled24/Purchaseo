@@ -5,7 +5,10 @@ import {
 	dbAddImagesToAProduct,
 	dbAddNewProduct,
 	dbDeleteProductById,
+	dbGetCategoriesOfProducts,
+	dbGetImagesOfProducts,
 	dbGetProductById,
+	dbGetProductsBySellerId,
 	dbUpdateProduct,
 } from '../model/products.model';
 import { RowDataPacket } from 'mysql2';
@@ -19,6 +22,54 @@ export async function getProductById(req: Request, res: Response) {
 		res.status(200).json({
 			status: 'success',
 			data: product,
+		});
+	} catch (err: any) {
+		res.status(err.statusCode || 500).json({
+			status: 'failure',
+			data: err.message,
+		});
+	}
+}
+
+export async function getProductsBySellerId(req: Request, res: Response) {
+	let { id } = req.params;
+	try {
+		const products = await dbGetProductsBySellerId(Number(id));
+		const productsIDs = (products as Product[]).map(
+			(product) => product.product_id
+		);
+
+		const images = await dbGetImagesOfProducts(productsIDs as number[]);
+		const productsWithImages = (products as Product[]).map((product) => {
+			return {
+				...product,
+				images: (images as RowDataPacket[])
+					.filter((image) => image.product_id === product.product_id)
+					.map((image) => image.file_path),
+			};
+		});
+
+		const categories = await dbGetCategoriesOfProducts(
+			productsIDs as number[]
+		);
+		const productsWithImagesAndCategories = productsWithImages.map(
+			(product) => {
+				return {
+					...product,
+					categories: (categories as RowDataPacket[])
+						.filter(
+							(category) =>
+								category.product_id ==
+								(product as RowDataPacket).product_id
+						)
+						.map((category) => category.category_name),
+				};
+			}
+		);
+
+		res.status(200).json({
+			status: 'success',
+			data: productsWithImagesAndCategories,
 		});
 	} catch (err: any) {
 		res.status(err.statusCode || 500).json({

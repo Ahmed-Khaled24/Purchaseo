@@ -17,6 +17,8 @@ import CreateAccountContainer from './components/CreateAccountContainer'
 import ResetPass from './components/ResetPass'
 import NewPass from './components/NewPass'
 import AddProduct from './components/AddProduct';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -29,6 +31,7 @@ function App() {
     <div className="App">
 
       <Router>
+      <ToastContainer />
         <NavBar type={userType}/>
         <Routes>
           <Route path="/">

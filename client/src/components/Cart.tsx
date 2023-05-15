@@ -60,19 +60,18 @@ export default function Cart() {
                       cart.cartItems.map((cartItem) => (
                         <div className="cart-product">
                         <div className="img-cart">
-                            <img src={cartItem.image} alt={cartItem.name} className="product-image" />
+                            <img src={cartItem.image} alt={cartItem. product_name} className="product-image" />
                         </div>
                         <div className="product-info">
                             <div className="cart-info-title_price">
-                                <h1 className="head">No name
-                                     {cartItem.name} 
+                                <h1 className="head">
+                                     {cartItem. product_name} 
                                 </h1>
                                 <p className="Quantity-price">{cartItem.price * cartItem.cartQuantity}$</p>
                             </div>
                             <div className="product-info-rate">
-                                <Stars rate={cartItem.rating.rate} />
-                                <p >&#8226;</p>
-                                <p>10 Reviews</p>
+                                <Stars rate={cartItem.rating} />
+                               
                             </div>
                             <p>
                             <span className="headline">Price : </span>

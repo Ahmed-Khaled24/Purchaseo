@@ -34,7 +34,7 @@ export default function Home() {
                             button="See more"
                             buttonName="b"
                             Nimg="imgHA"
-                            category="men's clothing"
+                            category="men"
                         />
                         <Box
                             name="Refrigerators"
@@ -68,6 +68,8 @@ export default function Home() {
                             img="/images/Picture4.png"
                             buttonName="b"
                             Nimg="imgC"
+                            category="men"
+
                         />
                         <Box
                             name="Women"
@@ -75,6 +77,8 @@ export default function Home() {
                             img="/images/Picture5.png"
                             buttonName="b"
                             Nimg="imgC"
+                            category="women"
+
                         />
                         <Box
                             name="Kids"
@@ -82,6 +86,8 @@ export default function Home() {
                             img="/images/Picture6.png"
                             buttonName="b"
                             Nimg="imgC"
+                            category="kids"
+
                         />
 
                     </div>

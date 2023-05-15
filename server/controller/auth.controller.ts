@@ -24,22 +24,7 @@ export async function signUpUser(req: Request, res: Response) {
 		let user = { Fname, Lname, email, password, role } as User;
 
 		let addedUser = await dbAddUserEncrypted(user);
-		return res.status(200).json({ status: 'success', data: addedUser });
-		// let response = await fetch(`/auth/local`,{
-		//     method: "POST",
-		//     headers: {
-		//         "Content-Type": "application/json",
-		//     },
-		//     body: JSON.stringify(req.body),
-
-		// });
-		// let responseData: any = await response.json();
-		// if( response.status === 200){
-		//     return res.status(200).json({status: "success", data: responseData.data});
-		// }else{
-		//     return res.status(400).json({status: "failure", data: responseData.data});
-		// }
-		// const response = await axios.post('https://localhost:4000/auth/local', req.body , {httpsAgent: new https.Agent({rejectUnauthorized: false})});
+		return res.status(201).json({ status: 'success', data: addedUser });
 	} catch (error: ErrorWithStatusCode | any) {
 		return res.status(error.statusCode || 500).json({
 			status: 'failure',

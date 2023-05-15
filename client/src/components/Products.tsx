@@ -74,68 +74,68 @@ export default function Products() {
   });
 
   return (
-<div>
-<h1 className="Category--title">{category}</h1>
-    <div className="CategoryPage">
-     
-      <div className="filter-bar">
-        <div style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem"
-        }} >
-          <p>Rating</p>
+    <div>
+      <h1 className="Category--title">{category}</h1>
+      <div className="CategoryPage">
 
-          <div className="star-rating">
-            {[...Array(5)].map((_, index) => (
-              <img
-                key={index}
-                src={index < rate ? "/star-filled.png" : "/star.png"}
-                className="star"
-                onMouseEnter={() => handleStarHover(index)}
-                onMouseLeave={handleStarLeave}
+        <div className="filter-bar">
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem"
+          }} >
+            <p>Rating</p>
+
+            <div className="star-rating">
+              {[...Array(5)].map((_, index) => (
+                <img
+                  key={index}
+                  src={index < rate ? "/star-filled.png" : "/star.png"}
+                  className="star"
+                  onMouseEnter={() => handleStarHover(index)}
+                  onMouseLeave={handleStarLeave}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.5rem"
+          }} >
+            <p>Price Range</p>
+            <div className="filter-bar">
+              <p>Min:</p>
+              <input
+                type="number"
+                min="0"
+                max="Infinity"
+                placeholder="Min Price"
+                value={min}
+                onChange={handleMinChange}
               />
-            ))}
-          </div>
-        </div>
+              <p>Max:</p>
+              <input
+                type="number"
+                min="0"
+                max="Infinity"
+                placeholder="Max Price"
+                value={max}
+                onChange={handleMaxChange}
+              />
+              <div />
 
-        <div style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1.5rem"
-        }} >
-          <p>Price Range</p>
-          <div className="filter-bar">
-            <p>Min:</p>
-            <input
-              type="number"
-              min="0"
-              max="Infinity"
-              placeholder="Min Price"
-              value={min}
-              onChange={handleMinChange}
-            />
-            <p>Max:</p>
-            <input
-              type="number"
-              min="0"
-              max="Infinity"
-              placeholder="Max Price"
-              value={max}
-              onChange={handleMaxChange}
-            />
-            <div />
-
+            </div>
           </div>
+          <button className="filter-button" onClick={onFilter}>Filter</button>
         </div>
-        <button className="filter-button" onClick={onFilter}>Filter</button>
-      </div>
-      <div className="cards">
-        {AllProducts}
+        <div className="cards">
+          {AllProducts}
+        </div>
       </div>
     </div>
-</div>
-   
+
 
   )
 }

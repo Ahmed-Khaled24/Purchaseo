@@ -46,8 +46,8 @@ function App() {
             <Route path="/myPage" element={<UserPage />} />
             <Route path="/sign-in" element={<Container />} />
             <Route path="/sign-up" element={<CreateAccountContainer />} />
-            <Route path="/reset-password" element={<ResetPass />} />
-            <Route path="/new-password" element={<NewPass />} />
+            <Route path="/forget-password" element={<ResetPass />} />
+            <Route path="/reset-password/:token" element={<NewPass />} />
             <Route path="/add-product" element={<AddProduct />} />
           </Route>
         </Routes>

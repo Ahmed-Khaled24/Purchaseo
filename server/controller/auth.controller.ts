@@ -53,7 +53,7 @@ export function logoutUser(req: Request, res: Response) {
 
 export async function forgetPassword(req: Request, res: Response) {
 	// generate jwt token
-
+	
 	// TODO: wrap this in a util function
 	try {
 		console.log('JWT SECRET IS ', keys.JWT_SECRET);

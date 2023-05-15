@@ -7,14 +7,14 @@ export default function Body(props) {
     <div className='review-card'>
       <div className='personal-info'>
         <img src="/people.png" />
-        <p>Abdo Nasser</p>
+        <p>Anonymous</p>
       </div>
       <div className='personal-rate'>
-        <Stars rate={4} />
+        <Stars rate={props.review.rate} />
       </div>
 
       <div className='rate-comment'>
-        Lorem ipsum dolor sit amet, minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+        {props.review.body}
       </div>
     </div>
   )

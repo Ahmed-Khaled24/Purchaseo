@@ -1,16 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap");
 
-main {
+.item-preview {
   display: flex;
   flex-direction: column;
   letter-spacing: 0.1rem;
-  padding-inline: 8rem;
+  padding-inline: 5rem;
   padding-top: 4rem;
 }
 
 .item-info {
   display: flex;
-  gap: 5rem;
+  gap: 6rem;
   margin-bottom: 5rem;
 }
 
@@ -39,7 +39,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30rem;
+  width: 25rem;
   height: 30rem;
   max-width: 30rem;
   max-height: 30rem;
@@ -48,7 +48,6 @@ main {
 .other-images {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   gap: 1rem;
   max-width: 100%;
   overflow-x: auto;
@@ -145,6 +144,13 @@ main {
 
 .item-text button:hover {
   background-color: hsl(317, 48%, 28%);
+}
+
+.add-to-cart {
+  color: white;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 @media screen and (width < 600px) {

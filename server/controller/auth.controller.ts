@@ -53,7 +53,7 @@ export function logoutUser(req: Request, res: Response) {
 
 export async function forgetPassword(req: Request, res: Response) {
 	// generate jwt token
-	
+
 	// TODO: wrap this in a util function
 	try {
 		console.log('JWT SECRET IS ', keys.JWT_SECRET);
@@ -63,7 +63,7 @@ export async function forgetPassword(req: Request, res: Response) {
 		console.log({ token });
 		const encodedToken = Buffer.from(token).toString('base64');
 		console.log({ encodedToken });
-		const resetPasswordLink = `${keys.FRONT_URL_DEV}/reset-password/${encodedToken}`;
+		const resetPasswordLink = `${keys.FRONT_URL}/reset-password/${encodedToken}`;
 
 		const email = await sendMail(resetPasswordLink, req.body.email);
 

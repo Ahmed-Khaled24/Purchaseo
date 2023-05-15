@@ -41,6 +41,7 @@ export default function CreateInputForm() {
             }else if(error.response.status === 400){
                 email_El.checkemail = "invalid sign up data";
             }else{
+                email_El.checkemail = `error: ${error.response.data.data}`;
                 console.log(error);
             }
         }

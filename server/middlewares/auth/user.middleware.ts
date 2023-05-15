@@ -25,33 +25,37 @@ export function mwCheckUserExists(flag: boolean) {
         console.log("checkUserExists");
         const { email } = req.body;
         try {
-            const result = await dbGetUserByEmail(email);
             switch (flag) {
                 case true: {
-                    if (result) {
-                        return res.status(409).send({
-                            status: "failure",
-                            data: "User already exists",
-                        });
+                    try {
+                        await dbGetUserByEmail(email);
+                            return res.status(409).send({
+                                status: "failure",
+                                data: "User already exists",
+                            });
+                                              
+                    } catch (error) {
+                        return next();
                     }
-                    return next();
-                    break;
                 }
                 case false: {
-                    if (!result) {
+                    try {
+                        await dbGetUserByEmail(email);
                         return res.status(404).send({
                             status: "failure",
                             data: "User does not exist",
                         });
+                    } catch (error) {
+                        return next();
                     }
-                    return next();
-                    break;
+                    
                 }
                 default: {
                     res.status(500).send({
                         status: "failure",
                         data: "Invalid flag",
                     });
+                    break;
                 }
             }
         } catch (error: ErrorWithStatusCode | any) {

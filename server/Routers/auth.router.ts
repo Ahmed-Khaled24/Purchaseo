@@ -17,7 +17,7 @@ import {
 } from "../middlewares/auth/user.middleware";
 
 const authRouter = Router();
-
+// TODO: check user exists
 authRouter.post("/signup", mwValidateUser, mwCheckUserExists(true), signUpUser);
 
 authRouter.post(

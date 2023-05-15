@@ -122,7 +122,7 @@ export async function resetPassword(req: Request, res: Response) {
 export function successfulAuth(req: Request, res: Response) {
 	console.log('Session is ', req.session);
 	console.log('User is ', req.user);
-	res.status(200).send({ status: 'success', data: 'logged in successfully' });
+	res.status(200).send({ status: 'success', data: req.user });
 }
 
 export function failedAuth(req: Request, res: Response) {

@@ -15,6 +15,12 @@ const userSlice = createSlice({
 	initialState: userInitialState,
 	reducers: {
 		putUser: (state, action: PayloadAction<User>) => {
+			/*
+			  return {
+    ...state,
+    ...action.payload
+  }
+			*/
 			console.log(action.payload)
 			 state= action.payload
 			console.log({state})
@@ -22,6 +28,7 @@ const userSlice = createSlice({
 			
 		},
 		logoutUser: (state, action: PayloadAction<User>) => {
+			//logoutUser: () => userInitialState
 			return state = userInitialState;
 		},
 	},

@@ -4,9 +4,9 @@ import "../css/addProduct.css";
 import axios from "axios";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const animatedComponents = makeAnimated();
 
 export default function AddProduct() {
@@ -80,6 +80,7 @@ export default function AddProduct() {
             console.log("error", error.response.data);
         }
     }
+
     async function getSignedUrls(productId: number) {
         try {
             const signedUrlRes = await axios({
@@ -141,13 +142,18 @@ export default function AddProduct() {
         }
     }
     async function handleSubmit(event) {
+       
         event.preventDefault();
+        toast.info("Data sent successfully", {
+            position: "bottom-left",
+          });
         const product_id = await sendInitialProduct();
         console.log({ product_id, currentFiles });
         const signedUrls = await getSignedUrls(product_id);
         console.log({ signedUrls });
         await sendImages(signedUrls);
         await sendImageUrls(product_id, signedUrls);
+
     }
     return (
         <form className="main" onSubmit={handleSubmit}>
@@ -159,17 +165,17 @@ export default function AddProduct() {
                         <div className="form1">
                             <div style={{ display: "flex", gap: "1rem" }}>
                                 <span>
-                                    <p>Name</p>
+                                    <p className="t1">Name</p>
                                     <input
                                         type="text"
                                         onChange={handleChange}
                                         name="product_name"
                                         value={formData?.product_name}
-                                        className="text"
+                                      
                                     />
                                 </span>
                                 <span>
-                                    <p>Category</p>
+                                    <p className="t1">Category</p>
                                     <Select
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
@@ -177,20 +183,17 @@ export default function AddProduct() {
                                         isMulti
                                         onChange={handleSelect}
                                         options={categoryOptions}
+                                        className="text"
                                     />
                                 </span>
                             </div>
                             <span>
-                                <p>Discription</p>
+                                <p className="t1">Discription</p>
                                 <textarea
                                     value={formData.description}
                                     onChange={handleChange}
                                     name="description"
-                                    style={{
-                                        width: " 30.8rem",
-                                        height: "12.25rem",
-                                        marginTop: "0.3rem",
-                                    }}
+                                    className="textDiscription"
                                 />
                             </span>
                         </div>
@@ -200,7 +203,7 @@ export default function AddProduct() {
                         <p className="titleform">Product attributes</p>
                         <div className="form2">
                             <span>
-                                <p>Price</p>
+                                <p className="t1">Price</p>
                                 <input
                                     type="text"
                                     onChange={handleChange}
@@ -210,7 +213,7 @@ export default function AddProduct() {
                                 />
                             </span>
                             <span>
-                                <p>Quantity</p>
+                                <p className="t1">Quantity</p>
                                 <input
                                     type="text"
                                     onChange={handleChange}
@@ -218,9 +221,6 @@ export default function AddProduct() {
                                     value={formData.inventory}
                                     className="text2"
                                 />
-                            </span>
-                            <span>
-                                <p>Colors</p>
                             </span>
                         </div>
                     </div>
@@ -274,10 +274,8 @@ export default function AddProduct() {
             <div className="h">
                 <button className="buttonSubmit">Submit</button>
                 <div style={{ width: "50px" }}>
-                    <CircularProgressbar
-                        value={percentage}
-                        text={`${percentage}%`}
-                    />
+                <ToastContainer />
+
                 </div>
             </div>
         </form>

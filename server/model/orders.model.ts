@@ -80,4 +80,12 @@ async function getUserRole(order_id: any) {
 	}
 }
 
-export { addNewOrder, getOrder, removeOrder };
+async function dbGetOrdersByCustomerId(customerId: number) {
+	const [rows, fields] = await dbConnection.execute(
+		'SELECT * FROM customer_order WHERE customer_id = ?',
+		[customerId]
+	);
+	return rows;
+}
+
+export { addNewOrder, getOrder, removeOrder, dbGetOrdersByCustomerId };

@@ -19,9 +19,8 @@ export default function CreateInputForm() {
     });
 
     async function signUp(){
-        let signupRes;
         try {
-            signupRes = await axios({
+            const signupRes = await axios({
                 method: "post",
                 url: "https://localhost:4000/auth/signup",
                 data: {

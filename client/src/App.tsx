@@ -42,9 +42,9 @@ function App() {
               <Route path="" element={<Reviews />} />
               <Route path="add-review" element={<AddReview />} />
             </Route>
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/myPage" element={<UserPage />} />
-            <Route path="/sign-in" element={<Container />} />
+            <Route path="/cart" element={<Cart />} />       
+            <Route path="/myPage" element={<UserPage />} /> // HERE
+            <Route path="/sign-in" element={<Container />} /> 
             <Route path="/sign-up" element={<CreateAccountContainer />} />
             <Route path="/reset-password" element={<ResetPass />} />
             <Route path="/new-password" element={<NewPass />} />

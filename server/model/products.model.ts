@@ -47,6 +47,14 @@ export async function dbGetCategoriesOfProducts(product_ids: number[]) {
 	return rows;
 }
 
+export async function dbGetProductsByOrderId(order_ids: number[]) {
+	const preparedQuery = `SELECT DISTINCT * FROM order_products join product ON product.product_id = order_products.product_id WHERE order_id IN (${order_ids.join(
+		', '
+	)})`;
+	const [rows] = await dbConnection.execute(preparedQuery);
+	return rows;
+}
+
 export async function dbAddNewProduct(
 	product: Product
 ): Promise<QueryResponse> {

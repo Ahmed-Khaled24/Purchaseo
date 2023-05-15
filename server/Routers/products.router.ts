@@ -4,6 +4,7 @@ import {
 	addNewProduct,
 	deleteProduct,
 	getProductById,
+	getProductsByOrderedByCustomer,
 	getProductsBySellerId,
 	updateProduct,
 } from '../controller/products.controller';
@@ -38,6 +39,7 @@ productRouter
 		authorize('Seller'),
 		getProductsBySellerId
 	)
+	.get('/customer/:id', getProductsByOrderedByCustomer)
 	.delete(
 		'/:id',
 		mwCheckLoginStatus('loggedIn'),

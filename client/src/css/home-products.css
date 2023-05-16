@@ -205,27 +205,22 @@
 
 .cards {
   padding: 3.125rem;
-  margin: 3rem 1rem 1rem 1.5rem;
-  min-height: 18.75rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: minmax(9.375rem, auto);
-  gap: 2em;
+  display: flex;
+  gap: 3rem;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .card {
   box-shadow: 2rem 2rem 4rem rgb(230, 230, 230);
   background-color: #fff9e9;
-  min-height: 22.1rem;
-  max-width: 21rem;
-  padding: 3rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1em;
-  margin-inline: auto;
 }
 
 .add-button {
@@ -238,19 +233,19 @@
   width: 7rem;
   font-size: 1rem;
 }
-/* .add-button:hover {
-  background-color: white;
+.add-button:hover {
+  background-color: #fff9e9;
   color: #982828;
-  border-color: #982828;
-} */
-.card:hover {
-  border-radius: 9px;
+  border: 1px solid ;
 }
 .card--image {
   max-height: 20.2rem;
   min-width: 16rem;
   max-width: 18.5rem;
-margin-inline: auto;
+  margin-inline: auto;
+  display: flex;
+  justify-self: center;
+  align-items: center;
 }
 .card--title {
   font-size: 1.125rem;
@@ -271,4 +266,33 @@ margin-inline: auto;
 
 .Category--title::first-letter {
   text-transform: capitalize;
+}
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.CategoryPage {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 98vw;
+  padding: 3rem;
+}
+.filter-button {
+  align-self: center;
+  background-color: #982828;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  height: 1.5rem;
+  width: 5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+.filter-button:hover {
+  background-color: white;
+  color: #982828;
+  border-color: #982828;
 }

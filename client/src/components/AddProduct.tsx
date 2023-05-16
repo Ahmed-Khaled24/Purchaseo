@@ -8,6 +8,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const animatedComponents = makeAnimated();
+import imageCompression from 'browser-image-compression';
 
 export default function AddProduct() {
     // TODO: replace added by by user id
@@ -46,6 +47,22 @@ export default function AddProduct() {
         setCategories(formattedCategories);
     }
 
+    async function handleImageUpload(event) {
+
+        const imageFile = event.target.files[0];
+      
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920
+        }
+        try {
+          const compressedFile = await imageCompression(imageFile, options);
+          console.log(compressedFile.size/1024/1024);
+        } catch (error) {
+          console.log(error);
+        }
+      
+      }
     const selectFile = (event) => {
         const files = event.target.files;
         const newFiles = [...currentFiles, ...files];

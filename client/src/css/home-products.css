@@ -270,7 +270,7 @@
 .filter-bar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content:start;
   gap: 1.5rem;
 }
 .CategoryPage {
@@ -286,13 +286,35 @@
   border: 0;
   color: white;
   cursor: pointer;
-  height: 1.5rem;
-  width: 5rem;
+  height: 2.6rem;
+  width: 100%;
   font-size: 1rem;
   border-radius: 5px;
+  box-sizing: border-box;
+
 }
 .filter-button:hover {
   background-color: white;
   color: #982828;
   border-color: #982828;
+  border: 1px solid ;
+}
+.word-filter{
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+.form-filter{
+  height: 1.5rem;
+  
+}
+.word1-filter{
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+input[type=number] {
+  width: 100%;
+  padding: 10px 18px;
+  margin: 0px 0;
+  box-sizing: border-box;
+  font-size: 1.2rem;
 }

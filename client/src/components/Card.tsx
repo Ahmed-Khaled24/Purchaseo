@@ -1,8 +1,14 @@
+import { useDispatch } from "react-redux";
 import Stars from "./Stars";
 import { NavLink } from "react-router-dom";
+import { addToCart } from "../features/cartSlice";
 
 //The container of the product
 export default function Card(prop) {
+    const dispatch = useDispatch();
+    const handleAddToCart = (product) => {
+        dispatch(addToCart(product));
+      };
     return (
         <div className="card">
             <div key={prop.id}>
@@ -24,7 +30,7 @@ export default function Card(prop) {
                             display: "flex",
                             fontSize: "1.2rem"
                         }}>{prop.price}$ </p>
-                        <button className="add-button border-radius">Add to Cart</button>
+                        <button className="add-button border-radius" onClick={() => handleAddToCart(prop)}>Add to Cart</button>
                     </span>
                 </div>
             </div>

@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom';
 import Card from "./Card";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../features/cartSlice";
 import "../css/home-products.css"
-import Stars from "./Stars";
+import axios from 'axios';
 
 //It fetches data and display products page
 export default function Products() {
-  const dispatch = useDispatch();
   const { category } = useParams();
-  let AllProducts = null;
   const [data, setData] = useState([]);
-  const [filter, setFilter] = useState(data);
+  const [filteredData, setFilteredData] = useState([]);
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(10000);
-  const [rate, setRate] = useState(5);
+  const [rate, setRate] = useState(0);
 
   const handleMinChange = (e) => {
     setMin(e.target.value);
@@ -27,65 +23,63 @@ export default function Products() {
 
   const onFilter = () => {
     const filteredComponents = data.filter(
-      (component) => component.price >= min && component.price <= max
+      (component) => component.price >= min && component.price <= max && component.rating >= rate
     );
-    setFilter(filteredComponents);
+    setFilteredData(filteredComponents);
+    console.log(rate);
   };
 
   useEffect(() => {
-    const getProducts = async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const data = await response.json();
-      setData(data);
-      const filterProduct = (category) => {
-        const updatedList = data.filter((x) => x.category === category);
-        setFilter(updatedList);
+    (async () => {
+      const prodData = await axios.get(`https://localhost:8000/categories?category=${category}`)
+      setData(prodData.data.data);
+      setFilteredData(prodData.data.data);
+    })();
+  }, [category]);
 
-      }
-      filterProduct(category);
-    };
-    getProducts();
-  }, []);
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-  };
+
+let set=true;
   function handleStarHover(index) {
+    if(set)
     setRate(index + 1);
   }
 
   function handleStarLeave() {
+    if(set)
     setRate(0);
   }
 
+  function handleSet(index){
+    set=false;
+    setRate(index+1);
+  }
 
   //It holds all the products of the chosen category 
-  AllProducts = filter.map((product) => {
-    handleAddToCart(product);
+  const AllProducts = filteredData.map((product) => {
     return (
       <Card
-        id={product.id}
-        image={product.image}
-        title={product.title}
-        price={product.price}
-        rating={product.rating.rate}
-        category={product.category}
+        key={product?.product_id}
+        id={product?.product_id}
+        image={product?.image}
+        title={product?.product_name}
+        price={product?.price}
+        rating={product?.rating}
       />
     );
   });
 
   return (
     <div>
-      <h1 className="Category--title">{category}</h1>
+      <h1 className="Category--title">Products</h1>
       <div className="CategoryPage">
-
         <div className="filter-bar">
           <div style={{
             display: "flex",
             flexDirection: "column",
-            gap: "1rem"
+            gap: "1rem",
+            marginTop:"7rem"
           }} >
-            <p>Rating</p>
-
+            <p className="word-filter">Rating</p>
             <div className="star-rating">
               {[...Array(5)].map((_, index) => (
                 <img
@@ -94,38 +88,36 @@ export default function Products() {
                   className="star"
                   onMouseEnter={() => handleStarHover(index)}
                   onMouseLeave={handleStarLeave}
+                  onClick={() => handleSet(index)}
                 />
               ))}
             </div>
           </div>
-
           <div style={{
             display: "flex",
             flexDirection: "column",
             gap: "1.5rem"
           }} >
-            <p>Price Range</p>
+            <p className="word-filter">Price Range</p>
             <div className="filter-bar">
-              <p>Min:</p>
+              <p className="word1-filter">Min:</p>
               <input
                 type="number"
                 min="0"
                 max="Infinity"
-                placeholder="Min Price"
+                placeholder="Minimum Price"
                 value={min}
                 onChange={handleMinChange}
               />
-              <p>Max:</p>
+              <p className="word1-filter">Max:</p>
               <input
                 type="number"
                 min="0"
                 max="Infinity"
-                placeholder="Max Price"
+                placeholder="Maximum Price"
                 value={max}
                 onChange={handleMaxChange}
               />
-              <div />
-
             </div>
           </div>
           <button className="filter-button" onClick={onFilter}>Filter</button>
@@ -135,7 +127,5 @@ export default function Products() {
         </div>
       </div>
     </div>
-
-
   )
 }

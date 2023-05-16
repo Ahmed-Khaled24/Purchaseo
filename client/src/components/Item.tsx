@@ -3,10 +3,16 @@ import "../css/item.css"
 import Stars from './Stars'
 import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
 
-
+import {
+    addToCart,
+    CartState,
+  } from "../features/cartSlice";
 
 export default function Item() {
+    const dispatch = useDispatch();
+    const cart: CartState = useSelector((state: {cart: CartState}) => state.cart);
     let [image, setImage] = useState("/items/item10.jpg");
     let [data, setData] = useState({
         added_by: 0,
@@ -24,7 +30,9 @@ export default function Item() {
         })();
     }, [params.id])
 
-
+    const handleAddToCart = () => {
+        dispatch(addToCart(data));
+      };
     function changeImage(e) {
         setImage(e.target.src);
     }
@@ -60,7 +68,7 @@ export default function Item() {
                     <div className='desc-title'>Description</div>
                     <p className='desc-text'>{data?.description}</p>
                     <div className='buying'>
-                        <button className='purchase-button'><NavLink to='/cart' className="add-to-cart"><img src="/shopping-bag-white.png" />Add To Cart</NavLink></button>
+                        <button className='purchase-button'  onClick={() => handleAddToCart()}><NavLink to='/cart' className="add-to-cart"><img src="/shopping-bag-white.png" />Add To Cart</NavLink></button>
                         <div className='price'>{data?.price}$</div>
                     </div>
                 </div>

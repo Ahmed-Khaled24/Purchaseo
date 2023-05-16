@@ -11,6 +11,16 @@ import { Product } from '../types/Product';
 import ErrorWithStatusCode from '../util/classes/ErrorWithStatusCode';
 import { QueryResponse } from '../util/DB/queryResponse';
 
+export async function dbGetMultipleProductsByIds(product_ids: number[]) {
+	const preparedQuery = `SELECT * FROM product WHERE product_id IN (${product_ids.join(
+		', '
+	)})`;
+	console.log(preparedQuery)
+	const [rows] = await dbConnection.execute(preparedQuery);
+	return rows as Product[];
+}
+
+
 export async function dbGetProductById(product_id: number) {
 	const preparedQuery1 = `SELECT * FROM product WHERE product_id = ?`;
 	const preparedQuery2 = `SELECT * FROM product_image WHERE product_id = ?`;

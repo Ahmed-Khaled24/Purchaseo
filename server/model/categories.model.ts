@@ -42,3 +42,5 @@ export async function dbAddCategory(name: any): Promise<any> {
 	const ResultRows = rows as RowDataPacket[];
 	return ResultRows ? true : false;
 }
+
+

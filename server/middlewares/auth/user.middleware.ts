@@ -149,8 +149,11 @@ export function mwCheckIsCurrentUser(
 ) {
     console.log("mwCheckCurrentUser");
     let { id, email } = req.params;
-    if (!email) {
+    if (!email ) {
         email = req.body.email;
+    }
+    if(!id){
+        id = req.body.id
     }
     if (req.user?.user_id === Number(id) || req.user?.email === String(email)) {
         return next();

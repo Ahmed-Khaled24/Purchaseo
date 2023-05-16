@@ -11,27 +11,38 @@ import { RootState } from "../store/store";
 
 const API_URL = "https://localhost:4000";
 
-function PictureSection({ image_url }) {
-	function handleUploadButton() {
+function PictureSection({ image_url, userName }) {
+	function openFileDialog() {
 		const fileInput = document.getElementById("UploadNewProfilePic");
 		fileInput.click();
 	}
-	function handleUploadPhoto(event) {
-		const file = event.target.files[0];
-		// TODO: send to /image/upload
+
+	function handleChoosePhoto() {
+		const fileInput = document.getElementById(
+			"UploadNewProfilePic"
+		) as HTMLInputElement;
+		const image = fileInput.files[0];
+		const profileImage = document.getElementById(
+			"profilePic"
+		) as HTMLImageElement;
+		profileImage.src = URL.createObjectURL(image);
 	}
+
+	function handleUploadPhoto(event) {}
+
 	return (
 		<section className="picture-section">
-			<img src={image_url || defaultProfilePic} alt="" />
+			<img src={image_url || defaultProfilePic} alt="" id="profilePic" />
 			<div>
-				<label> Upload new photo </label>
+				<label> {userName} </label>
 				<input
 					type="file"
 					accept="image/*"
 					id="UploadNewProfilePic"
-					onChange={handleUploadPhoto}
+					onChange={handleChoosePhoto}
 				/>
-				<button onClick={handleUploadButton}> New photo </button>
+				<button onClick={openFileDialog}> Change picture </button>
+				<button onClick={handleUploadPhoto}>Save</button>
 			</div>
 		</section>
 	);
@@ -77,7 +88,7 @@ function InfoSection({ user, editable, updateInputValue }) {
 				/>
 				<InfoItem
 					itemName={"Phone"}
-					itemValue={`${user?.phone ? user.phone : "Not set"}`}
+					itemValue={`${user?.phone_number ? user.phone_number : ""}`}
 					editable={editable}
 					updateInputValue={updateInputValue}
 				/>
@@ -131,16 +142,33 @@ function UserPage() {
 	const user = useSelector((state: RootState) => state.user);
 	const [editable, setEditable] = useState<boolean>(false);
 
+	let userBeforeEdit: User;
 	function triggerEditable() {
 		userBeforeEdit = { ...user };
 		setEditable(true);
 	}
 
-	let userBeforeEdit: User;
 	async function saveChanges() {
 		setEditable(false);
-		// TODO: find the updates
-		// TODO: send to /user/update
+		try {
+			const response = await axios({
+				method: "PATCH",
+				url: `${API_URL}/user/update`,
+				withCredentials: true,
+				data: {
+					id: user.user_id,
+					update: {
+						Fname: user?.Fname,
+						Lname: user?.Lname,
+						phone_number: user?.phone_number,
+						email: user?.email,
+					},
+				},
+			});
+			console.log(response.data);
+		} catch (error) {
+			console.log(error.response.data);
+		}
 	}
 
 	function updateInputValue(event: React.ChangeEvent<HTMLInputElement>) {
@@ -150,6 +178,8 @@ function UserPage() {
 			changedInputName = "Fname";
 		} else if (changedInputName.includes("Last")) {
 			changedInputName = "Lname";
+		} else if (changedInputName.includes("Phone")) {
+			changedInputName = "phone_number";
 		}
 		const newUser: User = { ...user, [changedInputName]: newValue };
 		dispatch(putUser(newUser));
@@ -158,7 +188,10 @@ function UserPage() {
 	return (
 		<div className="profile-container">
 			<div className="profile-page">
-				<PictureSection image_url={user.image_url} />
+				<PictureSection
+					image_url={user.image_url}
+					userName={`${user.Fname} ${user.Lname}`}
+				/>
 				<InfoSection
 					user={user}
 					editable={editable}

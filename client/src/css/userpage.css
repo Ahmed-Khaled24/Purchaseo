@@ -46,6 +46,9 @@ section button:hover {
 	border-radius: 5px;
 	width: 80%;
 }
+.picture-section label {
+	font-size: 24px;
+}
 .picture-section input {
 	display: none;
 	margin: 0 !important;
@@ -58,10 +61,11 @@ section button:hover {
 	gap: 20px;
 }
 .picture-section img {
-	width: 150px;
+	width: 200px;
 	border: 2px solid #868e96;
 	border-radius: 5px;
 	object-fit: cover;
+	position: relative;
 }
 .picture-section button {
 	font-size: 14px;

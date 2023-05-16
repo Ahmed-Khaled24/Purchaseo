@@ -3,11 +3,12 @@ import passport from "passport";
 
 import {
     signUpUser,
-    successfulAuth,
     failedAuth,
     logoutUser,
     resetPassword,
     forgetPassword,
+    successfulLocalAuth,
+    successfulGoogleAuth,
 } from "../controller/auth.controller";
 import {
     mwValidateUser,
@@ -25,7 +26,7 @@ authRouter.post(
     mwCheckLoginStatus("loggedOut"),
     passport.authenticate("local", {
         failureRedirect: "/auth/failure",
-        successRedirect: "/auth/success",
+        successRedirect: "/auth/localSuccess",
         session: true,
     })
 );
@@ -38,7 +39,7 @@ authRouter.get(
     "/google/callback",
     passport.authenticate("google", {
         failureRedirect: "/auth/failure",
-        successRedirect: "/auth/success",
+        successRedirect: "/auth/googleSuccess",
         session: true,
     })
 );
@@ -62,5 +63,6 @@ authRouter.post("/reset-password", resetPassword);
 authRouter.delete("/logout", mwCheckLoginStatus("loggedIn"), logoutUser);
 
 authRouter.use("/failure", failedAuth);
-authRouter.use("/success", successfulAuth);
+authRouter.use("/localSuccess", successfulLocalAuth);
+authRouter.use("/googleSuccess", successfulGoogleAuth);
 export default authRouter;

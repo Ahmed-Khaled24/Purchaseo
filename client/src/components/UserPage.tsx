@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { User } from "../../../server/types/User";
 import { Product } from "../../../server/types/Product";
-import { putUser } from "../features/userSlice";
+import { putUser } from "../store/features/userSlice";
 
 import defaultProfilePic from "../../public/images/defaultProfilePic.jpg";
 import "../css/userPage.css";
-import { RootState } from "../main";
+import { RootState } from "../store/store";
 
 const API_URL = "https://localhost:4000";
 
@@ -75,6 +75,12 @@ function InfoSection({ user, editable, updateInputValue }) {
 					editable={editable}
 					updateInputValue={updateInputValue}
 				/>
+				<InfoItem
+					itemName={"Phone"}
+					itemValue={`${user?.phone ? user.phone : "Not set"}`}
+					editable={editable}
+					updateInputValue={updateInputValue}
+				/>
 			</div>
 		</section>
 	);
@@ -92,7 +98,7 @@ function EditSection({ triggerEditable, saveChanges }) {
 function PreviousProduct({ product }) {
 	return (
 		<div className="previous-product">
-			<img src={product.image_url} />
+			<img src={product.images[0]} />
 			<p className="date"> {product.product_name}</p>
 		</div>
 	);
@@ -101,12 +107,12 @@ function PreviousProduct({ product }) {
 function PreviousBoughtProducts({ userId }: { userId: number }) {
 	const [products, setProduct] = useState<Product[]>([]);
 	useEffect(() => {
-		// (async () => {
-		// 	const response = await axios.get(
-		// 		`${API_URL}/product/customer/${userId}`
-		// 	);
-		// 	setProduct(response.data);
-		// })();
+		(async () => {
+			const response = await axios.get(
+				`${API_URL}/product/customer/${userId}`
+			);
+			setProduct(response.data.data);
+		})();
 	}, [userId]);
 	return (
 		<section className="previous-orders-section">
@@ -123,10 +129,6 @@ function PreviousBoughtProducts({ userId }: { userId: number }) {
 function UserPage() {
 	const dispatch = useDispatch();
 	const user = useSelector((state: RootState) => state.user);
-
-	useEffect(() => {
-		console.log(`User State Changed to ${JSON.stringify(user)}`);
-	}, [user]);
 	const [editable, setEditable] = useState<boolean>(false);
 
 	function triggerEditable() {
@@ -143,7 +145,6 @@ function UserPage() {
 
 	function updateInputValue(event: React.ChangeEvent<HTMLInputElement>) {
 		let newValue = event.target.value;
-		console.log(newValue);
 		let changedInputName = event.target.name;
 		if (changedInputName.includes("First")) {
 			changedInputName = "Fname";
@@ -168,6 +169,7 @@ function UserPage() {
 					saveChanges={saveChanges}
 				/>
 				<PreviousBoughtProducts userId={user.user_id} />
+				{/* TODO: add user phone number */}
 			</div>
 		</div>
 	);

@@ -7,11 +7,15 @@ import { putUser } from "../store/features/userSlice";
 
 import defaultProfilePic from "../../public/images/defaultProfilePic.jpg";
 import "../css/userPage.css";
-import { RootState } from "../store/store";
+import { RootState, AppDispatch } from "../store/store";
 
 const API_URL = "https://localhost:4000";
 
 function PictureSection({ image_url, userName }) {
+	let imageFile: File;
+	const dispatch = useDispatch<AppDispatch>();
+	const user = useSelector((state: RootState) => state.user);
+
 	function openFileDialog() {
 		const fileInput = document.getElementById("UploadNewProfilePic");
 		fileInput.click();
@@ -21,14 +25,51 @@ function PictureSection({ image_url, userName }) {
 		const fileInput = document.getElementById(
 			"UploadNewProfilePic"
 		) as HTMLInputElement;
-		const image = fileInput.files[0];
+		imageFile = fileInput.files[0];
 		const profileImage = document.getElementById(
 			"profilePic"
 		) as HTMLImageElement;
-		profileImage.src = URL.createObjectURL(image);
+		profileImage.src = URL.createObjectURL(imageFile);
 	}
 
-	function handleUploadPhoto(event) {}
+	async function handleUploadPhoto(event) {
+		// TODO: Compress the image before uploading
+		try {
+			const signedUrl = (
+				await axios({
+					method: "GET",
+					url: `${API_URL}/image/upload-url?directoryType=Profile&fileSize=1000&length=1`,
+					withCredentials: true,
+				})
+			).data.data[0];
+			const uploadResponse = await axios({
+				method: "PUT",
+				url: signedUrl,
+				data: imageFile,
+				headers: {
+					"Content-Type": imageFile.type,
+				},
+			});
+			if (uploadResponse.status === 200) {
+				//TODO: notify the user
+			}
+			const imageUrl = signedUrl.split("?")[0];
+			console.log(`image url: ${imageUrl} userId: ${user.user_id}`);
+			const response = await axios({
+				method: "PATCH",
+				withCredentials: true,
+				url: `${API_URL}/image/user/add`,
+				data: {
+					imageUrl: imageUrl,
+					id: user.user_id,
+				},
+			});
+			console.log(response.data);
+		} catch (error) {
+			//TODO: notify the user
+			console.log(error.response.data);
+		}
+	}
 
 	return (
 		<section className="picture-section">

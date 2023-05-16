@@ -3,12 +3,9 @@ import Label from "./Label";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { putUser, logoutUser } from "../store/features/userSlice";
 
 export default function InputForm() {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const user = useSelector((state: any) => state.user);
 	const [email_El, setEmail] = React.useState({
 		email: "",
 		pass: "",
@@ -29,10 +26,7 @@ export default function InputForm() {
 				},
 			});
 			if (loginRes.status === 200) {
-				dispatch(putUser(loginRes.data.data));
-				console.log(user);
-				navigate("/");
-				console.log(loginRes.data.data);
+				window.location.href = "/";
 			}
 		} catch (error) {
 			if (error.response.status === 401) {
@@ -55,20 +49,6 @@ export default function InputForm() {
 	}
 	async function handleSubmit(event) {
 		event.preventDefault();
-		// let valid = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-		// let decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-		// if (!email_El.email.match(valid)) {
-		//     email_El.checkemail = "invalid Email"
-		// } else email_El.checkemail = ""
-		// if (!email_El.pass.match(decimal)) {
-		//     email_El.checkpass = "must be >= 8 characters with [a-z], [A-Z], [0-9], one symbol"
-		// } else email_El.checkpass = ""
-		// if (email_El.email.match(valid) && email_El.pass.match(decimal)) {
-		//     //TODO
-		//     // send email_El.email , email_El.pass to backend
-		//     email_El.checkemail = ""
-		//     email_El.checkpass = ""
-		// }
 		await Login();
 		handleChange(event);
 	}

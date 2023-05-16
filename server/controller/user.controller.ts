@@ -99,4 +99,9 @@ async function getUserByEmail(req: Request, res: Response) {
 	}
 }
 
+export function getCurrentUser(req: Request, res: Response) {
+	console.log("req.user", req.user);
+	return res.status(200).json({ status: "success", data: req.user });
+}
+
 export { getUserById, getUserByEmail, addNewUser, removeUser, updateUser };

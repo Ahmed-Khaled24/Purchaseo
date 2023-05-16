@@ -1,53 +1,70 @@
-import './app.css';
-import React, { useState, useEffect } from "react"
-import Home from "./components/Home"
-import NavBar from "./components/NavBarNormal"
-import NavBar2 from "./components/NavBarSeller"
-import Products from "./components/Products"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Item from './components/Item';
-import Cart from './components/Cart';
-import AddReview from './components/Add-Review'
-import Footer from './components/Footer'
-import Reviews from './components/Reviews'
-import OwnerItems from './components/OwnerItems'
-import UserPage from './components/UserPage';
-import Container from './components/Container'
-import CreateAccountContainer from './components/CreateAccountContainer'
-import ResetPass from './components/ResetPass'
-import NewPass from './components/NewPass'
-import AddProduct from './components/AddProduct';
+import "./app.css";
+import React, { useState, useEffect } from "react";
+import Home from "./components/Home";
+import NavBar from "./components/NavBarNormal";
+import NavBar2 from "./components/NavBarSeller";
+import Products from "./components/Products";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Item from "./components/Item";
+import Cart from "./components/Cart";
+import AddReview from "./components/Add-Review";
+import Footer from "./components/Footer";
+import Reviews from "./components/Reviews";
+import OwnerItems from "./components/OwnerItems";
+import UserPage from "./components/UserPage";
+import Container from "./components/Container";
+import CreateAccountContainer from "./components/CreateAccountContainer";
+import ResetPass from "./components/ResetPass";
+import NewPass from "./components/NewPass";
+import AddProduct from "./components/AddProduct";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { putUser } from "./store/features/userSlice";
 
 function App() {
-
-  const items = ["item1"];
-  const desc1 = "Lorem ipsum dolor sit amet, aute irure ";
-  const desc2 = "Lorem ipsum dolor sit amet, aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
+  const dispatch = useDispatch();
+  const API_URL = "https://localhost:4000";
+  useEffect(() => {
+    (async () => {
+      const userResponse = await axios({
+        withCredentials: true,
+        method: "GET",
+        url: `${API_URL}/user`,
+      });
+      if (userResponse.status === 200) {
+        dispatch(putUser(userResponse.data.data));
+      } else {
+        window.location.href = "/sign-in";
+      }
+    })();
+  }, []);
   let userType = false;
   return (
-
     <div className="App">
-
       <Router>
-      <ToastContainer />
-        <NavBar type={userType}/>
+        <ToastContainer />
+        <NavBar type={userType} />
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
-            <Route path='/seller'>
+            <Route path="/seller">
               <Route index element={<OwnerItems />} />
               <Route path="add-product" element={<AddProduct />} />
             </Route>
             <Route path="/products/:category" element={<Products />} />
-            <Route path="/products/:category/:id" element={<Item />} >
+            <Route path="/products/:category/:id" element={<Item />}>
               <Route path="" element={<Reviews />} />
               <Route path="add-review" element={<AddReview />} />
             </Route>
-            <Route path="/cart" element={<Cart />} />       
-            <Route path="/myPage" element={<UserPage />} /> // HERE
-            <Route path="/sign-in" element={<Container />} /> 
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/myPage" element={<UserPage />} />
+            <Route path="/sign-in" element={<Container />} />
             <Route path="/sign-up" element={<CreateAccountContainer />} />
             <Route path="/forget-password" element={<ResetPass />} />
             <Route path="/reset-password/:token" element={<NewPass />} />
@@ -56,10 +73,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-
     </div>
-
-
   );
 }
 

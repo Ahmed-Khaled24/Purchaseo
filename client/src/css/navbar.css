@@ -2,10 +2,7 @@ nav {
   height: 3rem;
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
-  padding: 2rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding: 50px;
   align-items: center;
 }
 

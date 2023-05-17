@@ -2,7 +2,6 @@ import "./app.css";
 import React, { useState, useEffect } from "react";
 import Home from "./components/Home";
 import NavBar from "./components/NavBarNormal";
-import NavBar2 from "./components/NavBarSeller";
 import Products from "./components/Products";
 import {
   BrowserRouter as Router,
@@ -49,7 +48,7 @@ function App() {
     <div className="App">
       <Router>
         <ToastContainer />
-        <NavBar type={userType} />
+        <NavBar />
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />

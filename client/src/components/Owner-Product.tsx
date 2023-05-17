@@ -6,17 +6,17 @@ export default function OwnerProduct(props: any) {
   return (
     <div className="product">
       <div className="img-container">
-        <img src="/items/item15.avif" alt="Item1" className="product-image" />
+        <img src={props.image} alt={props.product_name} className="product-image" />
       </div>
       <div className="product-info">
         <div className="product-info-title_price">
           <h1 className="head">{props.name}</h1>
-          <p className="owner-price">60$</p>
+          <p className="owner-price">{props.price}</p>
         </div>
         <div className="product-info-rate">
           <Stars rate={props.rate} />
           <p >&#8226;</p>
-          <p>{props.reviews} Reviews</p>
+          <p>{props.reviews} Reviews </p>
         </div>
         <p><span className="headline">Description : </span>{props.desc}</p>
         <p><span className="headline">Quantity : </span> 60{props.quantity}</p>

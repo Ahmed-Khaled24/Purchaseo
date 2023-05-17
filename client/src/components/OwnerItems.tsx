@@ -1,14 +1,36 @@
 import React from "react";
 import OwnerProduct from "./Owner-Product";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import axios from "axios";
+import { Product } from "../../../server/types/Product";
 
 export default function OwnerItems() {
-  return (
-    <div className="owner-items">
-      <OwnerProduct name="Item 1" rate={3} reviews={50} desc="Lorem ipsum dolor sit amet, aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-      <OwnerProduct name="Item 2" rate={4} reviews={20} desc="Lorem ipsum dolor sit amet, aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-      <OwnerProduct name="Item 3" rate={5} reviews={10} desc="Lorem ipsum dolor sit amet, aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-      <OwnerProduct name="Item 4" rate={2} reviews={30} desc="Lorem ipsum dolor sit amet, aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-      <OwnerProduct name="Item 5" rate={1} reviews={40} desc="Lorem ipsum dolor sit amet, aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
-    </div>
-  )
+	const [items, setItems] = React.useState<Product[]>([]);
+	const user = useSelector((state: RootState) => state.user);
+	useEffect(() => {
+		axios({
+			method: "get",
+			url: `http://localhost:4000/product/seller/${user.user_id}`,
+		}).then((res) => {
+			setItems(res.data.data);
+		});
+	}, []);
+	return (
+		<div className="owner-items">
+			{items.length === 0 && <h1>No items to show</h1>}
+			{items.map((item: Product, index) => (
+        // TODO: Add reviews and products
+				<OwnerProduct
+          price={item.price}
+					key={index}
+					name={item.product_name}
+					rate={item.rating}
+					reviews={"haha"}
+					desc={item.description}
+				/>
+			))}
+		</div>
+	);
 }

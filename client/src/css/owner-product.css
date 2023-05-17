@@ -1,101 +1,122 @@
 .product {
-  display: flex;
-  gap: 1rem;
-  background-color: #fff9e9;
-  margin: 5rem;
-  margin-inline: auto;
-  padding: 2rem;
-  max-height: 20rem;
-  box-shadow: 2rem 2rem 4rem rgb(240, 240, 240);
-  width: 70vw;
-  align-self: center;
+	display: flex;
+	gap: 25px;
+	background-color: #fff9e9;
+	margin: 5rem;
+	margin-inline: auto;
+	padding: 2rem;
+	max-height: 20rem;
+	box-shadow: 2rem 2rem 4rem rgb(240, 240, 240);
+	width: 60%;
+	align-self: center;
+}
+
+@media screen and (max-width: 1350px) {
+	.product {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.product {
+		width: 90%;
+	}
 }
 
 .img-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 20rem;
-  max-height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 20rem;
+	max-height: 100%;
 }
 
 .product-image {
-  max-width: 20rem;
-  height: 100%;
+	border-radius: 5px;
+	max-width: 20rem;
+	height: 100%;
 }
 
 .product-info-title_price {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .owner-price {
-  font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 
 .head {
-  font-size: 2rem;
+	font-size: 2rem;
 }
 
 .product-info {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  justify-content: space-between;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	justify-content: space-between;
 }
 
 .product-info-rate {
-  display: flex;
-  gap: 1rem;
-  font-size: 1.5rem;
+	display: flex;
+	gap: 1rem;
+	font-size: 1.5rem;
 }
 
 .headline {
-  font-size: 1.2rem;
-  font-weight: bold;
+	font-size: 1.2rem;
+	font-weight: 500;
 }
 
 .product-info-sells {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  font-size: 1.3rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	font-size: 1.3rem;
 }
 
 .product-info-buttons {
-  display: flex;
-  gap: 2rem;
+	display: flex;
+	gap: 2rem;
 }
 
 .remove-button {
-  background-color: #982828;
-  border: 0;
-  color: white;
-  cursor: pointer;
-  height: 2.5rem;
-  width: 7rem;
-  font-size: 1rem;
+	background-color: #982828;
+	border: 0;
+	color: white;
+	cursor: pointer;
+	height: 2.5rem;
+	width: 7rem;
+	font-size: 1rem;
 }
 
 .edit-button {
-  background-color: #fff9e9;
-  cursor: pointer;
-  color: black;
-  height: 2.5rem;
-  width: 7rem;
-  border: 2px solid black;
-  font-size: 1rem;
+	background-color: #fff9e9;
+	cursor: pointer;
+	color: black;
+	height: 2.5rem;
+	width: 7rem;
+	border: 2px solid black;
+	font-size: 1rem;
 }
 
 .remove-button:hover {
-  background-color: #fff9e9;
-  color: #982828;
-  border: 2px solid #982828;
+	background-color: #fff9e9;
+	color: #982828;
+	border: 2px solid #982828;
 }
 
 .edit-button:hover {
-  background-color: #000;
-  color: white;
+	background-color: #000;
+	color: white;
+}
+
+.empty-products-placeholder {
+	width: 100%;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

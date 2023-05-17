@@ -4,6 +4,7 @@ import {addNewOrderC, getOrderC, removeOrderC} from '../controller/orders.contro
 const ordersRouter = Router();
 
 
+ordersRouter.get('/addOrder', addNewOrderC);
 ordersRouter.get('/:id', getOrderC);
 ordersRouter.delete('/:id', removeOrderC);
 

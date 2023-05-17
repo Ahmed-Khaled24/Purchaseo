@@ -1,33 +1,52 @@
 nav {
-  height: 3rem;
-  display: flex;
-  justify-content: space-between;
-  padding: 50px;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 60px;
+	align-items: center;
+  gap: 40px;
 }
 
 .logo {
-  max-width: 12rem;
-  cursor: pointer;
+	font-size: 46px;
+	font-weight: bolder;
+	font-family: "Merriweather", serif;
+	letter-spacing: -2px;
 }
 
 .nav-right {
-  margin-top: 0.3rem;
-  display: flex;
-  gap: 2rem;
-  list-style: none;
+	display: flex;
+	gap: 40px;
+	list-style: none;
+	align-items: center;
+	justify-self: center;
 }
 
 .nav-item {
-  text-decoration: none;
-  color: #000000;
+	text-decoration: none;
+	color: #000000;
+	font-weight: 500;
 }
 
 .nav-search {
-  height: 2.3rem;
-  width: 30rem;
-  border: 1px solid rgb(219, 219, 219);
-  border-radius: 30px;
-  color: rgb(0, 0, 0);
-  padding: 0.8rem;
+	width: 50%;
+	font-size: 18px;
+	border-radius: 50px;
+	padding: 10px 20px;
+	border: none;
+	border: #dee2e6 solid 2px;
+}
+
+.nav-search:focus-visible {
+	outline: none;
+}
+
+.profile-pic-nav {
+	object-fit: cover;
+	width: 40px;
+	border-radius: 50%;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  opacity: 0.95;
+}
+.profile-pic-nav:hover {
+  opacity: 1;
 }

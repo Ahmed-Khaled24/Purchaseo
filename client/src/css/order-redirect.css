@@ -1,0 +1,26 @@
+.order-redirect-wrapper {
+	display: grid;
+	place-items: center;
+	width: 100%;
+}
+
+.success-order-redirect-wrapper,
+.failure-order-redirect-wrapper {
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+	justify-content: center;
+	align-items: center;
+	padding: 100px;
+	margin: 100px;
+	width: 65%;
+	text-align: center;
+}
+
+.success-order-redirect-wrapper {
+	background-color: #b2f2bb;
+}
+
+.failure-order-redirect-wrapper {
+	background-color: #f2b2b2;
+}

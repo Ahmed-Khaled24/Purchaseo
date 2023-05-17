@@ -25,6 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { putUser } from "./store/features/userSlice";
+import OrderRedirect from "./components/OrderRedirect";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/">
+            <Route path='/order/redirect/:status' element={<OrderRedirect />} />
             <Route index element={<Home />} />
             <Route path="/seller">
               <Route index element={<OwnerItems />} />

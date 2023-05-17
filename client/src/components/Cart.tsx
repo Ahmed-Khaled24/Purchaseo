@@ -6,16 +6,17 @@ import {
 	decreaseCart,
 	getTotals,
 	removeFromCart,
-	CartState,
+	CartItem,
 } from "../store/features/cartSlice";
 import "../css/cart.css";
 import { Link } from "react-router-dom";
 import Stars from "./Stars";
+import { RootState } from "../store/store";
+import axios from "axios";
 export default function Cart() {
 	const dispatch = useDispatch();
-	const cart: CartState = useSelector(
-		(state: { cart: CartState }) => state.cart
-	);
+	const cart = useSelector((state: RootState) => state.cart);
+	const API_URL = "https://localhost:4000";
 
 	useEffect(() => {
 		dispatch(getTotals());
@@ -34,6 +35,30 @@ export default function Cart() {
 		dispatch(clearCart());
 	};
 
+	async function handleCheckout() {
+		const cartItems: CartItem[] = cart.cartItems;
+		const paymentRequestBody = cartItems.map((item) => {
+			return {
+				product_id: item.id,
+				quantity: item.cartQuantity,
+				pricePerUnit: item.price,
+				images: [item.image],
+				name: item.title,
+			};
+		});
+		const paymentSessionURL = await axios({
+			method: "POST",
+			withCredentials: true,
+			url: `${API_URL}/payment`,
+			data: {
+				products: paymentRequestBody,
+			},
+		});
+		if (paymentSessionURL.status === 200) {
+			window.location.href = paymentSessionURL.data.data;
+		}
+	}
+
 	return (
 		<div className="cart-container">
 			<h1>Cart</h1>
@@ -42,9 +67,7 @@ export default function Cart() {
 					<p className="w">Your cart is currently empty...</p>
 					<div className="start-shopping">
 						<Link to="/">
-							<button className="buttonhome">
-								Start Shopping
-							</button>
+							<button className="buttonhome">Start Shopping</button>
 						</Link>
 					</div>
 				</div>
@@ -69,22 +92,14 @@ export default function Cart() {
 									</div>
 									<div className="product-info">
 										<div className="cart-info-title_price">
-											<h1 className="head">
-												{cartItem.product_name}
-											</h1>
-											<p className="Quantity-price">
-												{cartItem.price *
-													cartItem.cartQuantity}
-												$
-											</p>
+											<h1 className="head">{cartItem.product_name}</h1>
+											<p className="Quantity-price">{cartItem.price * cartItem.cartQuantity}$</p>
 										</div>
 										<div className="product-info-rate">
 											<Stars rate={cartItem.rating} />
 										</div>
 										<p>
-											<span className="headline">
-												Price :{" "}
-											</span>
+											<span className="headline">Price : </span>
 											<span
 												style={{
 													fontSize: "1.35rem",
@@ -96,35 +111,21 @@ export default function Cart() {
 										<div className="cart-info-buttons">
 											<button
 												className="remove-button border-radius"
-												onClick={() =>
-													handleRemoveFromCart(
-														cartItem
-													)
-												}
+												onClick={() => handleRemoveFromCart(cartItem)}
 											>
 												Remove
 											</button>
 											<div className="cart-product-quantity">
 												<button
 													className="cart-product-quantityL"
-													onClick={() =>
-														handleDecreaseCart(
-															cartItem
-														)
-													}
+													onClick={() => handleDecreaseCart(cartItem)}
 												>
 													-
 												</button>
-												<div className="count">
-													{cartItem.cartQuantity}
-												</div>
+												<div className="count">{cartItem.cartQuantity}</div>
 												<button
 													className="cart-product-quantityR"
-													onClick={() =>
-														handleAddToCart(
-															cartItem
-														)
-													}
+													onClick={() => handleAddToCart(cartItem)}
 												>
 													+
 												</button>
@@ -138,17 +139,14 @@ export default function Cart() {
 						<div className="cart-checkout">
 							<div className="total">
 								<span>Total</span>
-								<span className="amount">
-									${cart.cartTotalAmount}
-								</span>
+								<span className="amount">${cart.cartTotalAmount}</span>
 							</div>
-							<button
-								className="clear-btn"
-								onClick={() => handleClearCart()}
-							>
+							<button className="clear-btn" onClick={handleClearCart}>
 								Clear Cart
 							</button>
-							<button className="check-btn">Check out</button>
+							<button className="check-btn" onClick={handleCheckout}>
+								Check out
+							</button>
 							<div className="continue-shopping">
 								<Link to="/">
 									<svg

@@ -10,7 +10,7 @@ export interface CartState {
 
 export interface CartItem {
   id: number;
-  product_name: string;
+  title: string;
   price: number;
   image: string;
   rating: number;

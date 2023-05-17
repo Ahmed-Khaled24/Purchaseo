@@ -258,7 +258,14 @@ export default function AddProduct() {
 										value={formData?.product_name}
 									/>
 								</span>
-								<span>
+								<span
+								style={{
+									display:"flex",
+                                    alignContent:"flex-start",
+									flexDirection:"column",
+									gap:"0.7rem"
+								}}
+								>
 									<p className="t1">Category</p>
 									<Select
 										closeMenuOnSelect={false}
@@ -312,20 +319,15 @@ export default function AddProduct() {
 			</div>
 
 			<section className="Holderimages">
-				<div>
+				<div className="Holder">
 					<label>
-						<input type="file" accept="image/*" onChange={selectFile} multiple />
+						<input type="file" accept="image/*" onChange={selectFile} multiple max="6" />
 					</label>
-				</div>
-				<div>
+					<div>
 					{previewImages.length <= 0 && (
 						<img
 							src="/Imginsert.png"
-							style={{
-								marginTop: "2rem",
-								width: "62.83rem",
-								height: "23rem",
-							}}
+						    className="tempImg"
 						/>
 					)}
 					{previewImages.length > 0 && (
@@ -339,9 +341,10 @@ export default function AddProduct() {
 										key={index}
 										style={{
 											height: "14rem",
-											borderRadius: "9px",
-											width: "16rem",
+											minWidth: "16rem",
+											maxWidth: "16rem",
 											marginLeft: "2rem",
+											objectFit:"fill"
 										}}
 									/>
 								))}
@@ -349,6 +352,8 @@ export default function AddProduct() {
 						</div>
 					)}
 				</div>
+				</div>
+				
 			</section>
 			<div className="h">
 				<button className="buttonSubmit">Submit</button>

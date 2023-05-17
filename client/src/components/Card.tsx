@@ -27,21 +27,24 @@ export default function Card(prop) {
 					}}
 				>
 					<h1 className="card--title">
-						{prop.title.substring(0, 20)}...
+						{prop.title.substring(0, 20)}
 					</h1>
-					<span>
-						<Stars rate={prop.rating} />
-					</span>
-					<span className="rw">
-						<p
+					<p
 							className="card--price"
 							style={{
 								display: "flex",
-								fontSize: "1.2rem",
+								fontSize: "1.3rem",
+								fontWeight:"bold",
+								marginBlock:"1rem"
 							}}
 						>
 							{prop.price}${" "}
 						</p>
+					<span>
+					
+					</span>
+					<span className="rw">
+					<Stars rate={prop.rating} />
 						<button
 							className="add-button border-radius"
 							onClick={() => handleAddToCart(prop)}

@@ -5,8 +5,11 @@ import "../css/home-products.css";
 import axios from "axios";
 
 const API_URL = "https://localhost:4000";
+
 //It fetches data and display products page
 export default function Products() {
+
+
 	const { category } = useParams();
 	const [data, setData] = useState([]);
 	const [filteredData, setFilteredData] = useState([]);
@@ -68,15 +71,21 @@ export default function Products() {
 
 	return (
 		<div>
-			<h1 className="Category--title">Products</h1>
+			<h1 className="Category--title">{category === "women" || category === "men" || category === "kids"
+				? `${category}'s Clothes`
+				: category}</h1>
 			<div className="CategoryPage">
 				<div className="filter-bar">
+				
+					<div className="filter">
+					<p  style={{fontSize:"1.7rem"}}>{AllProducts.length} Items found</p>
+					<hr></hr>
 					<div
 						style={{
 							display: "flex",
 							flexDirection: "column",
 							gap: "1rem",
-							marginTop: "7rem",
+							marginTop: "2rem",
 						}}
 					>
 						<p className="word-filter">Rating</p>
@@ -101,7 +110,7 @@ export default function Products() {
 						}}
 					>
 						<p className="word-filter">Price Range</p>
-						<div className="filter-bar">
+						<div >
 							<p className="word1-filter">Min:</p>
 							<input
 								type="number"
@@ -125,7 +134,10 @@ export default function Products() {
 					<button className="filter-button" onClick={onFilter}>
 						Filter
 					</button>
+					</div>
+				
 				</div>
+				
 				<div className="cards">{AllProducts}</div>
 			</div>
 		</div>

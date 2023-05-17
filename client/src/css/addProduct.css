@@ -12,7 +12,7 @@ align-content: space-around;
     font-weight: 400;
     font-size: 3rem;
     line-height: 0.0625rem;
-    margin-bottom: 5%;
+    margin-bottom: 2rem;
 }
 .t1{
   font-weight: 400;
@@ -20,8 +20,8 @@ align-content: space-around;
 }
 .titleform{
   font-weight: 400;
-
-    font-size: 1.6rem;
+  font-size: 1.6rem;
+  margin-block:1rem;
 }
 .Hold{
   display: flex;
@@ -33,15 +33,16 @@ align-content: space-around;
 
 }
 .Hold:first-child{
-    gap: 8rem;
+    gap: 6rem;
 }
 
 .text{
-  width: 100%;
-  padding: 1px 15px;
-  margin: 10px 0;
-  
+  width: 16rem;
+  height: auto;
+
+  box-sizing: border-box;
   font-size: 1rem;
+
 }
 .text2{
     min-width: 16.4rem;
@@ -49,29 +50,52 @@ align-content: space-around;
     margin-top: 0.3rem;
 }
 .form1{
-    margin-top: 4%;
 display: flex;
 flex-direction: column;
 justify-content: center;
 padding: 32px;
 gap: 40px;
-width: 36rem;
-height: 442px;
+width: 100%;
+height: 32rem;
 background: #FFF5DC;
 border-radius: 9px;
 }
 .form2{
-    margin-top: 4%;
-    display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 39px 61px;
-gap: 17px;
-width: 400px;
-height: 442px;
-background: #FFF5DC;
-border-radius: 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 39px 61px;
+  gap: 17px;
+  width: 100%;
+  height: 32rem;
+  background-color: var(--form-background-color, #FFF5DC);
+  border-radius: 9px;
+}
+
+:root {
+  --form-background-color: #FFF5DC;
+}
+
+@media (max-width: 900px) {
+  .form2 {
+    width: 100%;
+    padding: 20px;
+    height: auto;
+
+  }
+  .form1 {
+    width: 100%;
+    padding: 20px;
+    height: auto;
+  }
+  .Holder{
+    width: 100%;
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+
+  }
 }
 
 .imgInsert{
@@ -87,6 +111,7 @@ height: 25rem;
     align-items:center;
     align-content:space-around;
     gap: 1rem;
+    flex-wrap:wrap;
 margin-inline: auto;
 }
 .button{
@@ -95,10 +120,25 @@ margin-inline: auto;
     border: none;
     
 }
+.Holder{
+  width: 100%;
+display: flex;
+height: 100%;
+flex-wrap: wrap;
+padding-inline: 8rem;
+
+}
+
+.tempImg{
+ margin-top: 2rem;
+width: 100%;
+
+height: 20rem;
+object-fit:fill;
+}
 input[type="file"]{
-    box-sizing: border-box;
-  margin-top: 3%;
-  margin-left: -141%;
+    margin-inline: auto;
+
 }
 input[type="file"]::file-selector-button {
     border: 0px ;
@@ -141,9 +181,7 @@ input[type="file"]::file-selector-button {
   }
   .h{
     height: 8rem;
-
-    margin-top: 1%;
-    margin-bottom: 4%;
+    margin-block: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -152,10 +190,10 @@ input[type="file"]::file-selector-button {
     border: 0px ;
     padding: 0.2em 0.4em;
     border-radius: 0.2em;
-    height: 2.4rem;
-    width: 10rem;
+    height: 3rem;
+    width: 14rem;
     background-color:#FDD36A;
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: white;
     font-style: normal;   
     margin-inline: auto;

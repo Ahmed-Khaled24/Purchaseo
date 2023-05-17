@@ -70,6 +70,7 @@ export default function AddProduct() {
 	useEffect(() => {
 		handleImageCompression();
 	}, [currentFiles]);
+	
 	async function handleImageCompression() {
 		let imageFiles = currentFiles;
 

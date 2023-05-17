@@ -8,6 +8,8 @@ import { putUser } from "../store/features/userSlice";
 import defaultProfilePic from "../../public/images/defaultProfilePic.jpg";
 import "../css/userPage.css";
 import { RootState, AppDispatch } from "../store/store";
+import imageCompression from "browser-image-compression";
+import { toast } from "react-toastify";
 
 const API_URL = "https://localhost:4000";
 
@@ -31,9 +33,23 @@ function PictureSection({ image_url, userName }) {
 		) as HTMLImageElement;
 		profileImage.src = URL.createObjectURL(imageFile);
 	}
+	async function handleImageCompression(image: File){
+		const options = {
+			maxSizeMB: 1,
+			maxWidthOrHeight: 1920,
+		};
+		try {
+				const example = await imageCompression(image, options);
+				console.log(example);
+				return example;
+		} catch (error) {
 
+			console.log(error);
+		}
+	}
 	async function handleUploadPhoto(event) {
 		// TODO: Compress the image before uploading
+		imageFile = await handleImageCompression(imageFile);
 		try {
 			const signedUrl = (
 				await axios({
@@ -51,6 +67,9 @@ function PictureSection({ image_url, userName }) {
 				},
 			});
 			if (uploadResponse.status === 200) {
+				toast.success(`Image uploaded successfully`, {
+					position: "bottom-left",
+				});
 				//TODO: notify the user
 			}
 			const imageUrl = signedUrl.split("?")[0];
@@ -67,6 +86,9 @@ function PictureSection({ image_url, userName }) {
 			console.log(response.data);
 		} catch (error) {
 			//TODO: notify the user
+			toast.error(`Error uploading image`, {
+				position: "bottom-left",
+			});
 			console.log(error.response.data);
 		}
 	}

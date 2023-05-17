@@ -42,5 +42,11 @@ export async function dbAddCategory(name: any): Promise<any> {
 	const ResultRows = rows as RowDataPacket[];
 	return ResultRows ? true : false;
 }
-
+export async function dbGetAllCategories(): Promise<any> {
+	// db call
+	const query = `SELECT category_name
+		FROM category`;
+	const [rows] = await dbConnection.execute(query);
+	return rows as RowDataPacket[];
+}
 

@@ -3,6 +3,7 @@ import {
 	dbGetProductsByCategory,
 	dbGetProductsByName,
 	dbAddCategory,
+	dbGetAllCategories,
 } from "../model/categories.model";
 import {
 	dbGetImagesOfProducts,
@@ -70,3 +71,15 @@ export const addCategory = async function (req: Request, res: Response) {
 			.json({ status: "failure", message: "New category adding failed" });
 	}
 };
+
+export const getAllCategories = async function (req: Request, res: Response) {
+	try {
+		const categories = await dbGetAllCategories();
+		res.status(200).json({ status: "success", data: categories });
+	} catch (err) {
+		res.status(500).json({
+			status: "failure",
+			message: (err as Error).message,
+		});
+	}
+}

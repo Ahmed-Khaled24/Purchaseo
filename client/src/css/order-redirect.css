@@ -1,7 +1,9 @@
 .order-redirect-wrapper {
 	display: grid;
 	place-items: center;
+	grid-gap: 20px;
 	width: 100%;
+	padding: 100px;
 }
 
 .success-order-redirect-wrapper,
@@ -12,7 +14,6 @@
 	justify-content: center;
 	align-items: center;
 	padding: 100px;
-	margin: 100px;
 	width: 65%;
 	text-align: center;
 }
@@ -23,4 +24,8 @@
 
 .failure-order-redirect-wrapper {
 	background-color: #f2b2b2;
+}
+
+.redirect-timer {
+	font-size: 18px;
 }

@@ -1,12 +1,13 @@
+import { useEffect, useState } from "react";
 import "../css/order-redirect.css";
 import NavBar from "./NavBarNormal";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function SuccessRedirect() {
 	return (
 		<div className={"success-order-redirect-wrapper"}>
-				<h1>Order Placed Successfully!</h1>
-				<p>Thank you for shopping with us!</p>
+			<h1>Order Placed Successfully!</h1>
+			<p>Thank you for shopping with us!</p>
 		</div>
 	);
 }
@@ -23,10 +24,21 @@ function FailureRedirect() {
 }
 
 export default function OrderRedirect() {
-	const {status} = useParams();
+	const navigate = useNavigate();
+	const { status } = useParams();
+	const [redirectTimer, setRedirectTimer] = useState(10);
+	useEffect(() => {
+		if (redirectTimer === 0) {
+			navigate("/");
+		}
+		setTimeout(() => {
+			setRedirectTimer(redirectTimer - 1);
+		}, 1000);
+	}, [redirectTimer]);
 	return (
 		<div className={"order-redirect-wrapper"}>
 			{status === "success" ? <SuccessRedirect /> : <FailureRedirect />}
+			<p className={"redirect-timer"}>Redirecting to home page in {redirectTimer} seconds...</p>
 		</div>
 	);
 }

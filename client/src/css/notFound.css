@@ -1,0 +1,16 @@
+.not-found-wrapper {
+	display: grid;
+	place-items: center;
+	padding: 100px;
+}
+.not-found {
+	text-align: center;
+	padding: 70px;
+	border-radius: 5px;
+	line-height: 1.5;
+	background-color: #ffec99;
+}
+.not-found h1 {
+	font-size: 60px;
+	font-family: inter;
+}

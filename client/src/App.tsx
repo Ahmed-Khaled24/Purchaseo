@@ -26,6 +26,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { putUser } from "./store/features/userSlice";
 import OrderRedirect from "./components/OrderRedirect";
+import { NotFound } from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ function App() {
             <Route path="/reset-password/:token" element={<NewPass />} />
             <Route path="/add-product" element={<AddProduct />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </Router>

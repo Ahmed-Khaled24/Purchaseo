@@ -28,22 +28,6 @@ export default function AddProduct() {
 	const [previewImages, setPreviewImages] = useState([]);
 	const [categoryOptions, setCategoryOptions] = useState([]);
 
-	function resetAll() {
-		setFormData({
-			product_name: "",
-			description: "",
-			added_by: 1,
-			price: 0,
-			inventory: 0,
-		});
-		setPercentage(0);
-		setCompressedFiles([]);
-		setCategories([{}]);
-		setPreviewImages([]);
-		setCurrentFiles([]);
-		setPreviewImages([]);
-		setCategoryOptions([]);
-	}
 	async function getAllCategories() {
 		try {
 			const response = await axios({
@@ -201,7 +185,7 @@ export default function AddProduct() {
 				},
 			});
 			if (response.status === 201) {
-				resetAll();
+				window.location.reload();
 			}
 		} catch (error) {
 			toast.error(`Could not add product`, {

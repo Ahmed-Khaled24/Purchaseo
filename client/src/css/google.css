@@ -1,15 +1,14 @@
 .google-container {
-  height: 5.8rem;
-  margin-top: 1rem;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+  margin: 40px 0 30px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 .google--butt {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 96%;
-  height: 3.18rem;
+  width: 100%;
+  padding: 10px 20px;
   gap: 0.6rem;
   border: 1px solid #000000;
   border-radius: 3px;

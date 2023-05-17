@@ -13,7 +13,6 @@ export default function Label(props) {
                         onChange={props.change}
                         value={props.value}
                     />
-
                 </div>
 
             </div>

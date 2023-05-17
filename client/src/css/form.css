@@ -1,16 +1,16 @@
 .form {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: flex-start;
-  margin-top: 1rem;
   font-style: normal;
   background: #fff9e9;
 }
 .create-form {
   display: flex;
+  gap: 10px;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 0.5rem;
   font-style: normal;
   background: #fff9e9;
 }
@@ -19,7 +19,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  margin-top: 1rem;
   font-style: normal;
   background: #fff9e9;
   height: 100%;
@@ -33,20 +32,23 @@
 #name-ee,
 #pass-eee,
 #repass-ee {
-  width: 17.75rem;
+  width: 100%;
   height: 2rem;
   border: 0.5px solid rgba(0, 0, 0, 0.3);
-  border-radius: 2px;
+  border-radius: 5px;
   background: #fff9e9;
   align-self: stretch;
   padding: 0.5rem;
 }
+input[type="text"]#name-ee{
+  margin: 0;
+}
+
 .form--ele {
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.68rem;
-  width: 18.75rem;
-  height: 3.1rem;
+  width: 100%;
+  gap: 5px;
 }
 
 .form--butt {
@@ -54,13 +56,12 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 17.75rem;
+  width: 100%;
   height: 2.5rem;
   background: #000000;
   border-radius: 3px;
   border: 0;
   color: white;
-  margin-top: 1rem;
   cursor: pointer;
 }
 
@@ -77,35 +78,48 @@
   /*  gap: 0.5rem; */
 }
 .checkk {
+  font-size: 14px;
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  gap: 1rem;
-  margin-top: 1rem;
+  justify-content: center;
+  gap: 10px;
 }
 #check,
 #remember {
-  width: 1rem;
+  width: 16px;
   accent-color: #fff9e9;
   color: #fff9e9;
-}
-
-#check,#remember {
-  margin-bottom: 0.7rem;
+  accent-color: #7A2B64;
 }
 
 .footer {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  gap: 20px;
   align-items: center;
-  width: 17.75rem;
-  height: 0.68rem;
-  margin-top: 1rem;
+  width: 100%;
+  margin-top: 20px;
 }
+
 #footer-t {
+  display: flex;
+  gap: 10px;
   font-style: normal;
   font-weight: 500;
-  font-size: 0.75rem;
-  color: rgba(0, 0, 0, 0.39);
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.form--ele label{
+  margin: 0;
+}
+
+.checkk label {
+  font-weight: 500;
+  margin: 0px;
+}
+
+.footer a {
+  font-size: 14px;
+  align-self: flex-start;
+  color: #9B4683;
 }

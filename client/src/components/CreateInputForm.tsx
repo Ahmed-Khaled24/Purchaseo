@@ -45,8 +45,6 @@ export default function CreateInputForm() {
                 console.log(error);
             }
         }
-
-
     }
 
     function handleChange(event) {
@@ -137,6 +135,8 @@ export default function CreateInputForm() {
                 validation={email_El.checkrepass}
             />
 
+            
+            <div className="footer">
             <button className="form--butt" onClick={handleSubmit}>
                 Create Account
             </button>
@@ -150,11 +150,9 @@ export default function CreateInputForm() {
                 />
                 <label htmlFor="check">I'm a Seller</label>
             </div>
-            <div className="footer">
-                <p id="footer-t">Already a Member ?</p>
-                <NavLink to="/Sign-in" id="footer--c">
+                <p id="footer-t">Already a Member ? <NavLink to="/Sign-in" id="footer--c">
                     Login
-                </NavLink>
+                </NavLink></p>
             </div>
         </form>
     );

@@ -1,57 +1,57 @@
-.login-container{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 19.7rem;
-    height: 32.5rem;
-    /* margin-top: auto; */
-    margin-bottom: auto;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+.login-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 19.7rem;
+	height: 32.5rem;
+	/* margin-top: auto; */
+	margin-bottom: auto;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 }
-.create-container{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 19.7rem;
-    height: 100%;
-    /* margin-top: auto; */
-    margin-bottom: auto;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+.create-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 19.7rem;
+	height: 100%;
+	/* margin-top: auto; */
+	margin-bottom: auto;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 }
-.Newpass{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 19.7rem;
+.Newpass {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 19.7rem;
 
-   /*  margin-top: auto; */
-    /* margin-bottom: auto; */
-    /* gap: 2rem; */
-    /* height: 100%; */
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+	/*  margin-top: auto; */
+	/* margin-bottom: auto; */
+	/* gap: 2rem; */
+	/* height: 100%; */
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 }
-.login--header{
-    /* padding-left: 0.5rem; */
-    font-weight: 500;
-    font-size: 2rem;
-    line-height: 2.4rem;
-    color: #000000;
+.login--header {
+	font-weight: 500;
+	letter-spacing: -1px;
+	font-size: 40px;
+	color: #000000;
 }
 
-
-.loginimg{
-    width: 39rem;
-    height: 45rem;
+.loginimg {
+	width: 500px;
+	object-fit: cover;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
-.valid{
-    color: red;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 1rem;
+
+.valid {
+	color: red;
+	display: flex;
+	justify-content: flex-start;
 }

@@ -68,7 +68,7 @@ export default function InputForm() {
 			<Label
 				for="pass-e"
 				label="Password"
-				type="pass"
+				type="password"
 				name="pass"
 				id="pass-e"
 				value={email_El.pass}
@@ -76,31 +76,30 @@ export default function InputForm() {
 				validation={email_El.checkpass}
 			/>
 			<div className="footer">
-				<p id="footer-t">Forget Password ?</p>
 				<NavLink to="/forget-password" id="foote--c">
-					Reset Password
+					Forgot your password?
 				</NavLink>
-			</div>
-			<button className="form--butt" onClick={handleSubmit}>
-				Login
-			</button>
-
-			<div className="checkk">
-				<input
-					type="checkbox"
-					id="remember"
-					checked={email_El.isChecked}
-					onChange={handleChange}
-					name="isChecked"
-				/>
-				<label htmlFor="remember">Remember Me</label>
-			</div>
-
-			<div className="footer">
-				<p id="footer-t">Don't Have Account ?</p>
-				<NavLink to="/sign-up" id="foote--c">
-					Create One
-				</NavLink>
+				<button className="form--butt" onClick={handleSubmit}>
+					Login
+				</button>
+				<div className="checkk">
+					<input
+						type="checkbox"
+						id="remember"
+						checked={email_El.isChecked}
+						onChange={handleChange}
+						name="isChecked"
+					/>
+					<label htmlFor="remember">Remember Me</label>
+				</div>
+				<div className="footer">
+					<p id="footer-t">
+						Don't Have Account ?
+						<NavLink to="/sign-up" id="foote--c">
+							Create One
+						</NavLink>
+					</p>
+				</div>
 			</div>
 		</form>
 	);

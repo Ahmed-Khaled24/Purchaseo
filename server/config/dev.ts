@@ -1,4 +1,4 @@
-export = {
+export default {
 	PORT: process.env.PORT,
 	DB_HOST_NAME: process.env.DEV_DB_HOST_NAME,
 	DB_USERNAME: process.env.DEV_DB_USERNAME,

@@ -9,7 +9,7 @@ import { Product } from "../../../server/types/Product";
 const API_URL = "https://localhost:4000";
 
 export default function OwnerItems() {
-	const [items, setItems] = React.useState<Product[]>([]);
+	const [items, setItems] = React.useState([]);
 	const user = useSelector((state: RootState) => state.user);
 	useEffect(() => {
 		axios({

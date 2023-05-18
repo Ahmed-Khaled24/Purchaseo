@@ -19,9 +19,6 @@ globalRouter.use('/review', reviewRouter);
 globalRouter.use('/orders', ordersRouter);
 globalRouter.use('/payment', paymentRouter);
 globalRouter.use('/image', mwCheckLoginStatus('loggedIn'), imageRouter);
-// TODO: React build file
-globalRouter.get('/*', (req, res) => {
-	res.status(404).json({ status: 'failure', data: 'path not found' });
-});
+
 
 export default globalRouter;

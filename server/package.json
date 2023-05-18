@@ -8,7 +8,7 @@
 		"dev-linux": "export NODE_ENV=development && nodemon server.ts",
 		"build": "tsc",
 		"deploy-windows": "set NODE_ENV=production && node build/server.js",
-		"deploy-linux": "NODE_ENV=production && node node build/server.js",
+		"deploy-linux": "NODE_ENV=production node node build/server.js",
 		"test": "jest --verbose --runInBand",
 		"gen-cert": "rm -rf cert && mkdir cert && openssl req -x509 -newkey rsa:4096 -keyout cert/key.pem -out cert/cert.pem -days 365 -nodes"
 	},

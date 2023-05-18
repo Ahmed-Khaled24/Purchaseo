@@ -7,7 +7,7 @@
 		"start": "concurrently \"npm start --prefix client\" \"npm run dev-windows --prefix server\"",
 		"deploy-windows": "npm run build --prefix client && npm run build --prefix server && npm run deploy-windows --prefix server",
 		"deploy-linux": "npm run build --prefix client && npm run build --prefix server && npm run deploy-linux --prefix server",
-		"install": "npm install --prefix client && npm install --prefix server",
+		"install": "cd client && npm i  && cd ../server && npm install ",
 		"cd": "concurrently \"cd client && npm start\" \"cd server && npm start\""
 	},
 	"keywords": [],

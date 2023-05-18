@@ -94,7 +94,8 @@ async function googleVerifyCallback(
 		}
 	} catch (error: ErrorWithStatusCode | any) {
 		if (error.statusCode === 404) {
-			dbUser = await dbAddUserEncrypted(user);
+			await dbAddUserEncrypted(user);
+			dbUser = await dbGetUserByEmail(email as string);
 		} else {
 			done(null);
 		}

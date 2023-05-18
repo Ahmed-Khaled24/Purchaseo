@@ -131,9 +131,11 @@ export function validateUser(user: Partial<User>): boolean {
 	if (user.birthDate) {
 		validateBirthDate(user.birthDate as Date);
 	}
+	if(user.Lname){
+		validateUserName(user.Lname as string);
+	}
 
 	return (
-		validateUserName(user.Lname as string) &&
 		validateUserName(user.Fname as string) &&
 		validateEmail(user.email as string) &&
 		validatePassword(user.password as string) &&

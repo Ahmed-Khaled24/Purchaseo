@@ -13,7 +13,7 @@ const api = express();
 api.use(express.json());
 api.use(express.static(join(__dirname, "../client/dist")));
 api.use(express.urlencoded({ extended: true }));
-api.use(helmet());
+//api.use(helmet());
 api.use(corsMiddleware);
 api.use(cookieSessionMiddleware);
 api.use(passport.initialize());

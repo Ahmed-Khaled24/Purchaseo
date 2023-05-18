@@ -67,7 +67,7 @@ export async function forgetPassword(req: Request, res: Response) {
 
 		const email = await sendMail(resetPasswordLink, req.body.email);
 
-		res.send({ status: 'success', data: email });
+		res.status(200).json({ status: 'success', data: email });
 	} catch (error: ErrorWithStatusCode | any) {
 		res.status(error.statusCode || 400).json({
 			status: 'failure',

@@ -41,12 +41,12 @@ export function mwCheckUserExists(flag: boolean) {
                 case false: {
                     try {
                         await dbGetUserByEmail(email);
+                        return next();
+                    } catch (error) {
                         return res.status(404).send({
                             status: "failure",
                             data: "User does not exist",
                         });
-                    } catch (error) {
-                        return next();
                     }
                     
                 }

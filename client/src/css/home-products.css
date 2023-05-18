@@ -126,9 +126,6 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	max-width: 30% ;
-	/* width: 21.875rem;
-	height: 31.25rem; */
 	border-radius: 10px;
 	gap: 30px;
 	padding: 40px 20px;
@@ -157,31 +154,22 @@
 }
 
 .cards {
-	padding: 2rem;
-	display: flex;
-	width:70%;
-	column-gap: 3.5rem;
-	row-gap: 3rem;
-	flex-wrap: wrap;
-	justify-content:flex-start;
-	align-items: center;
+	width: 70%;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	grid-gap: 30px;
+	margin-bottom: 100px;
 }
 
 .card {
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	background-color: #fff9e9;
-	padding: 2rem;
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 1em;
-	border-radius: 9px;
-	flex: 1 1 0;
-	min-width: 23rem;
-	max-width: 23rem; 	
- 	
-	border-radius:9px;
+	border-radius: 10px;
 }
 
 .add-button {
@@ -200,13 +188,9 @@
 	border: 1px solid;
 }
 .card--image {
-	max-height: 100%;
-	min-height:20rem;
-    object-fit: fill;
+	width: 100%;
 	object-fit:contain;
-	min-width: 18rem;
 	max-width: 100%;
-	height: auto;
 }
 
 .card--title {
@@ -230,32 +214,25 @@
 .Category--title::first-letter {
 	text-transform: capitalize;
 }
-.filter-bar {
-	display: flex;
-	flex-direction: column;
-	justify-content:flex-start;
-	gap: 1.5rem;
-	width: 30%;
-	padding: 1rem;
-	margin-top:2.5rem;
-}
+
 .filter{
 	display: flex;
 	flex-direction: column;
 	justify-content:flex-start;
-	gap: 1.5rem;
-	width: 100%;
-	padding: 2rem;
+	gap: 10px;
+	padding: 15px;
+	position: absolute;
+	left: 20px;
+	border-radius: 5px;
+	border: 2px solid #868e96;
+	width: 22%;
 }
 .CategoryPage {
-
+	position: relative;
 	display: flex;
-	
-	justify-content: center;
-	gap: 1.5rem;
-	padding: 3rem;
-	justify-content: space-around;
-
+	justify-content: flex-end;
+	gap: 10px;
+	padding: 20px;
 }
 @media (max-width: 600px) {
 	.CategoryPage {
@@ -301,4 +278,16 @@ input[type="number"] {
 	margin: 0px 0;
 	box-sizing: border-box;
 	font-size: 1.2rem;
+}
+
+
+.no-products-placeholder {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 80vh;
+	width: 75%;
+	font-family: 'GM Garamond', serif;
+	font-size: 48px;
 }

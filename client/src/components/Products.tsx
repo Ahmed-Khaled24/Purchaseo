@@ -63,6 +63,7 @@ export default function Products() {
 				title={product?.product_name}
 				price={product?.price}
 				rating={product?.rating}
+				category={category}
 			/>
 		);
 	});

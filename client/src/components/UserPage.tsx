@@ -5,8 +5,7 @@ import { User } from "../../../server/types/User";
 import { Product } from "../../../server/types/Product";
 import { putUser } from "../store/features/userSlice";
 
-import defaultProfilePic from "../../public/images/defaultProfilePic.jpg";
-import "../css/userPage.css";
+import "../css/userpage.css";
 import { RootState, AppDispatch } from "../store/store";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
@@ -33,15 +32,15 @@ function PictureSection({ image_url, userName }) {
 		) as HTMLImageElement;
 		profileImage.src = URL.createObjectURL(imageFile);
 	}
-	async function handleImageCompression(image: File){
+	async function handleImageCompression(image: File) {
 		const options = {
 			maxSizeMB: 1,
 			maxWidthOrHeight: 1920,
 		};
 		try {
-				const example = await imageCompression(image, options);
-				console.log(example);
-				return example;
+			const example = await imageCompression(image, options);
+			console.log(example);
+			return example;
 		} catch (error) {
 
 			console.log(error);
@@ -95,7 +94,7 @@ function PictureSection({ image_url, userName }) {
 
 	return (
 		<section className="picture-section">
-			<img src={image_url || defaultProfilePic} alt="" id="profilePic" />
+			<img src={image_url || '/images/defaultProfilePic.jpg'} alt="" id="profilePic" />
 			<div>
 				<label> {userName} </label>
 				<input

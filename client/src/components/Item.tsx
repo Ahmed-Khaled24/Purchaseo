@@ -25,9 +25,11 @@ export default function Item() {
 	useEffect(() => {
 		(async () => {
 			const prodData = await axios.get(
-				`https://localhost:8000/product/${params.id}`
+				`https://localhost:4000/product/${params.id}`
 			);
 			setData(prodData.data.data.product);
+			setImage(prodData.data.data.images[0].file_path)
+
 		})();
 	}, [params.id]);
 

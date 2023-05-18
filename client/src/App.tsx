@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Home from "./components/Home";
 import NavBar from "./components/NavBarNormal";
 import Products from "./components/Products";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Item from "./components/Item";
 import Cart from "./components/Cart";
 import AddReview from "./components/Add-Review";
@@ -23,10 +23,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { putUser } from "./store/features/userSlice";
 import OrderRedirect from "./components/OrderRedirect";
 import { NotFound } from "./components/NotFound";
+import API_URL from "./KEYS";
 
 function App() {
 	const dispatch = useDispatch();
-	const API_URL = "https://localhost:4000";
 	useEffect(() => {
 		(async () => {
 			const userResponse = await axios({
@@ -43,7 +43,7 @@ function App() {
 	}, []);
 	return (
 		<div className="App">
-			<Router>
+			<BrowserRouter>
 				<ToastContainer />
 				<NavBar />
 				<Routes>
@@ -70,7 +70,7 @@ function App() {
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 				<Footer />
-			</Router>
+			</BrowserRouter>
 		</div>
 	);
 }

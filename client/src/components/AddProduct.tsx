@@ -9,8 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const animatedComponents = makeAnimated();
 import imageCompression from "browser-image-compression";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 export default function AddProduct() {
 	// TODO: replace added by by user id
@@ -21,7 +20,7 @@ export default function AddProduct() {
 		price: 0,
 		inventory: 0,
 	});
-	const [initialCategories, setInitialCategories] = useState([]); 
+	const [initialCategories, setInitialCategories] = useState([]);
 	const [percentage, setPercentage] = useState<number>(0);
 	const [compressedFiles, setCompressedFiles] = useState([]);
 	const [categories, setCategories] = useState([]);
@@ -29,7 +28,7 @@ export default function AddProduct() {
 	const [previewImages, setPreviewImages] = useState([]);
 	const [categoryOptions, setCategoryOptions] = useState([]);
 
-	function resetAll(){
+	function resetAll() {
 		setFormData({
 			product_name: "",
 			description: "",
@@ -133,7 +132,7 @@ export default function AddProduct() {
 			const response = await axios({
 				withCredentials: true,
 				method: "POST",
-				url: "https://localhost:4000/product",
+				url: `${API_URL}/product}`,
 				data: productData,
 			});
 			if (response.status == 201) {
@@ -153,7 +152,7 @@ export default function AddProduct() {
 			const signedUrlRes = await axios({
 				withCredentials: true,
 				method: "GET",
-				url: `https://localhost:4000/image/upload-url?productId=${productId}&length=${currentFiles.length}&fileSize=${currentFiles[0].size}$directoryType=product`,
+				url: `${API_URL}/image/upload-url?productId=${productId}&length=${currentFiles.length}&fileSize=${currentFiles[0].size}$directoryType=product`,
 			});
 			if (signedUrlRes.status === 200) {
 				return signedUrlRes.data.data;
@@ -198,7 +197,7 @@ export default function AddProduct() {
 			const response = await axios({
 				withCredentials: true,
 				method: "POST",
-				url: "https://localhost:4000/image/product/add",
+				url: `${API_URL}/image/product/add`,
 				data: {
 					productId: productId,
 					imageUrls: signedUrls,
@@ -217,7 +216,7 @@ export default function AddProduct() {
 	async function handleSubmit(event) {
 		event.preventDefault();
 		if (currentFiles.length !== 0) {
-            const product_id = await sendInitialProduct();
+			const product_id = await sendInitialProduct();
 			const signedUrls = await getSignedUrls(product_id);
 			await sendImages(signedUrls);
 			//await sendImageUrls(product_id, signedUrls);
@@ -234,17 +233,21 @@ export default function AddProduct() {
 				{
 					position: "bottom-left",
 				}
-				);
-			} else {
-				await toast.promise(sendInitialProduct(), {
+			);
+		} else {
+			await toast.promise(
+				sendInitialProduct(),
+				{
 					pending: "Adding product",
 					success: "Product Added successfully ",
 					error: "Could not add product",
-				}, {
+				},
+				{
 					position: "bottom-left",
-				});
-			}
-			resetAll();
+				}
+			);
+		}
+		resetAll();
 	}
 	return (
 		<form className="main" onSubmit={handleSubmit}>
@@ -320,39 +323,41 @@ export default function AddProduct() {
 			<section className="Holderimages">
 				<div className="Holder">
 					<label>
-						<input id="image-upload" type="file" accept="image/*" className="productImg-input" onChange={selectFile} multiple max="6" />
+						<input
+							id="image-upload"
+							type="file"
+							accept="image/*"
+							className="productImg-input"
+							onChange={selectFile}
+							multiple
+							max="6"
+						/>
 					</label>
 					<div onClick={openFileDialog}>
-					{previewImages.length <= 0 && (
-						<img
-							src="/Imginsert.png"
-						    className="tempImg"
-						/>
-					)}
-					{previewImages.length > 0 && (
-						<div>
-							<p className="titleform">Selected Files:</p>
-							<div className="Images">
-								{previewImages.map((preview, index) => (
-									<img
-										src={preview}
-										alt="Preview"
-										key={index}
-										style={{
-											height: "14rem",
-											minWidth: "16rem",
-											maxWidth: "16rem",
-											marginLeft: "2rem",
-											objectFit:"fill"
-										}}
-									/>
-								))}
+						{previewImages.length <= 0 && <img src="/Imginsert.png" className="tempImg" />}
+						{previewImages.length > 0 && (
+							<div>
+								<p className="titleform">Selected Files:</p>
+								<div className="Images">
+									{previewImages.map((preview, index) => (
+										<img
+											src={preview}
+											alt="Preview"
+											key={index}
+											style={{
+												height: "14rem",
+												minWidth: "16rem",
+												maxWidth: "16rem",
+												marginLeft: "2rem",
+												objectFit: "fill",
+											}}
+										/>
+									))}
+								</div>
 							</div>
-						</div>
-					)}
+						)}
+					</div>
 				</div>
-				</div>
-				
 			</section>
 			<div className="h">
 				<button className="buttonSubmit">Submit</button>

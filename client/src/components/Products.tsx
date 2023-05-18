@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import Card from "./Card";
 import "../css/home-products.css";
 import axios from "axios";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 //It fetches data and display products page
 export default function Products() {
@@ -131,7 +130,11 @@ export default function Products() {
 						Filter
 					</button>
 				</div>
-				{AllProducts.length === 0 ? <div className='no-products-placeholder'> No Products found</div> : <div className="cards">{AllProducts}</div>}
+				{AllProducts.length === 0 ? (
+					<div className="no-products-placeholder"> No Products found</div>
+				) : (
+					<div className="cards">{AllProducts}</div>
+				)}
 			</div>
 		</div>
 	);

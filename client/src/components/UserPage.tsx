@@ -10,8 +10,7 @@ import "../css/userPage.css";
 import { RootState, AppDispatch } from "../store/store";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 function PictureSection({ image_url, userName }) {
 	let imageFile: File;
@@ -24,26 +23,21 @@ function PictureSection({ image_url, userName }) {
 	}
 
 	function handleChoosePhoto() {
-		const fileInput = document.getElementById(
-			"UploadNewProfilePic"
-		) as HTMLInputElement;
+		const fileInput = document.getElementById("UploadNewProfilePic") as HTMLInputElement;
 		imageFile = fileInput.files[0];
-		const profileImage = document.getElementById(
-			"profilePic"
-		) as HTMLImageElement;
+		const profileImage = document.getElementById("profilePic") as HTMLImageElement;
 		profileImage.src = URL.createObjectURL(imageFile);
 	}
-	async function handleImageCompression(image: File){
+	async function handleImageCompression(image: File) {
 		const options = {
 			maxSizeMB: 1,
 			maxWidthOrHeight: 1920,
 		};
 		try {
-				const example = await imageCompression(image, options);
-				console.log(example);
-				return example;
+			const example = await imageCompression(image, options);
+			console.log(example);
+			return example;
 		} catch (error) {
-
 			console.log(error);
 		}
 	}
@@ -98,12 +92,7 @@ function PictureSection({ image_url, userName }) {
 			<img src={image_url || defaultProfilePic} alt="" id="profilePic" />
 			<div>
 				<label> {userName} </label>
-				<input
-					type="file"
-					accept="image/*"
-					id="UploadNewProfilePic"
-					onChange={handleChoosePhoto}
-				/>
+				<input type="file" accept="image/*" id="UploadNewProfilePic" onChange={handleChoosePhoto} />
 				<button onClick={openFileDialog}> Change picture </button>
 				<button onClick={handleUploadPhoto}>Save</button>
 			</div>
@@ -115,13 +104,7 @@ function InfoItem({ itemValue, itemName, editable, updateInputValue }) {
 	return (
 		<div className="info-item">
 			<label>{`${itemName}`} </label>
-			<input
-				name={itemName}
-				type="text"
-				value={itemValue}
-				disabled={!editable}
-				onChange={updateInputValue}
-			/>
+			<input name={itemName} type="text" value={itemValue} disabled={!editable} onChange={updateInputValue} />
 		</div>
 	);
 }
@@ -182,9 +165,7 @@ function PreviousBoughtProducts({ userId }: { userId: number }) {
 	const [products, setProduct] = useState<Product[]>([]);
 	useEffect(() => {
 		(async () => {
-			const response = await axios.get(
-				`${API_URL}/product/customer/${userId}`
-			);
+			const response = await axios.get(`${API_URL}/product/customer/${userId}`);
 			setProduct(response.data.data);
 		})();
 	}, [userId]);
@@ -251,19 +232,9 @@ function UserPage() {
 	return (
 		<div className="profile-container">
 			<div className="profile-page">
-				<PictureSection
-					image_url={user.image_url}
-					userName={`${user.Fname} ${user.Lname}`}
-				/>
-				<InfoSection
-					user={user}
-					editable={editable}
-					updateInputValue={updateInputValue}
-				/>
-				<EditSection
-					triggerEditable={triggerEditable}
-					saveChanges={saveChanges}
-				/>
+				<PictureSection image_url={user.image_url} userName={`${user.Fname} ${user.Lname}`} />
+				<InfoSection user={user} editable={editable} updateInputValue={updateInputValue} />
+				<EditSection triggerEditable={triggerEditable} saveChanges={saveChanges} />
 				<PreviousBoughtProducts userId={user.user_id} />
 				{/* TODO: add user phone number */}
 			</div>

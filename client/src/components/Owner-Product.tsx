@@ -3,8 +3,7 @@ import "../css/owner-product.css";
 import Stars from "./Stars";
 import axios from "axios";
 import ModalComponent from "./modal";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 export default function OwnerProduct({ image, name, price, rate, reviews, quantity, sold, id }) {
 	const [open, setOpen] = useState<Boolean>(false);
@@ -47,7 +46,7 @@ export default function OwnerProduct({ image, name, price, rate, reviews, quanti
 				</div>
 			</div>
 			<ModalComponent
-        modalTitle={'Delete Product'}
+				modalTitle={"Delete Product"}
 				isOpen={open}
 				closeModal={() => setOpen(false)}
 				text={"Are you sure you want to delete this item?"}

@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import axios from "axios";
 import { Product } from "../../../server/types/Product";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 export default function OwnerItems() {
 	const [items, setItems] = React.useState([]);

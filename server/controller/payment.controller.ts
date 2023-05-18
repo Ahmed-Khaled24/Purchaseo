@@ -30,8 +30,8 @@ export async function generatePaymentSession(req: Request, res: Response) {
 			},
 			line_items: lineItems,
 			mode: "payment",
-			success_url: `${process.env.SERVER_BASE_URL}/payment/redirect?success=true&session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: `${process.env.SERVER_BASE_URL}/payment/redirect?cancel=true`,
+			success_url: `${process.env.SERVER_BASE_URL}payment/redirect?success=true&session_id={CHECKOUT_SESSION_ID}`,
+			cancel_url: `${process.env.SERVER_BASE_URL}payment/redirect?cancel=true`,
 		});
 		return res.status(200).json({ status: "success", data: paymentSession.url });
 	} catch (error) {
@@ -65,13 +65,7 @@ export async function handlePaymentResult(req: Request, res: Response) {
 			products: products,
 		};
 		res.redirect(`/orders/addOrder?orderDetails=${JSON.stringify(orderDetails)}`);
-		// 	status: "success",
-		// 	data: "Purchased successfully",
-		// 	orderDetails: JSON.parse(paymentSession.invoice_creation?.invoice_data.description as string),
-		// 	customerEmail: paymentSession.customer_details?.email,
-		// 	total: paymentSession.amount_total,
-		// 	products: products,
-		// });
+
 	}
 	if (cancel) {
 		const url = `${keys.FRONT_URL}/cart`;

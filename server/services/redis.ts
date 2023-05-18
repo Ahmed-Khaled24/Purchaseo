@@ -3,8 +3,11 @@ import keys from "../config/keys";
 import ErrorWithStatusCode from "../util/classes/ErrorWithStatusCode";
 
 let redisClient = redis.createClient({
-    host: keys.REDIS_HOST,
-    port: keys.REDIS_PORT,
+    password: "9NBbpKwNI6wudQ44gBEgawdG1onuUeB0",
+    socket :{
+        host: keys.REDIS_HOST,
+        port: keys.REDIS_PORT,
+    }
 });
 
 redisClient.on("connect", () => {

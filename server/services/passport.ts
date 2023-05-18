@@ -94,7 +94,8 @@ async function googleVerifyCallback(
 		}
 	} catch (error: ErrorWithStatusCode | any) {
 		if (error.statusCode === 404) {
-			dbUser = await dbAddUserEncrypted(user);
+			await dbAddUserEncrypted(user);
+			dbUser = await dbGetUserByEmail(email as string);
 		} else {
 			done(null);
 		}
@@ -105,28 +106,6 @@ async function googleVerifyCallback(
 
 passport.use(new GoogleStrategy(GOOGLE_AUTH_OPTIONS, googleVerifyCallback));
 
-// const FACEBOOK_AUTH_OPTIONS: StrategyOptionWithRequest = {
-//   callbackURL: "/auth/facebook/callback",
-//   clientID: (keys.FACEBOOK_CLIENT_ID) as string,
-//   clientSecret: (keys.FACEBOOK_CLIENT_SECRET) as string,
-//   passReqToCallback: true,
-// };
-// function facebookVerifyCallback(
-//   req: Request | any,
-//   accesToken: string,
-//   refreshToken: string,
-//   profile: Profile,
-//   done: GoogleVerifyCallback
-// ): void {
-//   console.log(`Facebook profile is:`, profile);
-
-//   // first param is error, second is user profile
-//   done(null, profile._json as Express.User);
-//   // if this was local strategy we can use the email and password to find the user in the database or save them there
-//   // but with google we can just use the profile object (hooray for copilot)
-// }
-
-// passport.use(new FacebookStrategy(FACEBOOK_AUTH_OPTIONS, facebookVerifyCallback));
 
 const LOCAL_AUTH_OPTIONS: IStrategyOptionsWithRequest = {
 	usernameField: "email",

@@ -10,6 +10,7 @@ import { corsMiddleware } from "./middlewares/security/cors.middleware";
 
 const api = express();
 api.use(express.json());
+api.use(express.static("../client/dist"));
 api.use(express.urlencoded({ extended: true }));
 api.use(helmet());
 api.use(corsMiddleware);
@@ -17,5 +18,6 @@ api.use(cookieSessionMiddleware);
 api.use(passport.initialize());
 api.use(passport.session());
 api.use("/", globalRouter);
+api.use("/*", (req, res) => res.sendFile("index.html"));
 
 export default api;

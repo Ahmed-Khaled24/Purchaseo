@@ -6,7 +6,7 @@ import { Product } from "../../../server/types/Product";
 import { putUser } from "../store/features/userSlice";
 
 import defaultProfilePic from "../../public/images/defaultProfilePic.jpg";
-import "../css/userPage.css";
+import "../css/userpage.css";
 import { RootState, AppDispatch } from "../store/store";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";

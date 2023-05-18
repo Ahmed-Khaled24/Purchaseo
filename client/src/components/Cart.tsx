@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import Stars from "./Stars";
 import { RootState } from "../store/store";
 import axios from "axios";
+import API_URL from "../KEYS";
+
 export default function Cart() {
 	const dispatch = useDispatch();
 	const cart = useSelector((state: RootState) => state.cart);
-	const API_URL = "https://localhost:4000";
 
 	useEffect(() => {
 		dispatch(getTotals());

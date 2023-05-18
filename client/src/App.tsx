@@ -23,10 +23,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { putUser } from "./store/features/userSlice";
 import OrderRedirect from "./components/OrderRedirect";
 import { NotFound } from "./components/NotFound";
+import API_URL from './KEYS';
 
 function App() {
 	const dispatch = useDispatch();
-	const API_URL = "https://localhost:4000";
 	useEffect(() => {
 		(async () => {
 			const userResponse = await axios({

@@ -3,6 +3,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import Label from './Label';
 import '../css/resetPassword.css'
+import API_URL from '../KEYS';
 export default function NewPASSWORD(){
     const {token} = useParams<{token:string}>();
     const [successMsg,setSuccessMsg] = React.useState<string>("")
@@ -17,7 +18,7 @@ export default function NewPASSWORD(){
         try{
             const resetRes= await axios({
                 method: "POST",
-                url: "https://localhost:4000/auth/reset-password",
+                url: `${API_URL}/auth/reset-password`,
                 data: {
                     token: token,
                     password: email_El.pass,

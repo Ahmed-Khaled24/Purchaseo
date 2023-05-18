@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import "../css/add-review.css";
 import {Review} from '../../../server/types/Review'
 import { useParams } from "react-router-dom";
+import API_URL from '../KEYS'
 
 
-const API_URL = "https://localhost:4000";
 
 export default function AddReview() {
   const { productId } = useParams();

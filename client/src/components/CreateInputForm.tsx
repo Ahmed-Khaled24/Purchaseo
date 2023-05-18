@@ -2,6 +2,7 @@ import React from "react";
 import Label from "./Label";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../KEYS";
 
 export default function CreateInputForm() {
 
@@ -22,7 +23,7 @@ export default function CreateInputForm() {
         try {
             const signupRes = await axios({
                 method: "post",
-                url: "https://localhost:4000/auth/signup",
+                url: `${API_URL}/auth/signup`,
                 data: {
                     Fname: email_El.name.split(" ")[0],
                     Lname: email_El.name.split(" ")[1] || "",

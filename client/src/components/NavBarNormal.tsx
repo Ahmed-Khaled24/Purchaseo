@@ -7,8 +7,7 @@ import { RootState } from "../store/store";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../store/features/userSlice";
 import axios from "axios";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 export default function NavBar() {
 	const navigate = useNavigate();

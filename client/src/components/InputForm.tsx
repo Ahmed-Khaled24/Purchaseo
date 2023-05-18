@@ -2,6 +2,7 @@ import React from "react";
 import Label from "./Label";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../KEYS";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function InputForm() {
@@ -18,7 +19,7 @@ export default function InputForm() {
 			const loginRes = await axios({
 				method: "POST",
 				withCredentials: true,
-				url: "https://localhost:4000/auth/local",
+				url: `${API_URL}/auth/local`,
 				data: {
 					email: email_El.email,
 					password: email_El.pass,

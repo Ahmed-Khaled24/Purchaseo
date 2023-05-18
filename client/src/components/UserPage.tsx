@@ -10,8 +10,7 @@ import "../css/userpage.css";
 import { RootState, AppDispatch } from "../store/store";
 import imageCompression from "browser-image-compression";
 import { toast } from "react-toastify";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 function PictureSection({ image_url, userName }) {
 	let imageFile: File;

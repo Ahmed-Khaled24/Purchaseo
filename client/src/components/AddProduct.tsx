@@ -9,8 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const animatedComponents = makeAnimated();
 import imageCompression from "browser-image-compression";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 export default function AddProduct() {
 	// TODO: replace added by by user id
@@ -133,7 +132,7 @@ export default function AddProduct() {
 			const response = await axios({
 				withCredentials: true,
 				method: "POST",
-				url: "https://localhost:4000/product",
+				url: `${API_URL}/product`,
 				data: productData,
 			});
 			if (response.status == 201) {
@@ -153,7 +152,7 @@ export default function AddProduct() {
 			const signedUrlRes = await axios({
 				withCredentials: true,
 				method: "GET",
-				url: `https://localhost:4000/image/upload-url?productId=${productId}&length=${currentFiles.length}&fileSize=${currentFiles[0].size}$directoryType=product`,
+				url: `${API_URL}/image/upload-url?productId=${productId}&length=${currentFiles.length}&fileSize=${currentFiles[0].size}$directoryType=product`,
 			});
 			if (signedUrlRes.status === 200) {
 				return signedUrlRes.data.data;
@@ -198,7 +197,7 @@ export default function AddProduct() {
 			const response = await axios({
 				withCredentials: true,
 				method: "POST",
-				url: "https://localhost:4000/image/product/add",
+				url: `${API_URL}/image/product/add`,
 				data: {
 					productId: productId,
 					imageUrls: signedUrls,

@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import Card from "./Card";
 import "../css/home-products.css";
 import axios from "axios";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 //It fetches data and display products page
 export default function Products() {

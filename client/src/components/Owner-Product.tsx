@@ -3,8 +3,7 @@ import "../css/owner-product.css";
 import Stars from "./Stars";
 import axios from "axios";
 import ModalComponent from "./modal";
-
-const API_URL = "https://localhost:4000";
+import API_URL from "../KEYS";
 
 export default function OwnerProduct({ image, name, price, rate, reviews, quantity, sold, id }) {
 	const [open, setOpen] = useState<Boolean>(false);

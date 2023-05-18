@@ -4,11 +4,10 @@ import Stars from "./Stars";
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
+import API_URL from "../KEYS";
 import { addToCart, CartState } from "../store/features/cartSlice";
 import { toast } from "react-toastify";
 
-const API_URL = "https://localhost:4000";
 export default function Item() {
 	const dispatch = useDispatch();
 	const cart: CartState = useSelector(

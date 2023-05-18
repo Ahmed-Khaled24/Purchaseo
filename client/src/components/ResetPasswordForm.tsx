@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Label from "./Label";
 import "../css/resetPassword.css";
+import API_URL from "../KEYS";
 
 export default function ResetPassword() {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function ResetPassword() {
         try {
             const resetRes = await axios({
                 method: "post",
-                url: "https://localhost:4000/auth/forgot-password",
+                url: `${API_URL}/auth/forgot-password`,
                 data: {
                     email: email_El.email,
                 },

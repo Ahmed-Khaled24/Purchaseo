@@ -1,0 +1,8 @@
+.no-products {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  align-self: center;
+  width: 30rem;
+  height: 30rem;
+}

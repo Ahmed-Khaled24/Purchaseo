@@ -1,50 +1,69 @@
 nav {
-	display: flex;
-	justify-content: space-between;
-	padding: 20px 60px;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+  align-items: center;
   gap: 40px;
 }
 
 .logo {
-	font-size: 46px;
-	font-weight: bolder;
-	font-family: "Merriweather", serif;
-	letter-spacing: -2px;
+  font-size: 46px;
+  font-weight: bolder;
+  font-family: "Merriweather", serif;
+  letter-spacing: -2px;
 }
 
 .nav-right {
-	display: flex;
-	gap: 40px;
-	list-style: none;
-	align-items: center;
-	justify-self: center;
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  align-items: center;
+  justify-self: center;
 }
 
 .nav-item {
-	text-decoration: none;
-	color: #000000;
-	font-weight: 500;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 500;
 }
 
 .nav-search {
-	width: 30%;
-	font-size: 18px;
-	border-radius: 50px;
-	padding: 10px 20px;
-	border: none;
-	border: #dee2e6 solid 2px;
+  display: flex;
+  gap: 2rem;
 }
 
-.nav-search:focus-visible {
-	outline: none;
+.nav-search input {
+  width: 20vw;
+  font-size: 18px;
+  border-radius: 50px;
+  padding: 10px 20px;
+  border: none;
+  border: #dee2e6 solid 2px;
+}
+
+.nav-search button {
+  width: 8rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  padding: 10px 20px;
+  border: none;
+  border: #dee2e6 solid 2px;
+}
+
+.nav-search button:hover {
+  background-color: #dee2e2;
+}
+
+.nav-search input:focus-visible {
+  outline: none;
 }
 
 .profile-pic-nav {
-	object-fit: cover;
-	width: 40px;
-	border-radius: 50%;
-  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  object-fit: cover;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   opacity: 0.95;
 }
 .profile-pic-nav:hover {

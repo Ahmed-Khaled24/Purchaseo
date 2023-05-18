@@ -10,8 +10,7 @@ export default function Reviews() {
 
   useEffect(() => {
     (async () => {
-      console.log(params.id);
-      let prodReviews = await axios.get(`https://localhost:8000/review/product/${params.id}`)
+      let prodReviews = await axios.get(`https://localhost:4000/review/product/${params.id}`)
       setReviews(prodReviews?.data?.data);
     })();
   }, [])

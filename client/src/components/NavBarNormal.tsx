@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import defaultProfilePic from "../../public/images/defaultProfilePic.jpg";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import "../css/navbar.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -11,6 +10,24 @@ import axios from "axios";
 const API_URL = "https://localhost:4000";
 
 export default function NavBar() {
+	const [searchValue, setSearchValue] = useState('');
+	const [searchResults, setSearchResults] = useState([]);
+	function handleInputChange(event) {
+		setSearchValue(event.target.value);
+	}
+
+	function handleFormSubmit(event) {
+		event.preventDefault();
+		(async () => {
+			try {
+				const data = await axios.get(`${API_URL}/categories?category=${searchValue}`);
+				window.location.href = "/products/" + searchValue;
+			} catch (err) {
+				window.location.href = "/no-products";
+			}
+		})();
+	}
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = useSelector((state: RootState) => state.user);
@@ -27,18 +44,23 @@ export default function NavBar() {
 		}
 	}
 
+
+
 	return (
 		<nav>
 			<NavLink to="/" className="nav-item logo">
 				purchaseo
 			</NavLink>
-			<input
-				type="search"
-				name="search"
-				placeholder="Type something..."
-				className="nav-search"
-				autoComplete="false"
-			/>
+			<form className="nav-search" onSubmit={handleFormSubmit}>
+				<input
+					type="search"
+					name="category"
+					placeholder="Type something..."
+					autoComplete="false"
+					onChange={handleInputChange}
+				/>
+				<button type="submit" >Search</button>
+			</form>
 			<div className="nav-right">
 				{user.role === "Customer" ? (
 					<Fragment>
@@ -66,7 +88,7 @@ export default function NavBar() {
 						</NavLink>
 						<NavLink to="/myPage" className="nav-item">
 							<img
-								src={user.image_url || defaultProfilePic}
+								src={user.image_url || "/images/defaultProfilePic.jpg"}
 								alt="my account"
 								className="profile-pic-nav"
 							/>

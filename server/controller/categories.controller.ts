@@ -47,6 +47,8 @@ export const getProductsWithName = async function (
 ) {
 	try {
 		const name = req.query.name as string;
+		console.log(name);
+
 		const products = await dbGetProductsByName(name);
 		res.status(200).json({ status: "success", data: products });
 	} catch (err) {

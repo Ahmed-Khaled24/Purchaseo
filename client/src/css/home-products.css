@@ -157,10 +157,10 @@
 }
 
 .cards {
-	padding: 4rem;
+	padding: 2rem;
 	display: flex;
 	width:70%;
-	column-gap: 5rem;
+	column-gap: 3.5rem;
 	row-gap: 3rem;
 	flex-wrap: wrap;
 	justify-content:flex-start;

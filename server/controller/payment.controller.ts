@@ -30,8 +30,8 @@ export async function generatePaymentSession(req: Request, res: Response) {
 			},
 			line_items: lineItems,
 			mode: "payment",
-			success_url: `${process.env.SERVER_BASE_URL}/payment/redirect?success=true&session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: `${process.env.SERVER_BASE_URL}/payment/redirect?cancel=true`,
+			success_url: `${process.env.SERVER_BASE_URL}payment/redirect?success=true&session_id={CHECKOUT_SESSION_ID}`,
+			cancel_url: `${process.env.SERVER_BASE_URL}payment/redirect?cancel=true`,
 		});
 		return res.status(200).json({ status: "success", data: paymentSession.url });
 	} catch (error) {

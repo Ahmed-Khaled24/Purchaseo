@@ -6,7 +6,7 @@ export default function Box(props) {
         <div className={props.name + ' home-card'}>
             <h3 className="title">{props.head}</h3>
             <img src={props.img} className={props.Nimg} />
-            <NavLink to={`/products/${props.category}`} >
+            <NavLink to={`/category/${props.category}`} >
             <button className={props.buttonName}>See more</button>
             </NavLink>           
         </div>

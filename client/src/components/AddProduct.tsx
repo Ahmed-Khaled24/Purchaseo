@@ -71,7 +71,7 @@ export default function AddProduct() {
 	useEffect(() => {
 		handleImageCompression();
 	}, [currentFiles]);
-	function openFileDialog(event: React.MouseEvent<MouseEvent>) {
+	function openFileDialog(event: React.MouseEvent<HTMLDivElement>) {
 		event.preventDefault();
 		document.getElementById("image-upload").click();
 	}

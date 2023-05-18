@@ -12,7 +12,7 @@ export default function Home() {
 				<h1 className="holder--header">Electronics</h1>
 				<div className="container">
 					<p className="elecgraph">You can find some of the phones in the market here</p>
-					<NavLink to={`/products/${category}`}>
+					<NavLink to={`/category/${category}`}>
 						<button className="elecbutton">Check them out </button>
 					</NavLink>
 				</div>

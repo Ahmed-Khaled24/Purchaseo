@@ -6,14 +6,18 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addToCart, CartState } from "../store/features/cartSlice";
+import { toast } from "react-toastify";
 
+const API_URL = "https://localhost:4000";
 export default function Item() {
 	const dispatch = useDispatch();
 	const cart: CartState = useSelector(
 		(state: { cart: CartState }) => state.cart
 	);
 	let [image, setImage] = useState("/items/item10.jpg");
+	const[productImages,setProductImages]=useState([]);
 	let [data, setData] = useState({
+		product_id: 0,
 		added_by: 0,
 		product_name: "",
 		inventory: 0,
@@ -24,15 +28,40 @@ export default function Item() {
 	const params = useParams();
 	useEffect(() => {
 		(async () => {
-			const prodData = await axios.get(
-				`https://localhost:8000/product/${params.id}`
-			);
-			setData(prodData.data.data.product);
+			try{
+				const prodData = await axios.get(
+					`${API_URL}/product/${params.id}`
+				);
+				console.log("prod data is" ,prodData.data.data.product)
+				setData(prodData.data.data.product);
+				const prodImgs = await axios({
+					method: "get",
+					url: `${API_URL}/product/image/${params.id}`,
+				})
+				console.log("prod images are" ,prodImgs.data.data);
+				setProductImages(prodImgs.data.data);
+				setImage(prodImgs.data.data[0].file_path);
+
+			}catch(error){
+				toast.error("Failed to get all product Data",{
+					position:"bottom-left"
+				})
+			}
 		})();
 	}, [params.id]);
 
 	const handleAddToCart = () => {
-		dispatch(addToCart(data));
+		const cartItem = {
+			id: data?.product_id,
+			title: data?.product_name,
+			price: data?.price,
+			image: productImages[0].file_path,
+			rating: data?.rating,
+			cartQuantity: 0
+		}
+		console.log({cartItem});
+		dispatch(addToCart(cartItem));
+
 	};
 	function changeImage(e) {
 		setImage(e.target.src);
@@ -41,48 +70,21 @@ export default function Item() {
 	return (
 		<div className="item-preview">
 			<div className="item-info">
-				{/* TODO: all images need to be changed with the database */}
 				<div className="images">
 					<div className="main-image-container">
 						<img src={image} className="border-radius main-image" />
 					</div>
 					<div className="other-images">
+						{productImages.map((image, index) => (
 						<img
-							src="/items/item10.jpg"
+							key={index}
+							src= {image.file_path}
 							className="border-radius other"
 							onClick={changeImage}
 							tabIndex={0}
 						/>
-						<img
-							src="/items/item11.jpg"
-							className="border-radius other"
-							onClick={changeImage}
-							tabIndex={0}
-						/>
-						<img
-							src="/items/item15.avif"
-							className="border-radius other"
-							onClick={changeImage}
-							tabIndex={0}
-						/>
-						<img
-							src="/items/item1.png"
-							className="border-radius other"
-							onClick={changeImage}
-							tabIndex={0}
-						/>
-						<img
-							src="/items/item2.png"
-							className="border-radius other"
-							onClick={changeImage}
-							tabIndex={0}
-						/>
-						<img
-							src="/items/item3.png"
-							className="border-radius other"
-							onClick={changeImage}
-							tabIndex={0}
-						/>
+						))}
+						
 					</div>
 				</div>
 				<div className="item-text">
@@ -101,10 +103,8 @@ export default function Item() {
 							className="purchase-button"
 							onClick={() => handleAddToCart()}
 						>
-							<NavLink to="/cart" className="add-to-cart">
 								<img src="/shopping-bag-white.png" />
 								Add To Cart
-							</NavLink>
 						</button>
 						<div className="price">{data?.price}$</div>
 					</div>
@@ -113,7 +113,7 @@ export default function Item() {
 			<div className="reviews-area">
 				<div>
 					<div className="reviews-selection">
-						<NavLink to="" className="add-review">
+						<NavLink to={`/${data?.product_id}`} className="add-review">
 							Reviews
 						</NavLink>
 						<NavLink to="add-review" className="add-review">

@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import crypto from "crypto";
 import { promisify } from "util";
 import { dbUpdateUserById } from "../model/users.model";
-import { dbAddProductImage } from "../model/product.image.model";
+import { dbAddProductImage, dbGetAllProductImages } from "../model/product.image.model";
 import { v4 as uuidv4 } from "uuid";
 import { regulateRequests } from "../services/redis";
 import { dbAddImagesToAProduct } from "../model/products.model";
@@ -89,6 +89,19 @@ export async function addProductImage(req: Request, res: Response) {
         });
         await dbAddImagesToAProduct(productId, imageUrlsShortened);
         return res.status(201).json({ status: "success", data: "images added" });
+    } catch (error: ErrorWithStatusCode | any) {
+        res.status(error.statusCode || 500).json({
+            status: "failure",
+            message: error.message,
+        });
+    }
+}
+
+export async function getProductImages(req: Request, res: Response) {
+    try {
+        const { productId } = req.params;
+        const images = await dbGetAllProductImages(productId);
+        return res.status(200).json({ status: "success", data: images });
     } catch (error: ErrorWithStatusCode | any) {
         res.status(error.statusCode || 500).json({
             status: "failure",

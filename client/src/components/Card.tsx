@@ -11,8 +11,8 @@ export default function Card(prop) {
 	};
 	return (
 		<div className="card">
-			<div key={prop.id}>
-				<NavLink to={`/products/${prop.category}/${prop.id}`}>
+			<div key={prop.id} className={"card-content-wrapper"}>
+				<NavLink to={`/products/${prop.id}`}>
 					<img
 						src={prop.image}
 						alt={prop.title}
@@ -22,8 +22,7 @@ export default function Card(prop) {
 				</NavLink>
 				<div
 					style={{
-						maxHeight: "20.2rem",
-						minWidth: "18.5rem",
+						width: "100%",
 					}}
 				>
 					<h1 className="card--title">

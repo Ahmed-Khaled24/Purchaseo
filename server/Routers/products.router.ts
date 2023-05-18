@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { getProductImages } from '../controller/image.controller';
 
 import {
 	addNewProduct,
@@ -40,6 +41,7 @@ productRouter
 		getProductsBySellerId
 	)
 	.get('/customer/:id', getProductsByOrderedByCustomer)
+	.get('/image/:productId', getProductImages)
 	.delete(
 		'/:id',
 		mwCheckLoginStatus('loggedIn'),

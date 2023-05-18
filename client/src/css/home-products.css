@@ -156,12 +156,19 @@
 .cards {
 	width: 70%;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	grid-gap: 30px;
 	margin-bottom: 100px;
 }
+.card-content-wrapper{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 
 .card {
+	border: 1px solid rgba(0,0,0,0.1);
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 	background-color: #fff9e9;
 	padding: 20px;

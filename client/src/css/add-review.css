@@ -12,15 +12,18 @@
 }
 
 .review-container {
-  width: 50vw;
-  height: 60vh;
+  width: 100%;
+  padding: 50px;
   background-color: #fff9e9;
   display: flex;
+  gap: 20px;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: start;
+  border-radius: 5px;
   box-shadow: 2rem 2rem 4rem rgb(240, 240, 240);
 }
+
 
 .review-rate {
   display: flex;
@@ -56,10 +59,9 @@
 
 .review-form {
   width: 100%;
-  max-width: 35vw;
-  min-height: 25vh;
-  max-height: 25vh;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 label {
@@ -87,7 +89,6 @@ label {
   height: 2.5rem;
   width: 7rem;
   font-size: 1rem;
-  align-self: center;
 }
 
 .submit-button:hover {

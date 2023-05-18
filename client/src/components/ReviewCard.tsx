@@ -6,7 +6,7 @@ export default function Body(props) {
   return (
     <div className='review-card'>
       <div className='personal-info'>
-        <img src="/people.png" />
+        <img src={props.image_url} />
         <p>Anonymous</p>
       </div>
       <div className='personal-rate'>

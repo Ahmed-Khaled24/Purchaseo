@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	addToCart,
-	clearCart,
-	decreaseCart,
-	getTotals,
-	removeFromCart,
-	CartItem,
-} from "../store/features/cartSlice";
+import { addToCart, clearCart, decreaseCart, getTotals, removeFromCart, CartItem } from "../store/features/cartSlice";
 import "../css/cart.css";
 import { Link } from "react-router-dom";
 import Stars from "./Stars";
@@ -72,31 +65,22 @@ export default function Cart() {
 					</div>
 				</div>
 			) : (
-				<div
-					className="-items"
-					style={{
-						display: "flex",
-						flexDirection: "row",
-						flexWrap:"wrap"
-					}}
-				>
+				<div className="-items">
 					<div className="cart-items">
 						{cart.cartItems &&
 							cart.cartItems.map((cartItem) => (
 								<div className="cart-product">
-									<div className="img-cart">
-										<img
-											src={cartItem.image}
-											alt={cartItem.product_name}
-											className="product-image"
-										/>
-									</div>
+									<img
+										src={cartItem.image}
+										alt={cartItem.product_name}
+										className="product-image-cart"
+									/>
 									<div className="product-info">
 										<div className="cart-info-title_price">
-											<h1 className="head">{cartItem.product_name}</h1>
+											<h1 className="head">{cartItem.title}</h1>
 											<p className="Quantity-price">{cartItem.price * cartItem.cartQuantity}$</p>
 										</div>
-										<div >
+										<div>
 											<Stars rate={cartItem.rating} />
 										</div>
 										<p>
@@ -137,21 +121,7 @@ export default function Cart() {
 							))}
 					</div>
 					<div className="cart-summary">
-					
-						<div className="cart-checkout">
-							<div className="total">
-								<span>Total</span>
-								<span className="amount">${cart.cartTotalAmount}</span>
-							
-							</div>
-							
-							<button className="clear-btn" onClick={handleClearCart}>
-								Clear Cart
-							</button>
-							<button className="check-btn" onClick={handleCheckout}>
-								Check out
-							</button>
-							<div className="continue-shopping">
+					<div className="continue-shopping">
 								<Link to="/">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -166,11 +136,31 @@ export default function Cart() {
 											d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
 										/>
 									</svg>
-									<span
-									className="CS-word"
-									>Continue Shopping</span>
+									<span className="CS-word">Continue Shopping</span>
 								</Link>
 							</div>
+						<div className="cart-checkout">
+							<div className="total">
+								<span>Total</span>
+								<span className="amount">${cart.cartTotalAmount}</span>
+							</div>
+							<div className="total">
+								<span>Tax</span>
+								<span className="amount">$0</span>
+							</div>
+							<div className="total">
+								<span>Shipping</span>
+								<span className="amount">$0</span>
+							</div>
+							<div className="checkout-buttons">
+								<button className="clear-btn" onClick={handleClearCart}>
+									Clear Cart
+								</button>
+								<button className="check-btn" onClick={handleCheckout}>
+									Check out
+								</button>
+							</div>
+							
 						</div>
 					</div>
 				</div>

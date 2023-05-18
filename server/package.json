@@ -6,8 +6,8 @@
 	"scripts": {
 		"dev-windows": "set NODE_ENV=development && nodemon server.ts",
 		"dev-linux": " NODE_ENV=development  nodemon server.ts",
-		"prod-windows": "set NODE_ENV=production && nodemon server.ts",
-		"prod-linux": "NODE_ENV=production && nodemon server.ts",
+		"deploy-windows": "set NODE_ENV=production && ts-node server.ts",
+		"deploy-linux": "NODE_ENV=production ts-node server.ts",
 		"test": "jest --verbose --runInBand",
 		"gen-cert": "rm -rf cert && mkdir cert && openssl req -x509 -newkey rsa:4096 -keyout cert/key.pem -out cert/cert.pem -days 365 -nodes"
 	},

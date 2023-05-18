@@ -21,6 +21,7 @@ export default function AddProduct() {
 		price: 0,
 		inventory: 0,
 	});
+	const [initialCategories, setInitialCategories] = useState([]); 
 	const [percentage, setPercentage] = useState<number>(0);
 	const [compressedFiles, setCompressedFiles] = useState([]);
 	const [categories, setCategories] = useState([]);
@@ -28,6 +29,21 @@ export default function AddProduct() {
 	const [previewImages, setPreviewImages] = useState([]);
 	const [categoryOptions, setCategoryOptions] = useState([]);
 
+	function resetAll(){
+		setFormData({
+			product_name: "",
+			description: "",
+			added_by: 1,
+			price: 0,
+			inventory: 0,
+		});
+		setCategories([]);
+		setCategoryOptions(initialCategories);
+		setCurrentFiles([]);
+		setPreviewImages([]);
+		setCompressedFiles([]);
+		setPercentage(0);
+	}
 	async function getAllCategories() {
 		try {
 			const response = await axios({
@@ -43,6 +59,7 @@ export default function AddProduct() {
 					};
 				});
 				setCategoryOptions(categoryOptions);
+				setInitialCategories(categoryOptions);
 			}
 		} catch (error) {
 			console.log("error", error.response.data);
@@ -54,7 +71,10 @@ export default function AddProduct() {
 	useEffect(() => {
 		handleImageCompression();
 	}, [currentFiles]);
-	
+	function openFileDialog(event: React.MouseEvent<MouseEvent>) {
+		event.preventDefault();
+		document.getElementById("image-upload").click();
+	}
 	async function handleImageCompression() {
 		let imageFiles = currentFiles;
 
@@ -185,7 +205,7 @@ export default function AddProduct() {
 				},
 			});
 			if (response.status === 201) {
-				window.location.reload();
+				// window.location.reload();
 			}
 		} catch (error) {
 			toast.error(`Could not add product`, {
@@ -214,27 +234,28 @@ export default function AddProduct() {
 				{
 					position: "bottom-left",
 				}
-			);
-		} else {
-			await toast.promise(sendInitialProduct(), {
-                pending: "Adding product",
-                success: "Product Added successfully ",
-                error: "Could not add product",
-            }, {
-                position: "bottom-left",
-            });
-		}
+				);
+			} else {
+				await toast.promise(sendInitialProduct(), {
+					pending: "Adding product",
+					success: "Product Added successfully ",
+					error: "Could not add product",
+				}, {
+					position: "bottom-left",
+				});
+			}
+			resetAll();
 	}
 	return (
 		<form className="main" onSubmit={handleSubmit}>
 			<h1 className="t">Add Product</h1>
 			<div>
 				<div className="Hold">
-					<div>
+					<div className={"product-category-container"}>
 						<p className="titleform">Product category</p>
 						<div className="form1">
-							<div style={{ display: "flex", gap: "1rem" }}>
-								<span>
+							<div className="category-name-container">
+								<span className="name-container">
 									<p className="t1">Name</p>
 									<input
 										type="text"
@@ -243,28 +264,21 @@ export default function AddProduct() {
 										value={formData?.product_name}
 									/>
 								</span>
-								<span
-								style={{
-									display:"flex",
-                                    alignContent:"flex-start",
-									flexDirection:"column",
-									gap:"0.7rem"
-								}}
-								>
+								<span className="category-container">
 									<p className="t1">Category</p>
 									<Select
 										closeMenuOnSelect={false}
 										components={animatedComponents}
-										defaultValue={[categoryOptions[0]]}
+										// defaultValue={[categoryOptions[0]]}
+										className={"category-select"}
 										isMulti
 										onChange={handleSelect}
 										options={categoryOptions}
-										className="text"
 									/>
 								</span>
 							</div>
 							<span>
-								<p className="t1">Discription</p>
+								<p className="t1">Description</p>
 								<textarea
 									value={formData.description}
 									onChange={handleChange}
@@ -275,7 +289,7 @@ export default function AddProduct() {
 						</div>
 					</div>
 
-					<div>
+					<div className={"product-attributes-container"}>
 						<p className="titleform">Product attributes</p>
 						<div className="form2">
 							<span>
@@ -306,9 +320,9 @@ export default function AddProduct() {
 			<section className="Holderimages">
 				<div className="Holder">
 					<label>
-						<input type="file" accept="image/*" onChange={selectFile} multiple max="6" />
+						<input id="image-upload" type="file" accept="image/*" className="productImg-input" onChange={selectFile} multiple max="6" />
 					</label>
-					<div>
+					<div onClick={openFileDialog}>
 					{previewImages.length <= 0 && (
 						<img
 							src="/Imginsert.png"

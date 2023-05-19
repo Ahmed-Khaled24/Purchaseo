@@ -22,6 +22,7 @@
   font-style: normal;
   background: #fff9e9;
   height: 100%;
+  gap: 20px;
   /* gap: 2rem; */
 }
 #email-e,
